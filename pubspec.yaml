@@ -16,6 +16,11 @@ dependencies:
   hive: ^2.2.3
   image_picker: ^1.0.4
   permission_handler: ^10.4.3
+  firebase_crashlytics: ^3.3.5
+  firebase_core: ^2.15.1
+  firebase_remote_config: ^4.2.5
+  firebase_dynamic_links: ^5.3.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -26,3 +31,26 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: pretendard
+      fonts:
+        - asset: fonts/pretendard_thin.otf
+          weight: 100
+        - asset: fonts/pretendard_extra_light.otf
+          weight: 200
+        - asset: fonts/pretendard_light.otf
+          weight: 300
+        - asset: fonts/pretendard_regular.otf
+          weight: 400
+        - asset: fonts/pretendard_medium.otf
+          weight: 500
+        - asset: fonts/pretendard_semi_bold.otf
+          weight: 600
+        - asset: fonts/pretendard_bold.otf
+          weight: 700
+        - asset: fonts/pretendard_extra_bold.otf
+          weight: 800
+        - asset: fonts/pretendard_black.otf
+          weight: 900
