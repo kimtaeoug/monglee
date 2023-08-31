@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>237143117119-p7ajq18pml3a6tk6m2g1unq9a3pkd95v.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.237143117119-p7ajq18pml3a6tk6m2g1unq9a3pkd95v</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>237143117119-lilql1uslel7jhv1mr1190drtg3a4as8.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDREyDJ2jrrNfY_KHwh_AXpG45fI1XiJg0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>237143117119</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.qtplace.monglee</string>
+	<key>PROJECT_ID</key>
+	<string>monglee-c3850</string>
+	<key>STORAGE_BUCKET</key>
+	<string>monglee-c3850.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:237143117119:ios:477911e54722f0db1d178a</string>
+</dict>
+</plist>
