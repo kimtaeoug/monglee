@@ -61,6 +61,9 @@ class _MbtiSettingPage extends State<MbtiSettingPage>{
         border: Border.all(color: gray200),
         color: Colors.white
       ),
+      child: Center(
+        child: Text(text, style: _unSelectedStyle,),
+      ),
     );
   }
 }
