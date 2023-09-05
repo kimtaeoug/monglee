@@ -20,6 +20,7 @@ dependencies:
   firebase_core: ^2.15.1
   firebase_remote_config: ^4.2.5
   firebase_dynamic_links: ^5.3.5
+  flutter_svg: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -54,3 +55,7 @@ flutter:
           weight: 800
         - asset: fonts/pretendard_black.otf
           weight: 900
+    - family: uhbeem
+      fonts:
+        - asset: fonts/uhbeem.ttf
+        - asset: fonts/uhbeem_bold.ttf
