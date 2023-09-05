@@ -53,8 +53,7 @@ class LoginPage extends StatelessWidget {
         onWillPop: () => Future(() => false));
   }
 
-  final TextStyle _bubbleStyle = Styler.style(
-      color: mineShaft2, fontSize: 14, fontWeight: FontWeight.w600);
+  final TextStyle _bubbleStyle = Styler.style(fontSize: 14, fontWeight: FontWeight.w600);
 
   Widget _hintBubble() {
     return SizedBox(

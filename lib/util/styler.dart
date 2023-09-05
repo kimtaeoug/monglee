@@ -11,7 +11,7 @@ class Styler {
 
   static TextStyle style(
           {double fontSize = 14,
-          Color color = mineShaft2,
+          Color color = black,
           FontWeight fontWeight = FontWeight.w400,
           TextDecoration? textDecoration,
           double? letterSpacing,
