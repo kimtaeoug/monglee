@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -12,10 +13,13 @@ class CommonUI {
   Widget title(String title, String subTitle) {
     return Padding(
       padding: EdgeInsets.only(top: AppBar().preferredSize.height + 80),
-      child: Text.rich(TextSpan(children: [
-        TextSpan(text: '$title\n', style: titleStyle),
-        TextSpan(text: subTitle, style: subStyle)
-      ])),
+      child: SizedBox(
+        width: Get.width,
+        child: Text.rich(TextSpan(children: [
+          TextSpan(text: '$title\n', style: titleStyle),
+          TextSpan(text: subTitle, style: subStyle)
+        ]), textAlign: TextAlign.start,),
+      ),
     );
   }
 }

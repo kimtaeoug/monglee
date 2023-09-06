@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:monglee/util/app_routes.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -13,7 +15,9 @@ class SplashPage extends StatefulWidget {
 class _SplashPage extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {});
+    Future.delayed(const Duration(seconds: 3)).then((value) {
+      Get.toNamed(Routes.LOGIN);
+    });
     super.initState();
   }
 

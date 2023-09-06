@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:monglee/component/common_ui.dart';
+import 'package:monglee/component/monglee_btn.dart';
+import 'package:monglee/util/app_routes.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
-import 'package:monglee/view_layer/component/common_ui.dart';
-import 'package:monglee/view_layer/component/monglee_btn.dart';
+
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: gray150,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
@@ -53,7 +56,8 @@ class LoginPage extends StatelessWidget {
         onWillPop: () => Future(() => false));
   }
 
-  final TextStyle _bubbleStyle = Styler.style(fontSize: 14, fontWeight: FontWeight.w600);
+  final TextStyle _bubbleStyle =
+      Styler.style(fontSize: 14, fontWeight: FontWeight.w600);
 
   Widget _hintBubble() {
     return SizedBox(
@@ -64,7 +68,7 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             width: 140,
             height: 50,
-            child: SvgPicture.asset('assets/images/speech_bubble.svg'),
+            child: SvgPicture.asset('assets/images/speech_bubble.svg', color: Colors.black,),
           ),
           Positioned(
               top: 11,
@@ -115,19 +119,21 @@ class LoginPage extends StatelessWidget {
       case LoginType.google:
         return LoginItemModel(
             title: '구글로 로그인',
-            logo: 'assets/images/${type.name}.svg',
-            function: () {},
+            logo: 'assets/images/${type.name}_icon.svg',
+            function: () {
+              Get.toNamed(Routes.MBTI_SETTING);
+            },
             color: Colors.white);
       case LoginType.apple:
         return LoginItemModel(
             title: '애플로 로그인',
-            logo: 'assets/images/${type.name}.svg',
+            logo: 'assets/images/${type.name}_icon.svg',
             function: () {},
             color: Colors.black);
       case LoginType.kakao:
         return LoginItemModel(
             title: '카카오로 로그인',
-            logo: 'assets/images/${type.name}.svg',
+            logo: 'assets/images/${type.name}_icon.svg',
             function: () {},
             color: turbo);
     }
