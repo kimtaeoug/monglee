@@ -7,7 +7,7 @@ import 'package:monglee/util/styler.dart';
 class MongleeBottomNavi extends StatefulWidget {
   final Function(int) onTap;
 
-  MongleeBottomNavi({Key? key, required this.onTap}) : super(key: key);
+  const MongleeBottomNavi({Key? key, required this.onTap}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MongleeBottomNavi();
