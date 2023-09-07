@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:monglee/page/home/views/todo_or_diary/todo/todo_wirte_page.dart';
 import 'package:monglee/util/app_pages.dart';
-import 'package:monglee/util/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      initialRoute: Routes.HOME,
+      home: TodoWritePage(),
+      // initialRoute: Routes.HOME,
       // initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,

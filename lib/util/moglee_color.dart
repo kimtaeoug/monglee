@@ -16,6 +16,7 @@ const Color gray150  = Color(0xffF9F9F9);
 
 const Color textLightPrimary = Color(0xff16191C);
 const Color mintText = Color(0xff66B8A3);
+const Color mintBg = Color(0xffA2D6C8);
 
 const Color silver = Color(0xffCCCCCC);
 const Color darkGray = Color(0xffAEAEAE);

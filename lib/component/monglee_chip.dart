@@ -16,7 +16,7 @@ class MongleeChip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: selected ? mintText : gray100,
+          color: selected ? mintText.withOpacity(0.2) : gray100,
           border: selected ? Border.all(color: primaryColor) : null),
       child: Text(
         text,

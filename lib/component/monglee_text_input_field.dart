@@ -28,26 +28,36 @@ class MongleeTextInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: Get.width,
-      height: 33,
-      child: TextFormField(
-        onTap: onTapFunction,
-        onChanged: onChanged,
-        onEditingComplete: onEditingCompleteFunction,
-        onFieldSubmitted: onFieldSubmitted,
-        textInputAction: TextInputAction.go,
-        controller: controller,
-        style: _textStyle,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          focusedErrorBorder: InputBorder.none,
-          hintText: hint,
-          hintStyle: _hintStyle,
-          suffix: subffix,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TextFormField(
+            onTap: onTapFunction,
+            onChanged: onChanged,
+            onEditingComplete: onEditingCompleteFunction,
+            onFieldSubmitted: onFieldSubmitted,
+            textInputAction: TextInputAction.go,
+            controller: controller,
+            style: _textStyle,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              hintText: hint,
+              hintStyle: _hintStyle,
+              suffix: subffix,
+            ),
+          ),
+          const SizedBox(height: 2,),
+          Container(
+            width: Get.width,
+            height: 0.5,
+            color: gray200,
+          )
+        ],
       ),
     );
   }

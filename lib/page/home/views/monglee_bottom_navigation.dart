@@ -22,10 +22,16 @@ class _MongleeBottomNavi extends State<MongleeBottomNavi> {
       items: List.generate(
         _bottomNaviList.length,
         (index) => BottomNavigationBarItem(
-          icon: SizedBox(
-            width: 24,
-            height: 24,
-            child: SvgPicture.asset(_bottomNaviList[index].image),
+          icon: Padding(
+            padding: const EdgeInsets.only(bottom: 2),
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset(
+                _bottomNaviList[index].image,
+                color: index == _selectedIdx ? primaryColor : gray400,
+              ),
+            ),
           ),
           label: _bottomNaviList[index].text,
         ),
