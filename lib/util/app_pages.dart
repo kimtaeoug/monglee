@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:monglee/page/home/views/home_page.dart';
+import 'package:monglee/page/home/views/todo_or_diary/todo/todo_wirte_page.dart';
 import 'package:monglee/page/intro/splash_page.dart';
 import 'package:monglee/page/membership/login_page.dart';
 import 'package:monglee/page/setting/views/mbti_setting_page.dart';
@@ -12,6 +13,7 @@ class AppPages {
     GetPage(name: Routes.SPLASH, page: () => SplashPage()),
     GetPage(name: Routes.LOGIN, page: () => LoginPage()),
     GetPage(name: Routes.HOME, page: () => HomePage()),
-    GetPage(name: Routes.MBTI_SETTING, page: () => MbtiSettingPage())
+    GetPage(name: Routes.MBTI_SETTING, page: () => MbtiSettingPage()),
+    GetPage(name: Routes.TODO_WRITE, page: () => const TodoWritePage())
   ];
 }

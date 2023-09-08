@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:logger/logger.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -42,7 +43,9 @@ class _MongleeBottomNavi extends State<MongleeBottomNavi> {
       selectedLabelStyle: _selectedLabelStyle,
       unselectedLabelStyle: _unSelectedLabelStyle,
       onTap: (idx) {
+        logger.e('bottom idx : $idx');
         widget.onTap.call(idx);
+
         if (mounted) {
           setState(() {
             _selectedIdx = idx;
@@ -51,6 +54,9 @@ class _MongleeBottomNavi extends State<MongleeBottomNavi> {
       },
     );
   }
+  final Logger logger = Logger(
+    printer: PrettyPrinter()
+  );
 
   final TextStyle _selectedLabelStyle = Styler.style(
       color: primaryColor, fontSize: 12, fontWeight: FontWeight.w600);

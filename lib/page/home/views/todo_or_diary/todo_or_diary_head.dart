@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/toggle_switch.dart';
+import 'package:monglee/page/home/views/todo_or_diary/todo/todo_toggle_switch.dart';
 import 'package:monglee/util/styler.dart';
 
 class ToDoOrDiaryHead extends StatelessWidget{
@@ -16,7 +16,7 @@ class ToDoOrDiaryHead extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text('8월 30일 수요일', style: _dateStyle,),
-          ToggleSwitch(clickFuntion: (value){})
+          TodoToggleSwitch(clickFuntion: (value){})
         ],
       ),
     );

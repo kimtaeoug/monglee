@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/todo_wirte_page.dart';
 import 'package:monglee/util/app_pages.dart';
 
 void main() async {
@@ -27,9 +26,9 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      home: TodoWritePage(),
+      // home: HomePage(),
       // initialRoute: Routes.HOME,
-      // initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       title: 'Monglee',

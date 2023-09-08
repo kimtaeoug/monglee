@@ -27,7 +27,7 @@ class _SplashPage extends State<SplashPage> {
   }
 
   final TextStyle _titleStyle = Styler.style(
-      fontWeight: FontWeight.w700, fontSize: 48, color: Colors.white);
+      fontWeight: FontWeight.w700, fontSize: 48, color: Colors.white, fontType: FontType.uhbeeem);
 
   @override
   Widget build(BuildContext context) {

@@ -64,19 +64,19 @@ class _SettingUserInfo extends State<SettingUserInfo> {
                 const SizedBox(
                   width: 16,
                 ),
-                Expanded(
-                    child: Text(
+                Text(
                   'UserNickName',
                   style: _userNickNameStyle,
-                ))
+                )
               ],
             ),
             GestureDetector(
               onTap: (){},
               child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: lightCoral,
+                padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
+                decoration:  BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  color: lightCoral.withOpacity(0.5),
                 ),
                 child: Text(
                   'INFJ',
