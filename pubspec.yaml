@@ -25,6 +25,10 @@ dependencies:
   svg_to_font: ^1.0.2
   easy_localization: ^3.0.3
   package_info_plus: ^4.1.0
+  dio: ^5.3.2
+  http: ^1.1.0
+  extended_image: ^8.1.1
+
 
 dev_dependencies:
   flutter_test:
