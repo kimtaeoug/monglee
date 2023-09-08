@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:monglee/page/home/views/home_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/todo_wirte_page.dart';
+import 'package:monglee/page/home/views/todo_or_diary/todo/views/todo_wirte_page.dart';
 import 'package:monglee/page/intro/splash_page.dart';
 import 'package:monglee/page/membership/login_page.dart';
 import 'package:monglee/page/setting/views/mbti_setting_page.dart';

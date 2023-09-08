@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:monglee/page/home/views/calendar/home_appbar.dart';
 import 'package:monglee/page/home/views/monglee_bottom_navigation.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo_or_diary_head.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/todo_page.dart';
+import 'package:monglee/page/home/views/todo_or_diary/todo_or_diary_page.dart';
 import 'package:monglee/page/setting/views/setting_page.dart';
 import 'package:monglee/util/app_routes.dart';
 import 'package:monglee/util/moglee_color.dart';
@@ -19,18 +17,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  final PageController pageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
           backgroundColor: gray150,
-          appBar: _homeAppBar[_currentIdx],
-          body: _homeMap[_currentIdx],
+          body: PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: pageController,
+              onPageChanged: (value) {},
+              itemBuilder: (context, idx) {
+                return _homeMap[idx] ?? Container();
+              }),
           bottomNavigationBar: MongleeBottomNavi(onTap: (idx) {
             if (mounted) {
               setState(() {
                 _currentIdx = idx;
               });
+              pageController.animateToPage(_currentIdx,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.bounceInOut);
             }
           }),
           floatingActionButton: _currentIdx == 0 ? _floatingBtn() : null,
@@ -40,16 +48,8 @@ class _HomePage extends State<HomePage> {
         });
   }
 
-  final Map<int, PreferredSizeWidget?> _homeAppBar = {
-    0: HomeAppBar(),
-    1: AppBar(),
-    2: null
-  };
   final Map<int, Widget> _homeMap = {
-    0: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [ToDoOrDiaryHead(), TodoPage()],
-    ),
+    0: ToDoOrDiaryPage(),
     1: Container(),
     2: SettingPage()
   };

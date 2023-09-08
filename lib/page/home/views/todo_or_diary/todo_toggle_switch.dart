@@ -30,7 +30,7 @@ class TodoToggleSwitch extends StatefulWidget {
 }
 
 class _TodoToggleSwitch extends State<TodoToggleSwitch> {
-  bool _clicked = false;
+  bool _clicked = true;
 
   @override
   Widget build(BuildContext context) {
