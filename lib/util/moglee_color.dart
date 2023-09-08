@@ -6,6 +6,8 @@ const Color gray = Color(0xff838383);
 const Color black = Color(0xff2F2F2F);
 const Color dustyGray = Color(0xff959595);
 const Color turbo = Color(0xffFEE500);
+const Color lightCoral = Color(0xffEE8492);
+const Color gallery = Color(0xffF0F0F0);
 
 const Color gray500 = Color(0xffDFDFDF);
 const Color gray400 = Color(0xff959595);

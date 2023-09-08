@@ -24,6 +24,7 @@ dependencies:
   table_calendar: ^3.0.9
   svg_to_font: ^1.0.2
   easy_localization: ^3.0.3
+  package_info_plus: ^4.1.0
 
 dev_dependencies:
   flutter_test:
