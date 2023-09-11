@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/util/app_pages.dart';
+import 'package:monglee/util/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       supportedLocales: context.supportedLocales,
       // home: HomePage(),
-      // initialRoute: Routes.HOME,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: Routes.HOME,
+      // initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       title: 'Monglee',

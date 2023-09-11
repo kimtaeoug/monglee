@@ -20,9 +20,12 @@ class SettingPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: AppBar().preferredSize.height + 40,
+              height: AppBar().preferredSize.height,
             ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 24), child: SettingUserInfo(),),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SettingUserInfo(),
+            ),
             const SizedBox(
               height: 24,
             ),
@@ -35,7 +38,9 @@ class SettingPage extends StatelessWidget {
               height: 16,
             ),
             commonUI.settingContainer('설정', settingList),
-            const SizedBox(height: 26,)
+            const SizedBox(
+              height: 26,
+            )
           ],
         ),
       ),
