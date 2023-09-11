@@ -4,7 +4,8 @@ import 'package:monglee/page/home/views/todo_or_diary/todo_toggle_switch.dart';
 import 'package:monglee/util/styler.dart';
 
 class ToDoOrDiaryHead extends StatelessWidget{
-  ToDoOrDiaryHead({Key? key}) : super(key: key);
+  final Function(bool) clickFunction;
+  ToDoOrDiaryHead({Key? key,required this.clickFunction}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ToDoOrDiaryHead extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text('8월 30일 수요일', style: _dateStyle,),
-          TodoToggleSwitch(clickFuntion: (value){})
+          TodoToggleSwitch(clickFuntion: clickFunction)
         ],
       ),
     );
