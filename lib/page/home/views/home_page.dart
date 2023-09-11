@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:monglee/page/home/views/monglee_bottom_navigation.dart';
+import 'package:monglee/page/home/views/search/views/search_page.dart';
 import 'package:monglee/page/home/views/todo_or_diary/todo_or_diary_page.dart';
 import 'package:monglee/page/setting/views/setting_page.dart';
 import 'package:monglee/util/app_routes.dart';
@@ -50,7 +51,7 @@ class _HomePage extends State<HomePage> {
 
   final Map<int, Widget> _homeMap = {
     0: ToDoOrDiaryPage(),
-    1: Container(),
+    1: SearchPage(),
     2: SettingPage()
   };
   final Logger logger = Logger(printer: PrettyPrinter());
