@@ -69,4 +69,28 @@ class CommonUI {
       ),
     );
   }
+
+  ///
+  /// MBTI Chip
+  ///
+  Widget mbtiChip(String text, Color color,
+      {Function()? function}) {
+    return GestureDetector(
+      onTap: () {
+        if (function != null) {
+          function.call();
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            color: color.withOpacity(0.5)),
+        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
+        child: Text(
+          text,
+          style: Styler.style(fontWeight: FontWeight.w700, color: color),
+        ),
+      ),
+    );
+  }
 }

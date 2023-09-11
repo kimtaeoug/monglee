@@ -20,7 +20,7 @@ class SearchCommon {
       String? startTime,
       String? endTime,
       String? location}) {
-    return Container(
+    return SizedBox(
       width: Get.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

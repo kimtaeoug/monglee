@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:monglee/component/common_ui.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -21,6 +22,8 @@ class _SettingUserInfo extends State<SettingUserInfo> {
   void dispose() {
     super.dispose();
   }
+
+  final CommonUI commonUI = CommonUI();
 
   @override
   Widget build(BuildContext context) {
@@ -70,19 +73,9 @@ class _SettingUserInfo extends State<SettingUserInfo> {
                 )
               ],
             ),
-            GestureDetector(
-              onTap: (){},
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
-                decoration:  BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  color: lightCoral.withOpacity(0.5),
-                ),
-                child: Text(
-                  'INFJ',
-                  style: _mbtiStyle,
-                ),
-              ),
+            commonUI.mbtiChip(
+              'INFJ',
+              lightCoral,
             )
           ]),
     );
@@ -90,6 +83,4 @@ class _SettingUserInfo extends State<SettingUserInfo> {
 
   final TextStyle _userNickNameStyle =
       Styler.style(fontSize: 20, fontWeight: FontWeight.w600);
-  final TextStyle _mbtiStyle =
-      Styler.style(color: lightCoral, fontWeight: FontWeight.w700);
 }
