@@ -21,4 +21,12 @@ class MongleeUtil {
   static String tenDigitConverter(dynamic input) {
     return input >= 10 ? '$input' : '0$input';
   }
+
+  static bool checkKeyBoardIsOpenWidthMediaQuery(BuildContext context) {
+    return MediaQuery.of(context).viewInsets.bottom != 0;
+  }
+
+  static bool checkKeyBoardIsOpenWithWidgetsBinding(BuildContext context) {
+    return View.of(context).viewInsets.bottom > 0;
+  }
 }

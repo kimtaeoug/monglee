@@ -8,14 +8,14 @@ import 'package:monglee/component/monglee_expanel.dart';
 import 'package:monglee/component/monglee_text_input_field.dart';
 import 'package:monglee/component/monglee_time_input.dart';
 
-class TodoWritePage extends StatefulWidget {
-  const TodoWritePage({Key? key}) : super(key: key);
+class TodoEditorPage extends StatefulWidget {
+  const TodoEditorPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TodoWritePage();
+  State<StatefulWidget> createState() => _TodoEditorPage();
 }
 
-class _TodoWritePage extends State<TodoWritePage> {
+class _TodoEditorPage extends State<TodoEditorPage> {
   @override
   void initState() {
     super.initState();
