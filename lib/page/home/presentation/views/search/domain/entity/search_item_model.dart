@@ -1,4 +1,5 @@
-import 'package:monglee/page/home/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
 
 class SearchItemModel{
   final String imgUrl;

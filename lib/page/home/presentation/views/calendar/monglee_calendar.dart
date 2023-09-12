@@ -63,7 +63,7 @@ class _MongleeCaneldar extends State<MongleeCaneldar> {
                         height: 24,
                         child: SvgPicture.asset(
                           'assets/images/caret_down_icon.svg',
-                          color: mineShatf,
+                          colorFilter: const ColorFilter.mode(mineShatf, BlendMode.srcIn),
                         ),
                       )
                     ],

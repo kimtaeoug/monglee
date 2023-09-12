@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -43,7 +43,7 @@ class ToDoItem extends StatelessWidget {
                       height: 20,
                       child: SvgPicture.asset(
                         'assets/images/check_icon.svg',
-                        color: todoModel.selected ? Colors.white : gray150,
+                        colorFilter: ColorFilter.mode(todoModel.selected ? Colors.white : gray150, BlendMode.srcIn),
                       ),
                     ),
                   ),

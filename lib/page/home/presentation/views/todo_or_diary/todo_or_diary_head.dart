@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo_toggle_switch.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo_toggle_switch.dart';
 import 'package:monglee/util/styler.dart';
 
 class ToDoOrDiaryHead extends StatelessWidget{

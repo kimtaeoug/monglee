@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/domain/entity/todo_model.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/views/to_do_item.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/presentation/views/to_do_item.dart';
 
 class TodoPage extends StatelessWidget {
   TodoPage({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/component/common_ui.dart';
 import 'package:monglee/component/loading/tunegem_profile_img.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
@@ -55,7 +55,7 @@ class SearchCommon {
       return Padding(
         padding: const EdgeInsets.only(top: 4),
         child: Text(
-          text ?? '',
+          text,
           style: _itemContentStyle,
           maxLines: null,
         ),

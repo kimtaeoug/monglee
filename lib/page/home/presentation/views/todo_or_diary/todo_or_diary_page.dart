@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monglee/page/home/views/calendar/home_appbar.dart';
-import 'package:monglee/page/home/views/todo_or_diary/diary/views/diary_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/views/todo_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo_or_diary_head.dart';
+import 'package:monglee/page/home/presentation/views/calendar/home_appbar.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/presentation/views/todo_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo_or_diary_head.dart';
 import 'package:monglee/util/moglee_color.dart';
 
 class ToDoOrDiaryPage extends StatefulWidget {

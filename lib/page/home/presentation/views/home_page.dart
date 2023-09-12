@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:monglee/page/home/views/monglee_bottom_navigation.dart';
-import 'package:monglee/page/home/views/search/views/search_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo_or_diary_page.dart';
-import 'package:monglee/page/setting/views/setting_page.dart';
+import 'package:monglee/page/home/presentation/views/monglee_bottom_navigation.dart';
+import 'package:monglee/page/home/presentation/views/search/views/search_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo_or_diary_page.dart';
+import 'package:monglee/page/setting/presentation/views/setting_page.dart';
 import 'package:monglee/util/app_routes.dart';
 import 'package:monglee/util/moglee_color.dart';
 

@@ -29,7 +29,7 @@ class _MongleeBottomNavi extends State<MongleeBottomNavi> {
               height: 24,
               child: SvgPicture.asset(
                 _bottomNaviList[index].image,
-                color: index == _selectedIdx ? primaryColor : gray400,
+                colorFilter: ColorFilter.mode(index == _selectedIdx ? primaryColor : gray400, BlendMode.srcIn),
               ),
             ),
           ),

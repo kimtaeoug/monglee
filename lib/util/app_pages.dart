@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
-import 'package:monglee/page/home/views/home_page.dart';
-import 'package:monglee/page/home/views/search/views/search_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/diary/views/diary_editor_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/diary/views/diary_emotion_page.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/views/todo_editor_page.dart';
-import 'package:monglee/page/intro/splash_page.dart';
-import 'package:monglee/page/membership/login_page.dart';
-import 'package:monglee/page/setting/views/mbti_setting_page.dart';
+import 'package:monglee/page/home/presentation/views/home_page.dart';
+import 'package:monglee/page/home/presentation/views/search/views/search_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_editor_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_emotion_page.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/presentation/views/todo_editor_page.dart';
+import 'package:monglee/page/intro/presentation/views/splash_page.dart';
+import 'package:monglee/page/membership/presentation/views/login_page.dart';
+import 'package:monglee/page/setting/presentation/views/mbti_setting_page.dart';
+
 import 'package:monglee/util/app_routes.dart';
 
 class AppPages {

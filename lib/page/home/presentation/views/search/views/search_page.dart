@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/page/home/views/search/domain/entity/search_item_model.dart';
-import 'package:monglee/page/home/views/search/views/search_common.dart';
-import 'package:monglee/page/home/views/search/views/search_field.dart';
-import 'package:monglee/page/home/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+import 'package:monglee/page/home/presentation/views/search/domain/entity/search_item_model.dart';
+import 'package:monglee/page/home/presentation/views/search/views/search_common.dart';
+import 'package:monglee/page/home/presentation/views/search/views/search_field.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
 import 'package:monglee/util/mbti_util.dart';
 import 'package:monglee/util/moglee_color.dart';
 

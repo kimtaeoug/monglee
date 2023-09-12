@@ -8,7 +8,6 @@ import 'package:monglee/util/app_routes.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
-
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
@@ -68,7 +67,11 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             width: 140,
             height: 50,
-            child: SvgPicture.asset('assets/images/speech_bubble.svg', color: Colors.black,),
+            child: SvgPicture.asset(
+              'assets/images/speech_bubble.svg',
+              colorFilter:
+                  const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+            ),
           ),
           Positioned(
               top: 11,

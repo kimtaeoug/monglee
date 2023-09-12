@@ -49,7 +49,7 @@ class _SearchField extends State<SearchField> {
               height: 24,
               child: SvgPicture.asset(
                 'assets/images/search_icon.svg',
-                color: gray200,
+                colorFilter: ColorFilter.mode(gray200, BlendMode.srcIn),
               ),
             ),
           ),

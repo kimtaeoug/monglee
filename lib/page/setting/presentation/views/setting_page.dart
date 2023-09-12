@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/page/setting/domain/entity/setting_item_model.dart';
-import 'package:monglee/page/setting/views/setting_component.dart';
-import 'package:monglee/page/setting/views/setting_user_info.dart';
+import 'package:monglee/page/setting/presentation/views/setting_component.dart';
+import 'package:monglee/page/setting/presentation/views/setting_user_info.dart';
+
 
 class SettingPage extends StatelessWidget {
   SettingPage({Key? key}) : super(key: key);

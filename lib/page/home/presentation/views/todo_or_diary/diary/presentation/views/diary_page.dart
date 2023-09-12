@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/views/todo_or_diary/diary/views/diary_common.dart';
+import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_common.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
