@@ -4,27 +4,20 @@ import 'package:get/get.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart' as t;
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
+import 'package:monglee/util/time_util.dart';
 
 class MongleeTimeInput extends StatefulWidget {
   final bool isStart;
+  final Function(t.Time)? selectedTimeFunction;
 
-  MongleeTimeInput({Key? key, this.isStart = true}) : super(key: key);
+  MongleeTimeInput({Key? key, this.isStart = true, this.selectedTimeFunction})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MongleeTimeInput();
+  State<MongleeTimeInput> createState() => _MongleeTimeInput();
 }
 
 class _MongleeTimeInput extends State<MongleeTimeInput> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   t.Time _time = t.Time(hour: 11, minute: 30, second: 20);
 
   @override
@@ -33,12 +26,40 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
         onTap: () {
           Navigator.of(context).push(t.showPicker(
               value: _time,
-              onChange: (value) {},
+              onChange: (value) {
+                if (widget.selectedTimeFunction != null) {
+                  widget.selectedTimeFunction?.call(value);
+                  if (mounted) {
+                    setState(() {
+                      _time = value;
+                    });
+                  }
+                }
+              },
+              accentColor: primaryColor,
+              unselectedColor: gray200,
+              is24HrFormat: true,
               onCancel: () {
                 Get.back();
               },
               cancelText: '취소',
-              okText: '확인'));
+              okText: '확인',
+              iosStylePicker: true,
+              hourLabel: '시',
+              minuteLabel: '분',
+              height: 350,
+              elevation: 0,
+              borderRadius: 26,
+              okStyle: Styler.style(
+                  color: primaryColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  fontType: FontType.uhbeeem),
+              cancelStyle: Styler.style(
+                  color: gray200,
+                  fontSize: 20,
+                  fontType: FontType.uhbeeem,
+                  fontWeight: FontWeight.w700)));
         },
         child: SizedBox(
           width: (Get.width - 72) / 2,
@@ -59,11 +80,11 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '14:22',
+                        '${_time.hour}:${_time.minute}',
                         style: _timeStyle,
                       ),
                       Text(
-                        'PM',
+                        TimeUtil.isAMorPM(_time.hour) ? 'AM' : 'PM',
                         style: _timeStyle,
                       )
                     ],

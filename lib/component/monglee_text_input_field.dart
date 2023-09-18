@@ -5,6 +5,7 @@ import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
 class MongleeTextInputField extends StatelessWidget {
+  final TextEditingController controller;
   final String? hint;
   final Function(String?)? onFieldSubmitted;
   final Function()? onEditingCompleteFunction;
@@ -14,6 +15,7 @@ class MongleeTextInputField extends StatelessWidget {
 
   MongleeTextInputField(
       {Key? key,
+      required this.controller,
       this.hint,
       this.onFieldSubmitted,
       this.onEditingCompleteFunction,
@@ -21,8 +23,6 @@ class MongleeTextInputField extends StatelessWidget {
       this.onChanged,
       this.subffix})
       : super(key: key);
-
-  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,7 @@ class MongleeTextInputField extends StatelessWidget {
             textInputAction: TextInputAction.go,
             controller: controller,
             style: _textStyle,
+            cursorColor: primaryColor,
             decoration: InputDecoration(
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
@@ -51,7 +52,9 @@ class MongleeTextInputField extends StatelessWidget {
               suffix: subffix,
             ),
           ),
-          const SizedBox(height: 2,),
+          const SizedBox(
+            height: 2,
+          ),
           Container(
             width: Get.width,
             height: 0.5,

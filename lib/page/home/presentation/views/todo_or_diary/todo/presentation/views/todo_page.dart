@@ -11,21 +11,20 @@ class TodoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
             _dummyTodoList.length,
-            (index) => Padding(
-                  padding: EdgeInsets.only(
-                      top: 16,
-                      bottom: index == _dummyTodoList.length - 1 ? 16 : 0),
-                  child: ToDoItem(todoModel: _dummyTodoList[index]),
-                )),
+                (index) => Padding(
+              padding: EdgeInsets.only(
+                  top: 16,
+                  bottom: index == _dummyTodoList.length - 1 ? 16 : 0),
+              child: ToDoItem(todoModel: _dummyTodoList[index]),
+            )),
       ),
-    ));
+    );
   }
 
   Widget _empty() => Center(

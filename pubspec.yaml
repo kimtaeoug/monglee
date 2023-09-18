@@ -28,7 +28,8 @@ dependencies:
   http: ^1.1.0
   extended_image: ^8.1.1
   hive_flutter: ^1.1.0
-
+  fluttertoast: ^8.2.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

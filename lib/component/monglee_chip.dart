@@ -5,22 +5,29 @@ import 'package:monglee/util/styler.dart';
 class MongleeChip extends StatelessWidget {
   final String text;
   final bool selected;
-
-  MongleeChip({Key? key, required this.text, required this.selected})
+  final Function()? selectFunction;
+  MongleeChip({Key? key, required this.text, required this.selected, this.selectFunction})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: selected ? mintText.withOpacity(0.2) : gray100,
-          border: selected ? Border.all(color: primaryColor) : null),
-      child: Text(
-        text,
-        style: selected ? _selectedStyle : _unSelectedStyle,
+    return GestureDetector(
+      onTap: (){
+        if(selectFunction != null){
+          selectFunction?.call();
+        }
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            color: selected ? mintText.withOpacity(0.2) : gray100,
+            border: selected ? Border.all(color: primaryColor) : null),
+        child: Text(
+          text,
+          style: selected ? _selectedStyle : _unSelectedStyle,
+        ),
       ),
     );
   }

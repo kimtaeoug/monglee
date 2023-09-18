@@ -6,13 +6,15 @@ part 'diary_model.g.dart';
 @HiveType(typeId: DIARY_TYPE_ID)
 class DiaryModel {
   @HiveField(0)
-  final DateTime? dateTime;
+  final int? idx;
   @HiveField(1)
-  final String? cottonType;
+  final DateTime? dateTime;
   @HiveField(2)
-  final String? imgUrl;
+  final String? cottonType;
   @HiveField(3)
+  final String? imgUrl;
+  @HiveField(4)
   final String? contents;
 
-  DiaryModel({this.dateTime, this.cottonType, this.imgUrl, this.contents});
+  DiaryModel({this.idx, this.dateTime, this.cottonType, this.imgUrl, this.contents});
 }

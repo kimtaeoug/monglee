@@ -22,3 +22,22 @@ const Color mintBg = Color(0xffA2D6C8);
 
 const Color silver = Color(0xffCCCCCC);
 const Color darkGray = Color(0xffAEAEAE);
+
+///
+/// MBTI Color
+///
+const Color intjColor = Color(0xffEE8492);
+const Color entjColor = Color(0xffF2BCC2);
+const Color entpColor = Color(0xffFBC9A2);
+const Color infjColor = Color(0xffFAF6CF);
+const Color infpColor = Color(0xff5289DC);
+const Color enfjColor = Color(0xff82C6E3);
+const Color enfpColor = Color(0xffA2AAF9);
+const Color istjColor = Color(0xffC1BDDD);
+const Color isfjColor = Color(0xffA3D6A2);
+const Color estjColor = Color(0xffFDFDE5);
+const Color esfjColor = Color(0xffD8D8D8);
+const Color istpColor = Color(0xff9B61D4);
+const Color isfpColor = Color(0xffEE8484);
+const Color estpColor = Color(0xffCEF194);
+const Color esfpColor = Color(0xff7E4F34);

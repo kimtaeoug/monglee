@@ -4,27 +4,12 @@ import 'package:get/get.dart';
 import 'package:monglee/util/moglee_color.dart';
 import 'package:monglee/util/styler.dart';
 
-class MongleeExpanel extends StatefulWidget {
+class MongleeExpanel extends StatelessWidget {
   final String title;
   final List<Widget> items;
 
   MongleeExpanel({Key? key, required this.title, required this.items})
       : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _MongleeExpanel();
-}
-
-class _MongleeExpanel extends State<MongleeExpanel> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   final TextStyle _style =
       Styler.style(fontWeight: FontWeight.w600, fontSize: 16);
@@ -40,7 +25,7 @@ class _MongleeExpanel extends State<MongleeExpanel> {
             collapsedShape: const Border(),
             tilePadding: EdgeInsets.zero,
             title: Text(
-              widget.title,
+              title,
               style: _style,
             ),
             iconColor: gray300,
@@ -68,7 +53,7 @@ class _MongleeExpanel extends State<MongleeExpanel> {
         child: Wrap(
           runSpacing: 8,
           spacing: 8,
-          children: widget.items,
+          children: items,
         ),
       ),
     );

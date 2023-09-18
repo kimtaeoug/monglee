@@ -27,8 +27,7 @@ class _DiaryPage extends State<DiaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: SizedBox(
+    return SizedBox(
       width: Get.width,
       child: SingleChildScrollView(
         child: Column(
@@ -48,7 +47,7 @@ class _DiaryPage extends State<DiaryPage> {
           ],
         ),
       ),
-    ));
+    );
   }
 
   final String _dummyText = '''

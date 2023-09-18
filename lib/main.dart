@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:monglee/page/home/domain/data/monglee_hive.dart';
 import 'package:monglee/util/app_pages.dart';
 import 'package:monglee/util/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  MongleeHive.hive.init();
+
   Zone.current.run(() async {
     runApp(EasyLocalization(
         useOnlyLangCode: true,
