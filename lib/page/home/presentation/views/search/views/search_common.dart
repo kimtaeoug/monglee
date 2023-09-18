@@ -135,7 +135,7 @@ class SearchCommon {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: List.generate(
                     todoList.length,
-                    (index) => _searchTextItem(todoList[index].title,
+                    (index) => _searchTextItem(todoList[index].title ?? '',
                         contents: todoList[index].contents,
                         startTime: todoList[index].startTime,
                         endTime: todoList[index].endTime,

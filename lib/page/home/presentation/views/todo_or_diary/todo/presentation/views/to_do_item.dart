@@ -72,7 +72,7 @@ class ToDoItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _itemType(todoModel.title, _ToDoType.title),
+                _itemType(todoModel.title ?? '', _ToDoType.title),
                 todoModel.contents != null
                     ? _itemType(todoModel.contents ?? '', _ToDoType.contents)
                     : const SizedBox.shrink(),

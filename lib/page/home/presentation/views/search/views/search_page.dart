@@ -98,18 +98,18 @@ class _SearchPage extends State<SearchPage> {
         mbti: 'intj',
         todoList: [
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
               endTime: '08:00',
               location: '헬스장'),
           TodoModel(
-              idx: 2,
+              dateTime: null,
               title: 'Product Team Meeting',
               contents: 'A 프로젝트 관련 데이터 논의'),
           TodoModel(
-              idx: 3,
+              dateTime: null,
               title: 'Product Team Meeting',
               startTime: '07:00',
               endTime: '08:00'),
@@ -121,14 +121,14 @@ class _SearchPage extends State<SearchPage> {
         mbti: 'infp',
         todoList: [
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
               endTime: '08:00',
               location: '헬스장'),
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
@@ -142,30 +142,30 @@ class _SearchPage extends State<SearchPage> {
         mbti: 'infp',
         todoList: [
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
               endTime: '08:00',
               location: '헬스장'),
           TodoModel(
-              idx: 2,
+              dateTime: null,
               title: 'Product Team Meeting',
               contents: 'A 프로젝트 관련 데이터 논의'),
           TodoModel(
-              idx: 3,
+              dateTime: null,
               title: 'Product Team Meeting',
               startTime: '07:00',
               endTime: '08:00'),
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
               endTime: '08:00',
               location: '헬스장'),
           TodoModel(
-              idx: 1,
+              dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
               startTime: '07:00',
