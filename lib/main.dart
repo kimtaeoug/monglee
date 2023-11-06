@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/page/home/domain/data/monglee_hive.dart';
+import 'package:monglee/page/home/presentation/views/home_page.dart';
 import 'package:monglee/util/app_pages.dart';
 import 'package:monglee/util/app_routes.dart';
 
@@ -30,9 +31,9 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      // home: HomePage(),
+      home: HomePage(),
       // initialRoute: Routes.DIARY_EDIT_EMOTION,
-      initialRoute: Routes.HOME,
+      initialRoute: Routes.SPLASH,
       // initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
