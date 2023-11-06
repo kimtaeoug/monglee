@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/util/app_routes.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/routes/app_routes.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key? key}) : super(key: key);

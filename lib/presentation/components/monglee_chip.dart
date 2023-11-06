@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
 
 class MongleeChip extends StatelessWidget {
   final String text;

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_common.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/presentation/pages/diary/widget/diary_common.dart';
 
 class DiaryPage extends StatefulWidget {
   DiaryPage({Key? key}) : super(key: key);

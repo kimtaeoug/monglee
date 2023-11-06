@@ -1,13 +1,7 @@
-import 'package:hive/hive.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class MongleeHive {
-  static final MongleeHive hive = MongleeHive._internal();
-
-  factory MongleeHive() => hive;
-
-  MongleeHive._internal();
-
+class MongleeService extends GetxService{
   late final Box todoBox;
   late final Box diaryBox;
 

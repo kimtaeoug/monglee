@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monglee/component/loading/monglee_skeleton.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'monglee_skeleton.dart';
 
 class TextSkeleton extends StatelessWidget {
   final double width;
@@ -8,8 +9,6 @@ class TextSkeleton extends StatelessWidget {
 
   TextSkeleton({Key? key, required this.width, required this.height})
       : super(key: key);
-  final Color baseColor = Color(0xffF0F0F0);
-  final Color highLightColor = Color(0xffE1E1E1);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,8 @@ class TextSkeleton extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(4)),
         child: MongleeSkeleton.fromColors(
-            baseColor: baseColor,
-            highlightColor: highLightColor,
+            baseColor: skeletonBaseColor,
+            highlightColor: skeletonHighLightColor,
             child: Container(
               width: width,
               height: height,

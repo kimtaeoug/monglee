@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart' as t;
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
-import 'package:monglee/util/time_util.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/time.dart';
+
+import '../../app/extensions/styler.dart';
 
 class MongleeTimeInput extends StatefulWidget {
   final bool isStart;
@@ -84,7 +85,7 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
                         style: _timeStyle,
                       ),
                       Text(
-                        TimeUtil.isAMorPM(_time.hour) ? 'AM' : 'PM',
+                        Time.isAMorPM(_time.hour) ? 'AM' : 'PM',
                         style: _timeStyle,
                       )
                     ],

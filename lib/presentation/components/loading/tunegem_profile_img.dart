@@ -2,7 +2,9 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:monglee/component/loading/monglee_skeleton.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+
+import 'monglee_skeleton.dart';
 
 class MongleeProfileImg extends StatelessWidget {
   final String url;
@@ -40,8 +42,8 @@ class MongleeProfileImg extends StatelessWidget {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: MongleeSkeleton.fromColors(
-                        baseColor: baseColor,
-                        highlightColor: highLightColor,
+                        baseColor: skeletonBaseColor,
+                        highlightColor: skeletonHighLightColor,
                         child: Container(
                           width: radius,
                           height: radius,
@@ -65,7 +67,4 @@ class MongleeProfileImg extends StatelessWidget {
       child: SvgPicture.asset('assets/icons_1.5/ic_default_myprofile.svg'),
     );
   }
-
-  final Color baseColor = Color(0xffF0F0F0);
-  final Color highLightColor = Color(0xffE1E1E1);
 }

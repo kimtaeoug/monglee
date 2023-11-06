@@ -1,21 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monglee/component/loading/monglee_skeleton.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+
+import 'monglee_skeleton.dart';
 
 class ImgSkeleton extends StatelessWidget {
   final double width;
   final double height;
   final BorderRadius borderRadius;
 
-  ImgSkeleton(
-      {Key? key,
-      required this.width,
-      required this.height,
-      required this.borderRadius,})
-      : super(key: key);
-
-  final Color baseColor = Color(0xffF0F0F0);
-  final Color highLightColor = Color(0xffE1E1E1);
+  ImgSkeleton({
+    Key? key,
+    required this.width,
+    required this.height,
+    required this.borderRadius,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,8 @@ class ImgSkeleton extends StatelessWidget {
 
   Widget _skeletone() {
     return MongleeSkeleton.fromColors(
-        baseColor: baseColor,
-        highlightColor: highLightColor,
+        baseColor: skeletonBaseColor,
+        highlightColor: skeletonHighLightColor,
         child: Container(
           width: width,
           height: height,

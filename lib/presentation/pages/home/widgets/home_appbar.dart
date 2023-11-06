@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/presentation/views/calendar/monglee_calendar.dart';
+import 'package:monglee/presentation/pages/home/widgets/monglee_calendar.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   HomeAppBar({Key? key}) : super(key: key);

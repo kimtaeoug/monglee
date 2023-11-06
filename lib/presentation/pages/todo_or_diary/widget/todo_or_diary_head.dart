@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo_toggle_switch.dart';
-import 'package:monglee/util/styler.dart';
-import 'package:monglee/util/time_util.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/presentation/pages/todo_or_diary/widget/todo_toggle_switch.dart';
 
 class ToDoOrDiaryHead extends StatelessWidget {
   final Function(bool) clickFunction;
@@ -22,7 +22,7 @@ class ToDoOrDiaryHead extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            TimeUtil.convertToEFormat(dateTime),
+            Time.convertToEFormat(dateTime),
             style: _dateStyle,
           ),
           TodoToggleSwitch(clickFuntion: clickFunction)

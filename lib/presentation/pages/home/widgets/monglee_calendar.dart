@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
-import 'package:monglee/util/time_util.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/extensions/time.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MongleeCaneldar extends StatefulWidget {
@@ -52,7 +52,7 @@ class _MongleeCaneldar extends State<MongleeCaneldar> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        TimeUtil.convertToYearMonth(_pageStandardTime),
+                        Time.convertToYearMonth(_pageStandardTime),
                         style: _headTextStyle,
                       ),
                       const SizedBox(

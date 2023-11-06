@@ -14,7 +14,7 @@ const Color gray400 = Color(0xff959595);
 const Color gray300 = Color(0xffBCBCBC);
 const Color gray200 = Color(0xffD1D1D1);
 const Color gray100 = Color(0xffEFEFEF);
-const Color gray150  = Color(0xffF9F9F9);
+const Color gray150 = Color(0xffF9F9F9);
 
 const Color textLightPrimary = Color(0xff16191C);
 const Color mintText = Color(0xff66B8A3);
@@ -23,6 +23,8 @@ const Color mintBg = Color(0xffA2D6C8);
 const Color silver = Color(0xffCCCCCC);
 const Color darkGray = Color(0xffAEAEAE);
 
+const Color skeletonBaseColor = Color(0xffF0F0F0);
+const Color skeletonHighLightColor = Color(0xffE1E1E1);
 ///
 /// MBTI Color
 ///
@@ -41,3 +43,40 @@ const Color istpColor = Color(0xff9B61D4);
 const Color isfpColor = Color(0xffEE8484);
 const Color estpColor = Color(0xffCEF194);
 const Color esfpColor = Color(0xff7E4F34);
+
+Color mbtiColor(String mbti) {
+  switch (mbti.toLowerCase()) {
+    case 'infj':
+      return infjColor;
+    case 'entj':
+      return entjColor;
+    case 'entp':
+      return entpColor;
+    case 'intj':
+      return intjColor;
+    case 'infp':
+      return infpColor;
+    case 'enfj':
+      return enfjColor;
+    case 'enfp':
+      return enfpColor;
+    case 'istj':
+      return istjColor;
+    case 'isfj':
+      return isfjColor;
+    case 'estj':
+      return estjColor;
+    case 'esfj':
+      return esfjColor;
+    case 'istp':
+      return istpColor;
+    case 'isfp':
+      return isfpColor;
+    case 'estp':
+      return estpColor;
+    case 'esfp':
+      return esfpColor;
+    default:
+      return primaryColor;
+  }
+}

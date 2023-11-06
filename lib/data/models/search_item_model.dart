@@ -1,10 +1,20 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:monglee/data/models/todo_model.dart';
 
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+part 'search_item_model.freezed.dart';
 
-class SearchItemModel{
-  final String imgUrl;
-  final String nickName;
-  final String mbti;
-  final List<TodoModel> todoList;
-  SearchItemModel({required this.imgUrl, required this.nickName, required this.mbti, required this.todoList});
+part 'search_item_model.g.dart';
+
+@freezed
+class SearchItemModel with _$SearchItemModel {
+  const factory SearchItemModel(
+      {required String imgUrl,
+      required String nickName,
+      required String mbti,
+      required List<TodoModel> todoList}) = _SearchItemModel;
+
+  const SearchItemModel._();
+
+  factory SearchItemModel.fromJson(Map<String, dynamic> json) =>
+      _$SearchItemModelFromJson(json);
 }

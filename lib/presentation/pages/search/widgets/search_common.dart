@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/component/loading/tunegem_profile_img.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/data/models/todo_model.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
+import 'package:monglee/presentation/components/loading/tunegem_profile_img.dart';
 
 class SearchCommon {
   final TextStyle _itemTitleStyle =
@@ -15,8 +15,8 @@ class SearchCommon {
 
   Widget _searchTextItem(String title,
       {String? contents,
-      String? startTime,
-      String? endTime,
+      DateTime? startTime,
+      DateTime? endTime,
       String? location}) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),

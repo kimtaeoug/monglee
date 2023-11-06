@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+
 
 class SearchField extends StatefulWidget {
   SearchField({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _SearchField extends State<SearchField> {
               height: 24,
               child: SvgPicture.asset(
                 'assets/images/search_icon.svg',
-                colorFilter: ColorFilter.mode(gray200, BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(gray200, BlendMode.srcIn),
               ),
             ),
           ),

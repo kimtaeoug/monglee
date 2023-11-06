@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/data/models/todo_model.dart';
 
 ///
 /// ToDoList Item
@@ -37,13 +37,15 @@ class ToDoItem extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: mintBg),
                         shape: BoxShape.circle,
-                        color: todoModel.selected ? mintBg : gray150),
+                        color: todoModel.selected != null ? mintBg : gray150),
                     child: SizedBox(
                       width: 20,
                       height: 20,
                       child: SvgPicture.asset(
                         'assets/images/check_icon.svg',
-                        colorFilter: ColorFilter.mode(todoModel.selected ? Colors.white : gray150, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            todoModel.selected != null ? Colors.white : gray150,
+                            BlendMode.srcIn),
                       ),
                     ),
                   ),
@@ -51,7 +53,7 @@ class ToDoItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        todoModel.startTime ?? '',
+                        (todoModel.startTime ?? DateTime.now()).toString(),
                         style: _contentsStyle,
                       ),
                     )
@@ -65,7 +67,7 @@ class ToDoItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: todoModel.selected ? primaryColor : Colors.white,
+              color: todoModel.selected != null ? primaryColor : Colors.white,
               border: Border.all(color: primaryColor),
             ),
             child: Column(

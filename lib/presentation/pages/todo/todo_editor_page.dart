@@ -2,18 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:monglee/component/monglee_appbar.dart';
-import 'package:monglee/component/monglee_btn.dart';
-import 'package:monglee/component/monglee_chip.dart';
-import 'package:monglee/component/monglee_expanel.dart';
-import 'package:monglee/component/monglee_text_input_field.dart';
-import 'package:monglee/component/monglee_time_input.dart';
-import 'package:monglee/component/monglee_toast.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/data/todo_noti_time.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/data/todo_repeat.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/presentation/controllers/todo_contoller.dart';
-import 'package:monglee/util/moglee_color.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart' as t;
+import 'package:monglee/app/extensions/todo_noti_time.dart';
+import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/presentation/components/monglee_appbar.dart';
+import 'package:monglee/presentation/components/monglee_btn.dart';
+import 'package:monglee/presentation/components/monglee_chip.dart';
+import 'package:monglee/presentation/components/monglee_expanel.dart';
+import 'package:monglee/presentation/components/monglee_time_input.dart';
+
+import '../../components/monglee_text_input_field.dart';
 
 class TodoEditorPage extends StatefulWidget {
   const TodoEditorPage({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class TodoEditorPage extends StatefulWidget {
 }
 
 class _TodoEditorPage extends State<TodoEditorPage> {
-  final TodoController todoController = Get.find();
+  // final TodoController todoController = Get.find();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentsController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
@@ -36,7 +34,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
 
   @override
   void dispose() {
-    todoController.clearData();
+    // todoController.clearData();
     _titleController.dispose();
     _contentsController.dispose();
     _locationController.dispose();
@@ -71,7 +69,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         hint: '제목을 입력해주세요',
                         onChanged: (value) {
                           if (value != null) {
-                            todoController.title.value = value;
+                            // todoController.title.value = value;
                           }
                         },
                         //키보드에서 이동눌렀을때
@@ -80,7 +78,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         },
                         onFieldSubmitted: (value) {
                           if (value != null) {
-                            todoController.title.value = value;
+                            // todoController.title.value = value;
                           }
                         },
                       ),
@@ -92,14 +90,14 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         hint: '세부 정보를 입력해주세요',
                         onChanged: (value) {
                           if (value != null) {
-                            todoController.contents.value = value;
+                            // todoController.contents.value = value;
                           }
                         },
                         //키보드에서 이동눌렀을때
                         onEditingCompleteFunction: () {},
                         onFieldSubmitted: (value) {
                           if (value != null) {
-                            todoController.contents.value = value;
+                            // todoController.contents.value = value;
                           }
                         },
                       ),
@@ -132,14 +130,14 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         hint: '장소를 입력해주세요',
                         onChanged: (value) {
                           if (value != null) {
-                            todoController.location.value = value;
+                            // todoController.location.value = value;
                           }
                         },
                         //키보드에서 이동눌렀을때
                         onEditingCompleteFunction: () {},
                         onFieldSubmitted: (value) {
                           if (value != null) {
-                            todoController.location.value = value;
+                            // todoController.location.value = value;
                           }
                         },
                       ),
@@ -159,14 +157,14 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         hint: '참석자를 입력해주세요 ',
                         onChanged: (value) {
                           if (value != null) {
-                            todoController.participant.value = value;
+                            // todoController.participant.value = value;
                           }
                         },
                         //키보드에서 이동눌렀을때
                         onEditingCompleteFunction: () {},
                         onFieldSubmitted: (value) {
                           if (value != null) {
-                            todoController.participant.value = value;
+                            // todoController.participant.value = value;
                           }
                         },
                       ),
@@ -188,18 +186,18 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                       padding: const EdgeInsets.only(bottom: 58, top: 40),
                       child: MongleeBtn(
                         clickFuntion: () {
-                          if (todoController.editCompleteCondition()) {
-                            todoController.insertTodo();
-                            MognleeToast.show(
-                                context: context, msg: '할 일이 저장되었습니다!');
-                          } else {
-                            MognleeToast.show(
-                                context: context, msg: '입력 내용이 부족합니다!');
-                          }
+                          // if (todoController.editCompleteCondition()) {
+                          //   todoController.insertTodo();
+                          //   MognleeToast.show(
+                          //       context: context, msg: '할 일이 저장되었습니다!');
+                          // } else {
+                          //   MognleeToast.show(
+                          //       context: context, msg: '입력 내용이 부족합니다!');
+                          // }
                         },
-                        btnColor: todoController.editCompleteCondition()
-                            ? primaryColor
-                            : gray200,
+                        // btnColor: todoController.editCompleteCondition()
+                        //     ? primaryColor
+                        //     : gray200,
                       ),
                     ),
                   ],
@@ -215,50 +213,56 @@ class _TodoEditorPage extends State<TodoEditorPage> {
   Widget _repeatWidget() {
     const List<TodoRepeat> repeatList = TodoRepeat.values;
     return MongleeExpanel(
-        title: todoController.selectedRepeatIdx.value == -1
-            ? '반복 안함'
-            : repeatList
-                .elementAt(todoController.selectedRepeatIdx.value)
-                .contents,
+      title: '반복 안함',
+        // title: todoController.selectedRepeatIdx.value == -1
+        //     ? '반복 안함'
+        //     : repeatList
+        //         .elementAt(todoController.selectedRepeatIdx.value)
+        //         .contents,
         items: List.generate(
             repeatList.length,
             (index) => MongleeChip(
                   text: repeatList[index].contents,
-                  selected: index == todoController.selectedRepeatIdx.value,
-                  selectFunction: () {
-                    if (mounted) {
-                      todoController.selectedRepeatIdx.value = index;
-                    }
-                  },
+                  selected: false,
+                  selectFunction: (){},
+                  // selected: index == todoController.selectedRepeatIdx.value,
+                  // selectFunction: () {
+                  //   if (mounted) {
+                  //     todoController.selectedRepeatIdx.value = index;
+                  //   }
+                  // },
                 )));
   }
 
   Widget _notiWidget() {
     const List<TodoNotiTime> notiList = TodoNotiTime.values;
     return MongleeExpanel(
-        title: todoController.selectedNotiIdx.value == -1
-            ? '알림 없음'
-            : notiList.elementAt(todoController.selectedNotiIdx.value).contents,
+      title: '알림 없음',
+        // title: todoController.selectedNotiIdx.value == -1
+        //     ? '알림 없음'
+        //     : notiList.elementAt(todoController.selectedNotiIdx.value).contents,
         items: List.generate(
             notiList.length,
             (index) => MongleeChip(
                   text: notiList[index].contents,
-                  selected: todoController.selectedNotiIdx.value == index,
-                  selectFunction: () {
-                    if (mounted) {
-                      todoController.selectedNotiIdx.value = index;
-                    }
-                  },
+                  selected: false,
+                  selectFunction: (){},
+                  // selected: todoController.selectedNotiIdx.value == index,
+                  // selectFunction: () {
+                  //   if (mounted) {
+                  //     todoController.selectedNotiIdx.value = index;
+                  //   }
+                  // },
                 )));
   }
 
   void _selectTime({required t.Time input, bool isStart = true}) {
     if (isStart == true) {
-      todoController.startHour.value = input.hour;
-      todoController.startMinutes.value = input.minute;
+      // todoController.startHour.value = input.hour;
+      // todoController.startMinutes.value = input.minute;
     } else {
-      todoController.endHour.value = input.hour;
-      todoController.endMinutes.value = input.minute;
+      // todoController.endHour.value = input.hour;
+      // todoController.endMinutes.value = input.minute;
     }
   }
 }

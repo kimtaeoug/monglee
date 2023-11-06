@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
+import 'package:monglee/data/models/todo_model.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/pages/todo/to_do_item.dart';
 
 class TodoPage extends StatelessWidget {
@@ -32,34 +32,35 @@ class TodoPage extends StatelessWidget {
       );
 
   final List<TodoModel> _dummyTodoList = [
-    TodoModel(dateTime: null, title: '공복 유산소1'),
+    const TodoModel(dateTime: null, title: '공복 유산소1'),
     TodoModel(
         dateTime: null,
         title: '공복 유산소2',
         contents: '런닝머신 30분 + 싸이클 50분',
-        startTime: '07:00',
-        endTime: '08:00',
+        // startTime: '07:00',
+        // endTime: '08:00',
         location: '헬스장'),
     TodoModel(
         dateTime: null, title: 'Product Team Meeting', contents: 'A 프로젝트 관련 데이터 논의'),
     TodoModel(
         dateTime: null,
         title: 'Product Team Meeting',
-        startTime: '07:00',
-        endTime: '08:00'),
+        // startTime: '07:00',
+        // endTime: '08:00'
+    ),
     TodoModel(
         dateTime: null,
         title: '공복 유산소2',
         contents: '런닝머신 30분 + 싸이클 50분',
-        startTime: '07:00',
-        endTime: '08:00',
+        // startTime: '07:00',
+        // endTime: '08:00',
         location: '헬스장'),
     TodoModel(
         dateTime: null,
         title: '공복 유산소2',
         contents: '런닝머신 30분 + 싸이클 50분',
-        startTime: '07:00',
-        endTime: '08:00',
+        // startTime: '07:00',
+        // endTime: '08:00',
         location: '헬스장'),
   ];
 }

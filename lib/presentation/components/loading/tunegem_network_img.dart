@@ -1,7 +1,9 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monglee/component/loading/monglee_skeleton.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+
+import 'monglee_skeleton.dart';
 
 class MongleeNetWorkImage extends StatelessWidget {
   final String imgUrl;
@@ -28,8 +30,6 @@ class MongleeNetWorkImage extends StatelessWidget {
       this.filterQuality,
       this.placeHolderHeight})
       : super(key: key);
-  final Color baseColor = Color(0xffE9E9E9);
-  final Color highLightColor = Color(0xffffffff);
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +74,13 @@ class MongleeNetWorkImage extends StatelessWidget {
           color: defaultColor ?? Colors.transparent,
         ),
         child: MongleeSkeleton.fromColors(
+            baseColor: skeletonBaseColor,
+            highlightColor: skeletonHighLightColor,
             child: Container(
               width: imgWidth,
               height: imgHeight,
               color: defaultColor ?? Colors.white,
-            ),
-            baseColor: baseColor,
-            highlightColor: highLightColor),
+            )),
       ),
     );
   }

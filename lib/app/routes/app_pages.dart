@@ -1,16 +1,15 @@
 import 'package:get/get.dart';
-import 'package:monglee/page/bindings/monglee_bindings.dart';
-import 'package:monglee/page/home/presentation/views/home_page.dart';
-import 'package:monglee/page/home/presentation/views/search/views/search_page.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_editor_page.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_emotion_page.dart';
+import 'package:monglee/presentation/pages/diary/diary_editor_page.dart';
+import 'package:monglee/presentation/pages/diary/diary_emotion_page.dart';
+import 'package:monglee/presentation/pages/home/home_page.dart';
+import 'package:monglee/presentation/pages/membership/login_page.dart';
+import 'package:monglee/presentation/pages/search/search_page.dart';
+import 'package:monglee/presentation/pages/setting/mbti_setting_page.dart';
+import 'package:monglee/presentation/pages/splash/splash_page.dart';
 import 'package:monglee/presentation/pages/todo/todo_editor_page.dart';
-import 'package:monglee/page/intro/presentation/views/splash_page.dart';
-import 'package:monglee/page/membership/presentation/views/login_page.dart';
-import 'package:monglee/page/setting/presentation/views/mbti_setting_page.dart';
 
-import 'package:monglee/util/app_routes.dart';
-
+import 'app_routes.dart';
+import 'monglee_bindings.dart';
 class AppPages {
   static const INITIAL = Routes.SPLASH;
 

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/page/home/presentation/views/search/domain/entity/search_item_model.dart';
-import 'package:monglee/page/home/presentation/views/search/views/search_common.dart';
-import 'package:monglee/page/home/presentation/views/search/views/search_field.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/domain/entity/todo_model.dart';
-import 'package:monglee/util/mbti_util.dart';
-import 'package:monglee/util/moglee_color.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/util/mbti_util.dart';
+import 'package:monglee/data/models/search_item_model.dart';
+import 'package:monglee/data/models/todo_model.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
+import 'package:monglee/presentation/pages/search/widgets/search_common.dart';
+import 'package:monglee/presentation/pages/search/widgets/search_field.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPage extends State<SearchPage> {
   final SearchCommon searchCommon = SearchCommon();
   final CommonUI commonUI = CommonUI();
-  List<String> _mbtiList = MBTIUtil.mbtiList;
+  final List<String> _mbtiList = MBTIUtil.mbtiList;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _SearchPage extends State<SearchPage> {
                                 left: index == 0 ? 24 : 8,
                                 right: index == _mbtiList.length - 1 ? 24 : 0),
                             child: commonUI.mbtiChip(
-                                _mbtiList[index], MBTIUtil.mbtiColor(_mbtiList[index])),
+                                _mbtiList[index], mbtiColor(_mbtiList[index])),
                           )),
                 ),
               ),
@@ -91,7 +91,7 @@ class _SearchPage extends State<SearchPage> {
   }
 
   final List<SearchItemModel> _dummyList = [
-    SearchItemModel(
+    const SearchItemModel(
         imgUrl:
             'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/btBe5w/btrbrTRrocO/K5zpt1sCfur14tKF1lVUYk/img.jpg',
         nickName: 'UserName',
@@ -101,8 +101,8 @@ class _SearchPage extends State<SearchPage> {
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
           TodoModel(
               dateTime: null,
@@ -111,10 +111,11 @@ class _SearchPage extends State<SearchPage> {
           TodoModel(
               dateTime: null,
               title: 'Product Team Meeting',
-              startTime: '07:00',
-              endTime: '08:00'),
+              // startTime: '07:00',
+              // endTime: '08:00'
+          ),
         ]),
-    SearchItemModel(
+    const SearchItemModel(
         imgUrl:
             'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/btBe5w/btrbrTRrocO/K5zpt1sCfur14tKF1lVUYk/img.jpg',
         nickName: 'UserName2',
@@ -124,18 +125,18 @@ class _SearchPage extends State<SearchPage> {
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
           TodoModel(
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
         ]),
-    SearchItemModel(
+    const SearchItemModel(
         imgUrl:
             'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/btBe5w/btrbrTRrocO/K5zpt1sCfur14tKF1lVUYk/img.jpg',
         nickName: 'UserName3',
@@ -145,8 +146,8 @@ class _SearchPage extends State<SearchPage> {
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
           TodoModel(
               dateTime: null,
@@ -155,21 +156,22 @@ class _SearchPage extends State<SearchPage> {
           TodoModel(
               dateTime: null,
               title: 'Product Team Meeting',
-              startTime: '07:00',
-              endTime: '08:00'),
+              // startTime: '07:00',
+              // endTime: '08:00'
+          ),
           TodoModel(
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
           TodoModel(
               dateTime: null,
               title: '공복 유산소2',
               contents: '런닝머신 30분 + 싸이클 50분',
-              startTime: '07:00',
-              endTime: '08:00',
+              // startTime: '07:00',
+              // endTime: '08:00',
               location: '헬스장'),
         ]),
   ];

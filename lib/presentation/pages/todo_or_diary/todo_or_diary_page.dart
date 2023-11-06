@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/page/home/presentation/views/calendar/home_appbar.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/diary/presentation/views/diary_page.dart';
-import 'package:monglee/page/home/presentation/views/todo_or_diary/todo/presentation/controllers/todo_contoller.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
+import 'package:monglee/presentation/pages/diary/diary_page.dart';
+import 'package:monglee/presentation/pages/home/widgets/home_appbar.dart';
 import 'package:monglee/presentation/pages/todo/todo_page.dart';
-import 'package:monglee/presentation/pages/todo_or_diary/todo_or_diary_head.dart';
-import 'package:monglee/util/moglee_color.dart';
+import 'package:monglee/presentation/pages/todo_or_diary/widget/todo_or_diary_head.dart';
 
 class ToDoOrDiaryPage extends StatefulWidget {
   ToDoOrDiaryPage({Key? key}) : super(key: key);
@@ -21,10 +21,10 @@ class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
 
-  final TodoController todoController = Get.find();
+  // final TodoController todoController = Get.find();
   @override
   void initState(){
-    todoController.getTodoList();
+    // todoController.getTodoList();
     super.initState();
   }
 

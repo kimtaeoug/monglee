@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/toggle_switch.dart';
-import 'package:monglee/page/setting/domain/entity/setting_item_model.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/data/models/setting_item_model.dart';
+import 'package:monglee/presentation/components/toggle_switch.dart';
+
 
 class SettingComponent {
   ///
@@ -95,6 +96,8 @@ class SettingComponent {
         return settingItemWithToggle(input);
       case SettingItemType.version:
         return settingItem(input, isVersion: true);
+      case null:
+        return settingItem(input);
     }
   }
 

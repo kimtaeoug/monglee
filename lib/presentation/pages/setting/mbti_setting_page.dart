@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/component/monglee_btn.dart';
-import 'package:monglee/util/app_routes.dart';
-import 'package:monglee/util/mbti_util.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/app/util/mbti_util.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
+import 'package:monglee/presentation/components/monglee_btn.dart';
+
 
 class MbtiSettingPage extends StatefulWidget {
   MbtiSettingPage({Key? key}) : super(key: key);

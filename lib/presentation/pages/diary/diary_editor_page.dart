@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:monglee/component/common_ui.dart';
-import 'package:monglee/component/monglee_appbar.dart';
-import 'package:monglee/component/monglee_btn.dart';
-import 'package:monglee/util/moglee_color.dart';
-import 'package:monglee/util/monglee_util.dart';
-import 'package:monglee/util/styler.dart';
+import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/util/monglee_util.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
+import 'package:monglee/presentation/components/monglee_appbar.dart';
+import 'package:monglee/presentation/components/monglee_btn.dart';
 
 class DiaryEditorPage extends StatefulWidget {
   DiaryEditorPage({Key? key}) : super(key: key);
