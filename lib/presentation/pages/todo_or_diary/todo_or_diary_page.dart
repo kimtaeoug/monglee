@@ -21,10 +21,10 @@ class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
 
-  // final TodoController todoController = Get.find();
+  final TodoController todoController = Get.find();
   @override
   void initState(){
-    // todoController.getTodoList();
+    todoController.getTodoList();
     super.initState();
   }
 

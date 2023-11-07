@@ -4,16 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
-import 'package:monglee/data/models/todo_model.dart';
+import 'package:monglee/domain/entities/todo_entity.dart';
 
 ///
 /// ToDoList Item
 ///
 @immutable
 class ToDoItem extends StatelessWidget {
-  final TodoModel todoModel;
+  final TodoEntity todoEntity;
+  final bool isAlone;
 
-  ToDoItem({Key? key, required this.todoModel}) : super(key: key);
+  ToDoItem({Key? key, required this.todoEntity, this.isAlone = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ToDoItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 16, top: isAlone ? 10 : 0),
             child: SizedBox(
               width: 42,
               child: Column(
@@ -37,23 +39,23 @@ class ToDoItem extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: mintBg),
                         shape: BoxShape.circle,
-                        color: todoModel.selected != null ? mintBg : gray150),
+                        color: todoEntity.selected ? mintBg : gray150),
                     child: SizedBox(
                       width: 20,
                       height: 20,
                       child: SvgPicture.asset(
                         'assets/images/check_icon.svg',
                         colorFilter: ColorFilter.mode(
-                            todoModel.selected != null ? Colors.white : gray150,
+                            todoEntity.selected ? Colors.white : gray150,
                             BlendMode.srcIn),
                       ),
                     ),
                   ),
-                  if (todoModel.startTime != null)
+                  if (todoEntity.startTime != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        (todoModel.startTime ?? DateTime.now()).toString(),
+                        (todoEntity.startTime ?? DateTime.now()).toString(),
                         style: _contentsStyle,
                       ),
                     )
@@ -67,23 +69,24 @@ class ToDoItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: todoModel.selected != null ? primaryColor : Colors.white,
+              color: todoEntity.selected ? primaryColor : Colors.white,
               border: Border.all(color: primaryColor),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _itemType(todoModel.title ?? '', _ToDoType.title),
-                todoModel.contents != null
-                    ? _itemType(todoModel.contents ?? '', _ToDoType.contents)
+                _itemType(todoEntity.title ?? '', _ToDoType.title),
+                todoEntity.contents != null
+                    ? _itemType(todoEntity.contents ?? '', _ToDoType.contents)
                     : const SizedBox.shrink(),
-                todoModel.startTime != null && todoModel.endTime != null
-                    ? _itemType('${todoModel.startTime} - ${todoModel.endTime}',
+                todoEntity.startTime != null && todoEntity.endTime != null
+                    ? _itemType(
+                        '${todoEntity.startTime} - ${todoEntity.endTime}',
                         _ToDoType.time)
                     : const SizedBox.shrink(),
-                todoModel.location != null
-                    ? _itemType(todoModel.location ?? '', _ToDoType.location)
+                todoEntity.location != null
+                    ? _itemType(todoEntity.location ?? '', _ToDoType.location)
                     : const SizedBox.shrink()
               ],
             ),

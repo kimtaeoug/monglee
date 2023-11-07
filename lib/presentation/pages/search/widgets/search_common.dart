@@ -15,8 +15,8 @@ class SearchCommon {
 
   Widget _searchTextItem(String title,
       {String? contents,
-      DateTime? startTime,
-      DateTime? endTime,
+      String? startTime,
+      String? endTime,
       String? location}) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),

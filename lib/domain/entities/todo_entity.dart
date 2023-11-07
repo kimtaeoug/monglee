@@ -12,9 +12,9 @@ class TodoEntity extends HiveObject {
   @HiveField(2)
   final String? contents;
   @HiveField(3)
-  final DateTime? startTime;
+  final String? startTime;
   @HiveField(4)
-  final DateTime? endTime;
+  final String? endTime;
   @HiveField(5)
   final String? location;
   @HiveField(6)
