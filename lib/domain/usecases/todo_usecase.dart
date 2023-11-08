@@ -1,4 +1,3 @@
-import 'package:monglee/data/models/todo_model.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/repositories/todo_repository.dart';
 
@@ -7,19 +6,17 @@ class TodoUseCase {
 
   TodoUseCase(this._repository);
 
-  Future<TodoEntity?> getData(dynamic key) async {
-    return await _repository.getTodoData(key);
+  Future<List<TodoEntity>?> read(TodoEntity? t) async {
+    return await _repository.read(t);
   }
 
-  Future<Iterable<TodoEntity>?> getDataAll() async {
-    return await _repository.getTodoList();
+  Future<int?> insert(TodoEntity? t) async {
+    return await _repository.insert(t);
   }
-
-  void addData(dynamic value) async {
-    _repository.addTodoData(value);
+  Future<int?> update(TodoEntity? t) async{
+    return await _repository.update(t);
   }
-
-  void deleteData(dynamic key) {
-    _repository.deleteTodoData(key);
+  Future<int?> delete(TodoEntity? t)async{
+    return await _repository.delete(t);
   }
 }

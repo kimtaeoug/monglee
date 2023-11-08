@@ -14,4 +14,6 @@ extension Time on DateTime {
 
   static String convertToEFormat(DateTime input) =>
       '${DateFormat('MM월 dd일').format(input)} ${DateFormat('E', 'ko_KR').format(input)}요일';
+
+  static String refineDate(DateTime input) => DateFormat('yy.MM.dd').format(input);
 }

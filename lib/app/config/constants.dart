@@ -1,5 +1,6 @@
-const String TODO_BOX = 'todoBox';
-const String DIARY_BOX = 'diaryBox';
+const String MONGLEE_DB = 'monglee_db';
+
+const String TODO_TABLE = 'TODO_TABLE';
 
 const int TODO_TYPE_ID = 100;
 const int DIARY_TYPE_ID = 200;

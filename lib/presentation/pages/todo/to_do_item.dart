@@ -12,9 +12,14 @@ import 'package:monglee/domain/entities/todo_entity.dart';
 @immutable
 class ToDoItem extends StatelessWidget {
   final TodoEntity todoEntity;
+  final bool selected;
   final bool isAlone;
 
-  ToDoItem({Key? key, required this.todoEntity, this.isAlone = false})
+  ToDoItem(
+      {Key? key,
+      required this.todoEntity,
+      this.selected = false,
+      this.isAlone = false})
       : super(key: key);
 
   @override
@@ -39,15 +44,16 @@ class ToDoItem extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: mintBg),
                         shape: BoxShape.circle,
-                        color: todoEntity.selected ? mintBg : gray150),
+                        color: gray150
+                        // color: todoEntity.selected ? mintBg : gray150
+                        ),
                     child: SizedBox(
                       width: 20,
                       height: 20,
                       child: SvgPicture.asset(
                         'assets/images/check_icon.svg',
                         colorFilter: ColorFilter.mode(
-                            todoEntity.selected ? Colors.white : gray150,
-                            BlendMode.srcIn),
+                            selected ? Colors.white : gray150, BlendMode.srcIn),
                       ),
                     ),
                   ),
@@ -69,7 +75,7 @@ class ToDoItem extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: todoEntity.selected ? primaryColor : Colors.white,
+              color: selected ? primaryColor : Colors.white,
               border: Border.all(color: primaryColor),
             ),
             child: Column(
@@ -77,16 +83,17 @@ class ToDoItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _itemType(todoEntity.title ?? '', _ToDoType.title),
-                todoEntity.contents != null
-                    ? _itemType(todoEntity.contents ?? '', _ToDoType.contents)
+                todoEntity.todoContent != null
+                    ? _itemType(
+                        todoEntity.todoContent ?? '', _ToDoType.contents)
                     : const SizedBox.shrink(),
                 todoEntity.startTime != null && todoEntity.endTime != null
                     ? _itemType(
                         '${todoEntity.startTime} - ${todoEntity.endTime}',
                         _ToDoType.time)
                     : const SizedBox.shrink(),
-                todoEntity.location != null
-                    ? _itemType(todoEntity.location ?? '', _ToDoType.location)
+                todoEntity.place != null
+                    ? _itemType(todoEntity.place ?? '', _ToDoType.location)
                     : const SizedBox.shrink()
               ],
             ),

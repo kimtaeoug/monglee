@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_bottom_navigation.dart';
 import 'package:monglee/presentation/pages/search/search_page.dart';
 import 'package:monglee/presentation/pages/setting/setting_page.dart';
@@ -19,6 +20,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   final PageController pageController = PageController(initialPage: 0);
+  final TodoController todoController = Get.find();
+  @override
+  void initState(){
+    todoController.getTodoList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

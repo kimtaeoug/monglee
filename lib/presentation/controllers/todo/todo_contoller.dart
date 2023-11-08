@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
+import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
 
@@ -12,22 +14,33 @@ class TodoController extends GetxController {
 
   void getTodoList() async {
     todoList.value.clear();
-    todoList.value.addAll(await todoUseCase.getDataAll() ?? []);
+    todoList.value.addAll(await todoUseCase
+            .read(TodoEntity(date: Time.refineDate(DateTime.now()))) ??
+        []);
   }
 
   void insertTodo() async {
-    todoUseCase.addData(TodoEntity(
+    todoUseCase.insert(TodoEntity(
         title: title.value,
-        contents: contents.value != '' ? contents.value : null,
-        location: location.value != '' ? location.value : null,
-        startTime: startHour.value == -1
-            ? null
-            : '${startHour.value},${startMinutes.value}',
-        endTime:
-            endHour.value == -1 ? null : '${endHour.value},${endMinutes.value}',
-        notiIdx: selectedNotiIdx.value != -1 ? selectedNotiIdx.value : null,
-        repeatIdx: selectedRepeatIdx.value != -1 ? selectedRepeatIdx.value : null,
-        participant: [participant.value]));
+        todoContent: contents.value,
+        place: location.value,
+        startTime: startHour.value != -1
+            ? _convertTime(startHour.value, startMinutes.value)
+            : null,
+        endTime: endHour.value != -1
+            ? _convertTime(endHour.value, endMinutes.value)
+            : null,
+        companion: participant.value,
+        repeat: selectedRepeatIdx.value != -1
+            ? TodoRepeatUtil.codeOfTodoRepeat(selectedRepeatIdx.value)
+            : null,
+        alarm: selectedNotiIdx.value != -1
+            ? selectedNotiIdx.value.toString()
+            : null));
+  }
+
+  String _convertTime(int a, int b) {
+    return '${MongleeUtil.tenDigitConverter(a)}:${MongleeUtil.tenDigitConverter(b)}';
   }
 
   ///

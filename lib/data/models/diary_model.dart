@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:monglee/domain/entities/diary_entity.dart';
 
 part 'diary_model.freezed.dart';
 
@@ -16,11 +15,4 @@ class DiaryModel with _$DiaryModel {
 
   factory DiaryModel.fromJson(Map<String, dynamic> json) =>
       _$DiaryModelFromJson(json);
-
-  factory DiaryModel.fromHive(DiaryEntity diaryEntity) =>
-      DiaryModel(idx: diaryEntity.idx,
-          dateTime: diaryEntity.dateTime,
-          cottonType: diaryEntity.cottonType,
-          imgUrl: diaryEntity.imgUrl,
-          contents: diaryEntity.contents);
 }

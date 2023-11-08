@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
-import 'package:hive/hive.dart';
 import 'package:monglee/app/services/mongle_service.dart';
 import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/data/providers/local_request_representable.dart';
@@ -18,18 +15,11 @@ class Provider {
   Future requestLocal(LocalRequestRepresentable request) async {
     try {
       final storage = Get.find<MongleeService>();
-      late Box box;
-      if (request.localBox == LocalBox.todo) {
-        box = storage.todoBox;
-      } else {
-        box = storage.diaryBox;
+      if(request.localTable == LocalTable.todo){
+        return LocalTODOHelper(db: storage.db, method: request.localMethod, t: request.todoEntity).process();
+      }else{
+
       }
-      return LocalDBProcess(
-        box: box,
-        localMethod: request.localMethod,
-        key: request.key,
-        value: request.value,
-      ).process();
     } catch (e) {
       logger.e(e);
     }

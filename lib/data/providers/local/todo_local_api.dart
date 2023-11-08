@@ -1,35 +1,34 @@
 import 'package:monglee/data/providers/local_request_representable.dart';
 import 'package:monglee/data/providers/provider.dart';
+import 'package:monglee/domain/entities/diary_entity.dart';
+import 'package:monglee/domain/entities/todo_entity.dart';
 
 class TodoLocalAPI extends LocalRequestRepresentable {
   final LocalMethod method;
-  final dynamic key;
-  final dynamic value;
+  final TodoEntity? t;
 
-  TodoLocalAPI._({required this.method, this.key, this.value});
+  TodoLocalAPI._({required this.method, this.t});
 
-  TodoLocalAPI.read(dynamic key) : this._(method: LocalMethod.get, key: key);
+  TodoLocalAPI.read(TodoEntity? t) : this._(method: LocalMethod.read, t: t);
 
-  TodoLocalAPI.readAll()
-      : this._(
-          method: LocalMethod.getAll,
-        );
+  TodoLocalAPI.insert(TodoEntity? t) : this._(method: LocalMethod.insert, t: t);
 
-  TodoLocalAPI.add(dynamic value)
-      : this._(method: LocalMethod.add, value: value);
+  TodoLocalAPI.delete(TodoEntity? t) : this._(method: LocalMethod.delete, t: t);
 
-  TodoLocalAPI.put(dynamic key, dynamic value)
-      : this._(method: LocalMethod.put, key: key, value: value);
-
-  TodoLocalAPI.delete(dynamic key)
-      : this._(method: LocalMethod.delete, key: key);
-
-  @override
-  LocalBox get localBox => LocalBox.todo;
+  TodoLocalAPI.update(TodoEntity? t) : this._(method: LocalMethod.update, t: t);
 
   @override
   LocalMethod get localMethod => method;
 
   @override
   Future request() => Provider.instance.requestLocal(this);
+
+  @override
+  DiaryEntity? get diaryEntity => null;
+
+  @override
+  LocalTable get localTable => LocalTable.todo;
+
+  @override
+  TodoEntity? get todoEntity => t;
 }

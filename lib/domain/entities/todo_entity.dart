@@ -1,51 +1,24 @@
-import 'package:hive/hive.dart';
-import 'package:monglee/app/config/constants.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'todo_entity.freezed.dart';
 part 'todo_entity.g.dart';
 
-@HiveType(typeId: TODO_TYPE_ID)
-class TodoEntity extends HiveObject {
-  @HiveField(0)
-  final DateTime? dateTime;
-  @HiveField(1)
-  final String? title;
-  @HiveField(2)
-  final String? contents;
-  @HiveField(3)
-  final String? startTime;
-  @HiveField(4)
-  final String? endTime;
-  @HiveField(5)
-  final String? location;
-  @HiveField(6)
-  final int? repeatIdx;
-  @HiveField(7)
-  final int? notiIdx;
-  @HiveField(8)
-  final List<String>? participant;
-  @HiveField(9)
-  bool selected;
+@freezed
+class TodoEntity with _$TodoEntity {
+  const factory TodoEntity({
+    int? todoId,
+    String? date,
+    String? startTime,
+    String? endTime,
+    String? title,
+    String? todoContent,
+    String? place,
+    String? alarm,
+    String? repeat,
+    String? companion
+  }) = _TodoEntity;
 
-  TodoEntity(
-      {this.dateTime,
-      this.title,
-      this.contents,
-      this.startTime,
-      this.endTime,
-      this.location,
-      this.repeatIdx,
-      this.notiIdx,
-      this.participant,
-      this.selected = false});
+  const TodoEntity._();
+  factory TodoEntity.fromJson(Map<String, dynamic> json) => _$TodoEntityFromJson(json);
 
-  factory TodoEntity.fromJson(Map<String, dynamic> json) => TodoEntity(
-      dateTime: json['datetime'],
-      title: json['title'],
-      contents: json['contents'],
-      startTime: json['startTime'],
-      endTime: json['endTime'],
-      location: json['location'],
-      repeatIdx: json['repeatIdx'],
-      notiIdx: json['notiIdx'],
-      participant: json['participant']);
 }

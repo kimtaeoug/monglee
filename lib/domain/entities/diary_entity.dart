@@ -1,20 +1,20 @@
-import 'package:hive/hive.dart';
-import 'package:monglee/app/config/constants.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'diary_entity.g.dart';
 
-@HiveType(typeId: DIARY_TYPE_ID)
-class DiaryEntity {
-  @HiveField(0)
-  final int? idx;
-  @HiveField(1)
-  final DateTime? dateTime;
-  @HiveField(2)
-  final String? cottonType;
-  @HiveField(3)
-  final String? imgUrl;
-  @HiveField(4)
-  final String? contents;
+part 'diary_entity.freezed.dart';
 
-  DiaryEntity({this.idx, this.dateTime, this.cottonType, this.imgUrl, this.contents});
+@freezed
+class DiaryEntity with _$DiaryEntity {
+  const factory DiaryEntity(
+      {int? diaryIdx,
+      int? emotion,
+      String? diaryContent,
+      String? diaryImgUrl,
+      String? date}) = _DiaryEntity;
+
+  const DiaryEntity._();
+
+  factory DiaryEntity.fromJson(Map<String, dynamic> json) =>
+      _$DiaryEntityFromJson(json);
 }

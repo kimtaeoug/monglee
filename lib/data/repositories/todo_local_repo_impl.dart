@@ -4,32 +4,27 @@ import 'package:monglee/domain/repositories/todo_repository.dart';
 
 class TodoLocalRepoImpl extends TodoRepository {
   @override
-  void addTodoData(dynamic value) async {
-    await TodoLocalAPI.add(value).request();
+  Future<int?> delete(TodoEntity? t) async {
+    return await TodoLocalAPI.delete(t).request();
   }
 
   @override
-  void deleteTodoData(dynamic key) async {
-    await TodoLocalAPI.delete(key).request();
+  Future insert(TodoEntity? t) async {
+    return await TodoLocalAPI.insert(t).request();
   }
 
   @override
-  Future<Iterable<TodoEntity>?> getTodoList() async {
-    dynamic data = await TodoLocalAPI.readAll().request();
-    if (data is Iterable) {
-      return data as Iterable<TodoEntity>;
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  Future<TodoEntity?> getTodoData(dynamic key) async {
-    dynamic data = await TodoLocalAPI.read(key).request();
+  Future<List<TodoEntity>?> read(TodoEntity? t) async {
+    List<Map>? data = await TodoLocalAPI.read(t).request();
     if (data != null) {
-      return data as TodoEntity;
+      return data as List<TodoEntity>;
     } else {
       return null;
     }
+  }
+
+  @override
+  Future<int?> update(TodoEntity? t) async {
+    return await TodoLocalAPI.update(t).request();
   }
 }
