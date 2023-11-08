@@ -5,7 +5,7 @@ import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/presentation/pages/diary/widget/diary_common.dart';
 
 class DiaryPage extends StatefulWidget {
-  DiaryPage({Key? key}) : super(key: key);
+  const DiaryPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DiaryPage();

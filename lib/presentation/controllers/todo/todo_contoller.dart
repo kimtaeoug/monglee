@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
@@ -11,14 +10,24 @@ class TodoController extends GetxController {
 
   TodoController(this.todoUseCase);
 
-  final Rx<List<TodoEntity>> todoList = <TodoEntity>[].obs.obs;
+  final RxMap<DateTime, List<TodoEntity>> todoMap =
+      <DateTime, List<TodoEntity>>{}.obs;
 
-  void getTodoList() async {
-    todoList.value.clear();
-    todoList.value.addAll(await todoUseCase
-            .read(TodoEntity(date: DateTime.now().toIso8601String())) ??
-        []);
-    logger.e('todoList : $todoList');
+  void initTodoList(DateTime time) async {
+    todoMap[Time.refineDate(time)] = (await todoUseCase.read(TodoEntity(
+            date:
+                DateTime(time.year, time.month, 1, 0, 0).toIso8601String()))) ??
+        [];
+  }
+
+  void getTodoList(DateTime time) async {
+    todoMap[Time.refineDate(time)] =
+        (await todoUseCase.read(TodoEntity(date: time.toIso8601String()))) ??
+            [];
+    // todoList.value.clear();
+    // todoList.value.addAll(await todoUseCase
+    //         .read(TodoEntity(date: DateTime.now().toIso8601String())) ??
+    //     []);
   }
 
   void insertTodo() async {

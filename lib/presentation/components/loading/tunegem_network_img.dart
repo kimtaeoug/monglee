@@ -1,5 +1,4 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 
@@ -17,7 +16,7 @@ class MongleeNetWorkImage extends StatelessWidget {
   final FilterQuality? filterQuality;
   final double? placeHolderHeight;
 
-  MongleeNetWorkImage(
+  const MongleeNetWorkImage(
       {Key? key,
       required this.imgUrl,
       this.imgWidth,

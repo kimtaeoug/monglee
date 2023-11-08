@@ -1,5 +1,4 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:monglee/app/config/moglee_color.dart';
@@ -10,7 +9,7 @@ class MongleeProfileImg extends StatelessWidget {
   final String url;
   final double radius;
 
-  MongleeProfileImg({Key? key, required this.url, required this.radius})
+  const MongleeProfileImg({Key? key, required this.url, required this.radius})
       : super(key: key);
 
   @override

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/services/mongle_service.dart';
 import 'package:monglee/app/util/dependency.dart';
-import 'package:monglee/presentation/pages/home/home_page.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';

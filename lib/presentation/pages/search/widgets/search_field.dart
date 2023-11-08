@@ -1,6 +1,4 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -9,7 +7,7 @@ import 'package:monglee/app/extensions/styler.dart';
 
 
 class SearchField extends StatefulWidget {
-  SearchField({Key? key}) : super(key: key);
+  const SearchField({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SearchField();
@@ -108,7 +106,7 @@ class _SearchField extends State<SearchField> {
     );
   }
 
-  ValueNotifier<String> _text = ValueNotifier('');
+  final ValueNotifier<String> _text = ValueNotifier('');
 
   final TextStyle _hintStyle =
       Styler.style(color: gray300, fontWeight: FontWeight.w500);

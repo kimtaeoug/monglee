@@ -6,7 +6,7 @@ import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 
 class SettingUserInfo extends StatefulWidget {
-  SettingUserInfo({Key? key}) : super(key: key);
+  const SettingUserInfo({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SettingUserInfo();

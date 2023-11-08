@@ -16,7 +16,7 @@ class AppPages {
   static final routes = [
     GetPage(
         name: Routes.SPLASH,
-        page: () => SplashPage(),
+        page: () => const SplashPage(),
         binding: MongleeBindings(route: Routes.SPLASH)),
     GetPage(
         name: Routes.LOGIN,
@@ -24,11 +24,11 @@ class AppPages {
         binding: MongleeBindings(route: Routes.LOGIN)),
     GetPage(
         name: Routes.HOME,
-        page: () => HomePage(),
+        page: () => const HomePage(),
         binding: MongleeBindings(route: Routes.HOME)),
     GetPage(
         name: Routes.MBTI_SETTING,
-        page: () => MbtiSettingPage(),
+        page: () => const MbtiSettingPage(),
         binding: MongleeBindings(route: Routes.MBTI_SETTING)),
     GetPage(
         name: Routes.TODO_WRITE,
@@ -36,7 +36,7 @@ class AppPages {
         binding: MongleeBindings(route: Routes.TODO_WRITE)),
     GetPage(
         name: Routes.SEARCH,
-        page: () => SearchPage(),
+        page: () => const SearchPage(),
         binding: MongleeBindings(route: Routes.SEARCH)),
     GetPage(
         name: Routes.DIARY_EDIT_EMOTION,
@@ -44,7 +44,7 @@ class AppPages {
         binding: MongleeBindings(route: Routes.DIARY_EDIT_EMOTION)),
     GetPage(
         name: Routes.DIARY_EDIT_CONTENTS,
-        page: () => DiaryEditorPage(),
+        page: () => const DiaryEditorPage(),
         binding: MongleeBindings(route: Routes.DIARY_EDIT_CONTENTS))
   ];
 }

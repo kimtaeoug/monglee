@@ -11,7 +11,7 @@ class MongleeTimeInput extends StatefulWidget {
   final bool isStart;
   final Function(t.Time)? selectedTimeFunction;
 
-  MongleeTimeInput({Key? key, this.isStart = true, this.selectedTimeFunction})
+  const MongleeTimeInput({Key? key, this.isStart = true, this.selectedTimeFunction})
       : super(key: key);
 
   @override

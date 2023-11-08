@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'dart:ui';
 
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';

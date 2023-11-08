@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -108,10 +107,10 @@ class _ShimmerState extends State<MongleeSkeleton> with SingleTickerProviderStat
       animation: _controller,
       child: widget.child,
       builder: (BuildContext context, Widget? child) => _Shimmer(
-        child: child,
         direction: widget.direction,
         gradient: widget.gradient,
         percent: _controller.value,
+        child: child,
       ),
     );
   }

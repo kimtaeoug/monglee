@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:get/get_connect/connect.dart';
 import 'package:monglee/app/services/mongle_service.dart';
 import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/data/providers/local_request_representable.dart';
@@ -15,11 +14,13 @@ class Provider {
   Future requestLocal(LocalRequestRepresentable request) async {
     try {
       final storage = Get.find<MongleeService>();
-      if(request.localTable == LocalTable.todo){
-        return LocalTODOHelper(db: storage.db, method: request.localMethod, t: request.todoEntity).process();
-      }else{
-
-      }
+      if (request.localTable == LocalTable.todo) {
+        return LocalTODOHelper(
+                db: storage.db,
+                method: request.localMethod,
+                t: request.todoEntity)
+            .process();
+      } else {}
     } catch (e) {
       logger.e(e);
     }
@@ -71,6 +72,7 @@ class AppException implements Exception {
 
   AppException({this.code, this.message, this.details});
 
+  @override
   String toString() {
     return "[$code]: $message \n $details";
   }

@@ -1,110 +1,52 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class MongleeCaneldar extends StatefulWidget {
-  MongleeCaneldar({Key? key}) : super(key: key);
+class MongleeCaneldar extends StatelessWidget {
+  final DateTime date;
+  final Function(DateTime, DateTime) selectedFunction;
+  final Function(DateTime) pageChangedFunction;
+  final bool calendarType;
+  final Function() calendarTypeFunction;
 
-  @override
-  State<StatefulWidget> createState() => _MongleeCaneldar();
-}
-
-class _MongleeCaneldar extends State<MongleeCaneldar> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  final DateTime now = DateTime.now();
-
-  final Logger logger = Logger(printer: PrettyPrinter());
-  DateTime _pageStandardTime = DateTime.now();
+  MongleeCaneldar(
+      {Key? key,
+      required this.date,
+      required this.selectedFunction,
+      required this.pageChangedFunction,
+      required this.calendarType,
+      required this.calendarTypeFunction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(top: AppBar().preferredSize.height),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: Get.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        Time.convertToYearMonth(_pageStandardTime),
-                        style: _headTextStyle,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: SvgPicture.asset(
-                          'assets/images/caret_down_icon.svg',
-                          colorFilter: const ColorFilter.mode(mineShatf, BlendMode.srcIn),
-                        ),
-                      )
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: SizedBox(
-                      width: 24,
-                      height: 24,
-                      child:
-                      SvgPicture.asset('assets/images/calendar_icon.svg'),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          SizedBox(
-            width: Get.width,
-            height: 75,
-            child: TableCalendar(
-              headerVisible: false,
-              focusedDay: now,
-              firstDay: DateTime(now.year - 1),
-              lastDay: DateTime(now.year + 1),
-              calendarFormat: CalendarFormat.week,
-              calendarBuilders: _calendarBuilders(),
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              onPageChanged: (date) {
-                if (mounted) {
-                  setState(() {
-                    _pageStandardTime = date;
-                  });
-                }
-              },
-            ),
-          )
-        ],
+      child: SizedBox(
+        width: Get.width,
+        child: TableCalendar(
+            headerStyle: const HeaderStyle(
+                rightChevronVisible: false,
+                leftChevronVisible: false,
+                formatButtonVisible: false),
+            // headerVisible: false,
+            focusedDay: date,
+            currentDay: date,
+            firstDay: DateTime(date.year - 1),
+            lastDay: DateTime(date.year + 1),
+            calendarFormat: calendarType == true
+                ? CalendarFormat.month
+                : CalendarFormat.week,
+            calendarBuilders: _calendarBuilders(),
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            availableGestures: AvailableGestures.horizontalSwipe,
+            onDaySelected: selectedFunction),
       ),
     );
   }
@@ -145,6 +87,7 @@ class _MongleeCaneldar extends State<MongleeCaneldar> {
           case 7:
             return _dayItem('일');
         }
+        return null;
       }, defaultBuilder: (context, date, date2) {
         return Center(
           child: Text(
@@ -157,6 +100,36 @@ class _MongleeCaneldar extends State<MongleeCaneldar> {
           child: Text(
             date.day.toString(),
             style: _selectedDateStyle,
+          ),
+        );
+      }, selectedBuilder: (context, date, date2) {
+        logger.e('selectedDAte : $date, $date2');
+        return Center(
+          child: Text(
+            date.day.toString(),
+            style: _selectedDateStyle,
+          ),
+        );
+      }, headerTitleBuilder: (context, date) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Time.convertToYearMonth(date),
+                style: _headTextStyle,
+              ),
+              GestureDetector(
+                onTap: () => calendarTypeFunction.call(),
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: SvgPicture.asset(
+                      'assets/images/calendar${calendarType == true ? '_month' : ''}_icon.svg'),
+                ),
+              )
+            ],
           ),
         );
       });

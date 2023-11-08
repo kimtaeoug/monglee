@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
@@ -10,7 +9,7 @@ import 'package:monglee/presentation/pages/search/widgets/search_common.dart';
 import 'package:monglee/presentation/pages/search/widgets/search_field.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SearchPage();
@@ -41,7 +40,7 @@ class _SearchPage extends State<SearchPage> {
         children: [
           Padding(
             padding: EdgeInsets.only(top: AppBar().preferredSize.height),
-            child: SearchField(),
+            child: const SearchField(),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),

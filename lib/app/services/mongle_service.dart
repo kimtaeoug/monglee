@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:monglee/app/config/constants.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

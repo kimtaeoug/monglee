@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 
@@ -7,7 +6,7 @@ class ToggleSwitch extends StatefulWidget {
   final Color? selectedColor;
   final Color? unSelectedColor;
 
-  ToggleSwitch({
+  const ToggleSwitch({
     Key? key,
     required this.clickFuntion,
     this.selectedColor,

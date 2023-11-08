@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:monglee/app/routes/app_routes.dart';
 import 'package:monglee/data/repositories/todo_local_repo_impl.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
+import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 
 class MongleeBindings extends Bindings {
   final String route;
@@ -16,6 +16,7 @@ class MongleeBindings extends Bindings {
       case Routes.HOME:
         Get.put(TodoUseCase(Get.find<TodoLocalRepoImpl>()));
         Get.put(TodoController(Get.find()));
+        Get.put(TODController());
         break;
       case Routes.LOGIN:
         break;

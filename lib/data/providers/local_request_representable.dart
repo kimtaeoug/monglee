@@ -1,5 +1,4 @@
 import 'package:monglee/app/config/constants.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/domain/entities/diary_entity.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:sqflite/sqflite.dart';

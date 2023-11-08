@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -6,13 +5,14 @@ import 'package:logger/logger.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/routes/app_routes.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
+import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_bottom_navigation.dart';
 import 'package:monglee/presentation/pages/search/search_page.dart';
 import 'package:monglee/presentation/pages/setting/setting_page.dart';
 import 'package:monglee/presentation/pages/todo_or_diary/todo_or_diary_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePage();
@@ -21,9 +21,10 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   final PageController pageController = PageController(initialPage: 0);
   final TodoController todoController = Get.find();
+  final TODController todController = Get.find();
   @override
-  void initState(){
-    todoController.getTodoList();
+  void initState() {
+    todoController.initTodoList(todController.sDate.value);
     super.initState();
   }
 
@@ -41,12 +42,18 @@ class _HomePage extends State<HomePage> {
               }),
           bottomNavigationBar: MongleeBottomNavi(onTap: (idx) {
             if (mounted) {
+              if(_currentIdx == 0 && idx == 2){
+                pageController.jumpToPage(idx);
+              }else if(_currentIdx == 2 && idx == 0){
+                pageController.jumpToPage(idx);
+              }else{
+                pageController.animateToPage(idx,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.bounceInOut);
+              }
               setState(() {
                 _currentIdx = idx;
               });
-              pageController.animateToPage(_currentIdx,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.bounceInOut);
             }
           }),
           floatingActionButton: _currentIdx == 0 ? _floatingBtn() : null,
@@ -57,8 +64,8 @@ class _HomePage extends State<HomePage> {
   }
 
   final Map<int, Widget> _homeMap = {
-    0: ToDoOrDiaryPage(),
-    1: SearchPage(),
+    0: const ToDoOrDiaryPage(),
+    1: const SearchPage(),
     2: SettingPage()
   };
   final Logger logger = Logger(printer: PrettyPrinter());

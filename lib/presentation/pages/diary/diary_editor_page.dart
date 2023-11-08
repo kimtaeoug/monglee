@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,7 @@ import 'package:monglee/presentation/components/monglee_appbar.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
 
 class DiaryEditorPage extends StatefulWidget {
-  DiaryEditorPage({Key? key}) : super(key: key);
+  const DiaryEditorPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DiaryEditorPage();

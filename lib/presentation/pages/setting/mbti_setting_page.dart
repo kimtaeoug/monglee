@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
@@ -10,7 +9,7 @@ import 'package:monglee/presentation/components/monglee_btn.dart';
 
 
 class MbtiSettingPage extends StatefulWidget {
-  MbtiSettingPage({Key? key}) : super(key: key);
+  const MbtiSettingPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MbtiSettingPage();

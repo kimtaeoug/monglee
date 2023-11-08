@@ -29,4 +29,11 @@ class MongleeUtil {
   static bool checkKeyBoardIsOpenWithWidgetsBinding(BuildContext context) {
     return View.of(context).viewInsets.bottom > 0;
   }
+  static Size? widgetSize(GlobalKey key){
+    if(key.currentContext != null){
+     final RenderBox box = key.currentContext!.findRenderObject() as RenderBox;
+     return box.size;
+    }
+    return null;
+  }
 }

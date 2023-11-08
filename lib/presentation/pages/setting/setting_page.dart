@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/data/models/setting_item_model.dart';
@@ -23,8 +22,8 @@ class SettingPage extends StatelessWidget {
             SizedBox(
               height: AppBar().preferredSize.height,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
               child: SettingUserInfo(),
             ),
             const SizedBox(
