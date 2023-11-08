@@ -4,7 +4,7 @@ import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/data/models/todo_model.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
-import 'package:monglee/presentation/components/loading/tunegem_profile_img.dart';
+import 'package:monglee/presentation/components/loading/monglee_profile_img.dart';
 
 class SearchCommon {
   final TextStyle _itemTitleStyle =

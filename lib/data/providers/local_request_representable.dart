@@ -30,16 +30,10 @@ class LocalTODOHelper {
     switch (method) {
       case LocalMethod.insert:
         return await db.insert(TODO_TABLE, forInsert(t!));
-        // return await db.transaction((txn) async {
-        //   'INSERT INTO $TODO_TABLE'
-        //       '(date, start_time, end_time, title, todo_content, place, alarm, repeat, companion) '
-        //       'VALUES(${t?.date ?? ''}, ${t?.startTime ?? ''}, ${t?.endTime ?? ''}, ${t?.title ?? ''} ${t?.todoContent ?? ''}, ${t?.place ?? ''}, ${t?.alarm ?? ''}, ${t?.repeat ?? ''}, ${t?.companion ?? ''})';
-        // });
       case LocalMethod.read:
         if (t?.date != null) {
-          return await db.rawQuery(
-              'SELECT * FROM $TODO_TABLE WHERE SUBSTR(date, 1, 10) = ?',
-              [t?.date?.substring(0, 10)]);
+          return await db
+              .query(TODO_TABLE, where: "date LIKE ?", whereArgs: [t!.date]);
         } else {
           return null;
         }
@@ -52,16 +46,16 @@ class LocalTODOHelper {
             'DELETE FROM $TODO_TABLE WHERE todo_id = ${t?.todo_id ?? -1}');
     }
   }
-  Map<String, dynamic> forInsert(TodoEntity t){
-    Map<String, dynamic> data = t.toJson().map((key, value){
-      if(value == null){
+
+  Map<String, dynamic> forInsert(TodoEntity t) {
+    Map<String, dynamic> data = t.toJson().map((key, value) {
+      if (value == null) {
         return MapEntry(key, '');
-      }else{
+      } else {
         return MapEntry(key, value);
       }
     });
     data.remove('todoId');
     return data;
-    // return value.remove('todo_id');
   }
 }

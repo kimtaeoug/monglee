@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:monglee/presentation/components/loading/tunegem_network_img.dart';
+import 'package:monglee/presentation/components/loading/monglee_network_img.dart';
 
 class DiaryCommon {
   Widget diaryImg(String url) {

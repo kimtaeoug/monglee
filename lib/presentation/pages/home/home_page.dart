@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/presentation/components/loading/total_loading_ui.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_bottom_navigation.dart';
@@ -24,43 +25,48 @@ class _HomePage extends State<HomePage> {
   final TODController todController = Get.find();
   @override
   void initState() {
-    todoController.initTodoList(todController.sDate.value);
+    todoController.getTodoList(todController.sDate.value);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Scaffold(
-          backgroundColor: gray150,
-          body: PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: pageController,
-              onPageChanged: (value) {},
-              itemBuilder: (context, idx) {
-                return _homeMap[idx] ?? Container();
+    return Stack(
+      children: [
+        WillPopScope(
+            child: Scaffold(
+              backgroundColor: gray150,
+              body: PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: pageController,
+                  onPageChanged: (value) {},
+                  itemBuilder: (context, idx) {
+                    return _homeMap[idx] ?? Container();
+                  }),
+              bottomNavigationBar: MongleeBottomNavi(onTap: (idx) {
+                if (mounted) {
+                  if(_currentIdx == 0 && idx == 2){
+                    pageController.jumpToPage(idx);
+                  }else if(_currentIdx == 2 && idx == 0){
+                    pageController.jumpToPage(idx);
+                  }else{
+                    pageController.animateToPage(idx,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.bounceInOut);
+                  }
+                  setState(() {
+                    _currentIdx = idx;
+                  });
+                }
               }),
-          bottomNavigationBar: MongleeBottomNavi(onTap: (idx) {
-            if (mounted) {
-              if(_currentIdx == 0 && idx == 2){
-                pageController.jumpToPage(idx);
-              }else if(_currentIdx == 2 && idx == 0){
-                pageController.jumpToPage(idx);
-              }else{
-                pageController.animateToPage(idx,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.bounceInOut);
-              }
-              setState(() {
-                _currentIdx = idx;
-              });
-            }
-          }),
-          floatingActionButton: _currentIdx == 0 ? _floatingBtn() : null,
-        ),
-        onWillPop: () {
-          return Future(() => false);
-        });
+              floatingActionButton: _currentIdx == 0 ? _floatingBtn() : null,
+            ),
+            onWillPop: () {
+              return Future(() => false);
+            }),
+        TotalLoadingUI()
+      ],
+    );
   }
 
   final Map<int, Widget> _homeMap = {

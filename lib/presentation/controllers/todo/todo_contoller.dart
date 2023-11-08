@@ -14,20 +14,16 @@ class TodoController extends GetxController {
       <DateTime, List<TodoEntity>>{}.obs;
 
   void initTodoList(DateTime time) async {
-    todoMap[Time.refineDate(time)] = (await todoUseCase.read(TodoEntity(
-            date:
-                DateTime(time.year, time.month, 1, 0, 0).toIso8601String()))) ??
-        [];
+    todoMap[Time.refineDate(time)] =
+        await todoUseCase.read(TodoEntity(date: time.toIso8601String())) ?? [];
   }
 
   void getTodoList(DateTime time) async {
-    todoMap[Time.refineDate(time)] =
-        (await todoUseCase.read(TodoEntity(date: time.toIso8601String()))) ??
-            [];
-    // todoList.value.clear();
-    // todoList.value.addAll(await todoUseCase
-    //         .read(TodoEntity(date: DateTime.now().toIso8601String())) ??
-    //     []);
+    if(!todoMap.containsKey(Time.refineDate(time))){
+      todoMap[Time.refineDate(time)] =
+          (await todoUseCase.read(TodoEntity(date: time.toIso8601String()))) ??
+              [];
+    }
   }
 
   void insertTodo() async {
