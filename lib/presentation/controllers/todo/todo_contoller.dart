@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
@@ -15,19 +16,21 @@ class TodoController extends GetxController {
   void getTodoList() async {
     todoList.value.clear();
     todoList.value.addAll(await todoUseCase
-            .read(TodoEntity(date: Time.refineDate(DateTime.now()))) ??
+            .read(TodoEntity(date: DateTime.now().toIso8601String())) ??
         []);
+    logger.e('todoList : $todoList');
   }
 
   void insertTodo() async {
     todoUseCase.insert(TodoEntity(
         title: title.value,
-        todoContent: contents.value,
+        todo_content: contents.value,
+        date: DateTime.now().toIso8601String(),
         place: location.value,
-        startTime: startHour.value != -1
+        start_time: startHour.value != -1
             ? _convertTime(startHour.value, startMinutes.value)
             : null,
-        endTime: endHour.value != -1
+        end_time: endHour.value != -1
             ? _convertTime(endHour.value, endMinutes.value)
             : null,
         companion: participant.value,

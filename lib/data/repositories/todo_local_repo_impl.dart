@@ -1,3 +1,4 @@
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/data/providers/local/todo_local_api.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/repositories/todo_repository.dart';
@@ -10,14 +11,19 @@ class TodoLocalRepoImpl extends TodoRepository {
 
   @override
   Future insert(TodoEntity? t) async {
+    logger.e('impl : ${t.toString()}');
     return await TodoLocalAPI.insert(t).request();
   }
 
   @override
   Future<List<TodoEntity>?> read(TodoEntity? t) async {
-    List<Map>? data = await TodoLocalAPI.read(t).request();
+    List<Map<String, dynamic>>? data = await TodoLocalAPI.read(t).request();
     if (data != null) {
-      return data as List<TodoEntity>;
+      List<TodoEntity> result = [];
+      for (Map<String, dynamic> element in data) {
+        result.add(TodoEntity.fromJson(element));
+      }
+      return result;
     } else {
       return null;
     }

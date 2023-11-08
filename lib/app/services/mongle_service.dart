@@ -20,8 +20,6 @@ class MongleeService extends GetxService {
             'CREATE TABLE $TODO_TABLE (todo_id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, start_time TEXT, end_time TEXT, title TEXT, todo_content TEXT, place TEXT, alarm TEXT, repeat TEXT, companion TEXT,  mbti TEXT)');
       });
     }
-    mongleeDB = await openDatabase(MONGLEE_DB);
-    logger.e(mongleeDB);
     return this;
   }
 

@@ -57,11 +57,11 @@ class ToDoItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (todoEntity.startTime != null)
+                  if (todoEntity.start_time != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
-                        (todoEntity.startTime ?? DateTime.now()).toString(),
+                        (todoEntity.start_time ?? DateTime.now()).toString(),
                         style: _contentsStyle,
                       ),
                     )
@@ -83,13 +83,13 @@ class ToDoItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _itemType(todoEntity.title ?? '', _ToDoType.title),
-                todoEntity.todoContent != null
+                todoEntity.todo_content != null
                     ? _itemType(
-                        todoEntity.todoContent ?? '', _ToDoType.contents)
+                        todoEntity.todo_content ?? '', _ToDoType.contents)
                     : const SizedBox.shrink(),
-                todoEntity.startTime != null && todoEntity.endTime != null
+                todoEntity.start_time != null && todoEntity.end_time != null
                     ? _itemType(
-                        '${todoEntity.startTime} - ${todoEntity.endTime}',
+                        '${todoEntity.start_time} - ${todoEntity.end_time}',
                         _ToDoType.time)
                     : const SizedBox.shrink(),
                 todoEntity.place != null

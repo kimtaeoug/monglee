@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,
-      home: HomePage(),
+      // home: HomePage(),
       // initialRoute: Routes.DIARY_EDIT_EMOTION,
       initialRoute: Routes.SPLASH,
       // initialRoute: AppPages.INITIAL,
