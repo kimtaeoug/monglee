@@ -66,6 +66,7 @@ class TodoController extends GetxController {
     } else {
       todoMap[key] = [todoData];
     }
+    todoMap.refresh();
   }
 
   String _convertTime(int a, int b) {

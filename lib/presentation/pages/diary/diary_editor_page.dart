@@ -11,6 +11,7 @@ import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/components/monglee_appbar.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
+import 'package:monglee/presentation/components/monglee_toast.dart';
 import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 
 class DiaryEditorPage extends StatefulWidget {
@@ -27,11 +28,13 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
   final GlobalKey _key = GlobalKey();
   final DiaryController diaryController = Get.find();
 
-  XFile? selectedImgFile = null;
+  XFile? selectedImgFile;
+  bool contentsFilled = false;
 
   @override
   void initState() {
     super.initState();
+    controller.addListener(_listenTextController);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (diaryController.diaryEditorHeight.value == 0) {
         diaryController.diaryEditorHeight.value =
@@ -40,8 +43,20 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
     });
   }
 
+  void _listenTextController() {
+    setState(() {
+      if (controller.text.isNotEmpty) {
+        contentsFilled = true;
+      } else {
+        contentsFilled = false;
+      }
+    });
+  }
+
   @override
   void dispose() {
+    controller.removeListener(_listenTextController);
+    controller.dispose();
     super.dispose();
   }
 
@@ -84,7 +99,19 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
               }),
               Padding(
                 padding: const EdgeInsets.only(bottom: 45, top: 70),
-                child: MongleeBtn(clickFuntion: () {}),
+                child: MongleeBtn(
+                  clickFuntion: () {
+                    if (contentsFilled) {
+                      diaryController.insertDiary(widget.emotion ?? 1,
+                          controller.text, selectedImgFile);
+                      MognleeToast.show(context: context, msg: '일기가 저장되었습니다!');
+                      Get.close(2);
+                    } else {
+                      MognleeToast.show(context: context, msg: '입력 내용이 부족합니다!');
+                    }
+                  },
+                  btnColor: contentsFilled ? primaryColor : gray200,
+                ),
               )
             ],
           ),
@@ -94,8 +121,10 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
           bottom: _galleryPosition(),
           child: GestureDetector(
             onTap: () {
-              setState(() async {
-                selectedImgFile = await PickerUtil.pick();
+              ImageUtil.pick().then((value) {
+                setState(() {
+                  selectedImgFile = value;
+                });
               });
             },
             child: SizedBox(
@@ -126,7 +155,8 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
                         image: DecorationImage(
                             image: FileImage(File(selectedImgFile!.path)),
                             fit: BoxFit.cover),
-                        borderRadius: const BorderRadius.all(Radius.circular(16))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16))),
                   ),
                 ),
               TextFormField(

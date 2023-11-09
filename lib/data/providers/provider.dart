@@ -5,6 +5,7 @@ import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/data/providers/local_request_representable.dart';
 
 import 'api_request_representable.dart';
+import 'local/local_db_helper.dart';
 
 class Provider {
   static final _singleTon = Provider();
@@ -15,12 +16,18 @@ class Provider {
     try {
       final storage = Get.find<MongleeService>();
       if (request.localTable == LocalTable.todo) {
-        return LocalTODOHelper(
+        return LocalDBHelper(
                 db: storage.db,
                 method: request.localMethod,
                 t: request.todoEntity)
-            .process();
-      } else {}
+            .requestTodo();
+      } else {
+        return LocalDBHelper(
+                db: storage.db,
+                method: request.localMethod,
+                d: request.diaryEntity)
+            .requestDiary();
+      }
     } catch (e) {
       logger.e(e);
     }

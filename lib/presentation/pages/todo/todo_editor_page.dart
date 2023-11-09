@@ -192,6 +192,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                             todoController.insertTodo();
                             MognleeToast.show(
                                 context: context, msg: '할 일이 저장되었습니다!');
+                            Get.back();
                           } else {
                             MognleeToast.show(
                                 context: context, msg: '입력 내용이 부족합니다!');

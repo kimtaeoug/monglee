@@ -1,6 +1,7 @@
 const String MONGLEE_DB = 'monglee_db';
 
 const String TODO_TABLE = 'TODO_TABLE';
+const String DIARY_TABLE = 'DIARY_TABLE';
 
 const int TODO_TYPE_ID = 100;
 const int DIARY_TYPE_ID = 200;

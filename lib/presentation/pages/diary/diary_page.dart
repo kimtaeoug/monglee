@@ -1,57 +1,91 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
-import 'package:monglee/presentation/pages/diary/widget/diary_common.dart';
+import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/domain/entities/diary_entity.dart';
+import 'package:monglee/presentation/components/common_ui.dart';
+import 'package:monglee/presentation/components/loading/monglee_network_img.dart';
+import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 
-class DiaryPage extends StatefulWidget {
-  const DiaryPage({Key? key}) : super(key: key);
+class DiaryPage extends StatelessWidget {
+  final DateTime nowDate;
 
-  @override
-  State<StatefulWidget> createState() => _DiaryPage();
-}
-
-class _DiaryPage extends State<DiaryPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  DiaryPage({Key? key, required this.nowDate}) : super(key: key);
 
   final TextStyle _style = Styler.style(color: gray400, height: 1.5);
-  final DiaryCommon diaryCommon = DiaryCommon();
+  final DiaryController diaryController = Get.find();
+  final CommonUI commonUI = CommonUI();
 
   @override
   Widget build(BuildContext context) {
+    return Obx(() {
+      Rx<DiaryEntity?> data =
+          diaryController.diaryMap[Time.refineDate(nowDate)].obs;
+      return CustomScrollView(
+        slivers: [
+          data.value != null
+              ? SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      if (data.value?.diary_img_url != null)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16, top: 27),
+                          child: diaryImgFromLocal(data.value!.diary_img_url!),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: SizedBox(
+                          width: Get.width,
+                          child: Text(
+                            data.value?.diary_content ?? '',
+                            style: _style,
+                            maxLines: null,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : SliverFillRemaining(
+                  child: Center(
+                    child: _empty(),
+                  ),
+                )
+        ],
+      );
+    });
+  }
+
+  Widget _empty() => Center(
+        child: commonUI.cottonItem(3, contentsAlter: '아직 작성한 일기가 없어요!'),
+      );
+
+  Widget diaryImg(String url) {
     return SizedBox(
-      width: Get.width,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            diaryCommon.diaryImg(
-                'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https://blog.kakaocdn.net/dn/btBe5w/btrbrTRrocO/K5zpt1sCfur14tKF1lVUYk/img.jpg'),
-            const SizedBox(
-              height: 16,
-            ),
-            Padding(padding: const  EdgeInsets.symmetric(horizontal: 24), child: Text(
-              _dummyText,
-              style: _style,
-              maxLines: null,
-            ),)
-          ],
-        ),
+      width: Get.width - 48,
+      height: (Get.width - 48) * 184 / 390,
+      child: MongleeNetWorkImage(
+        imgUrl: url,
+        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        imgWidth: Get.width - 48,
+        imgHeight: (Get.width - 48) * 184 / 390,
       ),
     );
   }
 
-  final String _dummyText = '''
-  국무회의는 대통령·국무총리와 15인 이상 30인 이하의 국무위원으로 구성한다. 선거와 국민투표의 공정한 관리 및 정당에 관한 사무를 처리하기 위하여 선거관리위원회를 둔다.
-국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 대법원과 각급법원의 조직은 법률로 정한다.
-  ''';
+  Widget diaryImgFromLocal(String url) {
+    final Uint8List data = base64Decode(url);
+    return Container(
+      width: Get.width - 48,
+      height: (Get.width - 48) * 184 / 390,
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          image: DecorationImage(image: MemoryImage(data), fit: BoxFit.cover)),
+    );
+  }
 }

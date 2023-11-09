@@ -49,7 +49,7 @@ class _HomePage extends State<HomePage> {
                       },
                     );
                   case 1:
-                    return SearchPage();
+                    return const SearchPage();
                   case 2:
                     return SettingPage();
                   default:

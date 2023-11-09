@@ -87,7 +87,9 @@ class ToDoOrDiaryPage extends StatelessWidget {
         onPageChanged: (value) {},
         itemBuilder: (context, idx) {
           return nowDiary
-              ? const DiaryPage()
+              ? DiaryPage(
+                  nowDate: date,
+                )
               : TodoPage(
                   nowDate: date,
                 );

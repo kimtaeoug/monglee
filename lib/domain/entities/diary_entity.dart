@@ -7,10 +7,10 @@ part 'diary_entity.freezed.dart';
 @freezed
 class DiaryEntity with _$DiaryEntity {
   const factory DiaryEntity(
-      {int? diaryIdx,
+      {int? diary_idx,
       int? emotion,
-      String? diaryContent,
-      String? diaryImgUrl,
+      String? diary_content,
+      String? diary_img_url,
       String? date}) = _DiaryEntity;
 
   const DiaryEntity._();

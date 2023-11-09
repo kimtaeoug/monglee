@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/pages/todo/to_do_item.dart';
@@ -17,23 +18,25 @@ class TodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      Rx<List<TodoEntity>?> data =
+          todoController.todoMap[Time.refineDate(nowDate)].obs;
       return CustomScrollView(
         slivers: [
-          todoController.todoMap[Time.refineDate(nowDate)]?.isNotEmpty == true
+          data.value?.isNotEmpty == true
               ? SliverToBoxAdapter(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
-                        todoController.todoMap[Time.refineDate(nowDate)]!.length,
+                        data.value!.length,
                         (index) => Padding(
                               padding: EdgeInsets.only(
                                   top: 16,
                                   bottom:
-                                      index == todoController.todoMap[Time.refineDate(nowDate)]!.length - 1 ? 16 : 0),
+                                      index == data.value!.length - 1 ? 16 : 0),
                               child: ToDoItem(
-                                todoEntity: todoController.todoMap[Time.refineDate(nowDate)]![index],
-                                isAlone: todoController.todoMap[Time.refineDate(nowDate)]!.length == 1,
+                                todoEntity: data.value![index],
+                                isAlone: data.value!.length == 1,
                               ),
                             )),
                   ),
@@ -49,6 +52,6 @@ class TodoPage extends StatelessWidget {
   }
 
   Widget _empty() => Center(
-        child: commonUI.cottonItem(3, contentsAlter: '아직 작성한 할일이 없어요!'),
+        child: commonUI.cottonItem(1, contentsAlter: '아직 작성한 할일이 없어요!'),
       );
 }
