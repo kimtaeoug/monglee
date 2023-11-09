@@ -7,31 +7,24 @@ import 'package:monglee/presentation/pages/home/widgets/monglee_calendar.dart';
 import 'package:monglee/presentation/pages/todo/todo_page.dart';
 import 'package:monglee/presentation/pages/todo_or_diary/widget/todo_or_diary_head.dart';
 
-class ToDoOrDiaryPage extends StatefulWidget {
-  const ToDoOrDiaryPage({Key? key}) : super(key: key);
+class ToDoOrDiaryPage extends StatelessWidget {
+  final bool nowTodo;
+  final Function(bool) clickFunction;
 
-  @override
-  State<StatefulWidget> createState() => _ToDoOrDiaryPage();
-}
+  ToDoOrDiaryPage(
+      {Key? key, required this.nowTodo, required this.clickFunction})
+      : super(key: key);
 
-class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
   final PageController pageController = PageController();
-  bool _isClick = false;
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
-  final TODController todController = Get.find();
-
   final GlobalKey _key = GlobalKey();
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final TODController todController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      Rx<DateTime> date = todController.sDate;
+      Rx<DateTime> sDate = todController.sDate;
       return Scaffold(
         backgroundColor: gray150,
         body: SizedBox(
@@ -44,7 +37,7 @@ class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     MongleeCaneldar(
-                      date: date.value,
+                      date: sDate.value,
                       selectedFunction: (d1, d2) {
                         todController.sDate.value = d1;
                       },
@@ -59,24 +52,15 @@ class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
                     ),
                     ToDoOrDiaryHead(
                       clickFunction: (clicked) {
-                        setState(() {
-                          _isClick = !_isClick;
-                        });
-                        if (_isClick == true) {
-                          pageController.animateToPage(1,
-                              duration: _animationDuration,
-                              curve: Curves.linear);
-                        } else {
-                          pageController.animateToPage(0,
-                              duration: _animationDuration,
-                              curve: Curves.linear);
-                        }
+                        clickFunction.call(nowTodo);
+                        pageController.animateToPage(nowTodo ? 1 : 0,
+                            duration: _animationDuration, curve: Curves.linear);
                       },
-                      dateTime: date.value,
+                      dateTime: sDate.value,
                     ),
                     Expanded(
                       key: _key,
-                      child: _pageView(date.value),
+                      child: _pageView(sDate.value),
                     )
                     // todController.widgetSize.value != 0
                     //     ? SizedBox(
@@ -102,7 +86,7 @@ class _ToDoOrDiaryPage extends State<ToDoOrDiaryPage> {
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) {},
         itemBuilder: (context, idx) {
-          return _isClick
+          return nowTodo
               ? const DiaryPage()
               : TodoPage(
                   nowDate: date,

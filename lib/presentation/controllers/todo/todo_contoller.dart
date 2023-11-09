@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
@@ -14,12 +15,24 @@ class TodoController extends GetxController {
       <DateTime, List<TodoEntity>>{}.obs;
 
   void initTodoList(DateTime time) async {
-    todoMap[Time.refineDate(time)] =
+    List<TodoEntity> data =
         await todoUseCase.read(TodoEntity(date: time.toIso8601String())) ?? [];
+    if (data.isNotEmpty) {
+      for (TodoEntity element in data) {
+        DateTime key = Time.refineDate(DateTime.parse(element.date!));
+        if (todoMap.containsKey(key)) {
+          todoMap[key]?.add(element);
+        } else {
+          todoMap[key] = [element];
+        }
+      }
+    }
   }
 
   void getTodoList(DateTime time) async {
-    if(!todoMap.containsKey(Time.refineDate(time))){
+    if (!todoMap.containsKey(Time.refineDate(time))) {
+      logger
+          .e(await todoUseCase.read(TodoEntity(date: time.toIso8601String())));
       todoMap[Time.refineDate(time)] =
           (await todoUseCase.read(TodoEntity(date: time.toIso8601String()))) ??
               [];
@@ -27,10 +40,11 @@ class TodoController extends GetxController {
   }
 
   void insertTodo() async {
-    todoUseCase.insert(TodoEntity(
+    DateTime now = DateTime.now();
+    TodoEntity todoData = TodoEntity(
         title: title.value,
         todo_content: contents.value,
-        date: DateTime.now().toIso8601String(),
+        date: now.toIso8601String(),
         place: location.value,
         start_time: startHour.value != -1
             ? _convertTime(startHour.value, startMinutes.value)
@@ -44,7 +58,14 @@ class TodoController extends GetxController {
             : null,
         alarm: selectedNotiIdx.value != -1
             ? selectedNotiIdx.value.toString()
-            : null));
+            : null);
+    todoUseCase.insert(todoData);
+    DateTime key = Time.refineDate(now);
+    if (todoMap.containsKey(key)) {
+      todoMap[key]?.add(todoData);
+    } else {
+      todoMap[key] = [todoData];
+    }
   }
 
   String _convertTime(int a, int b) {

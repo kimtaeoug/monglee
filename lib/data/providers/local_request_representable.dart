@@ -1,4 +1,5 @@
 import 'package:monglee/app/config/constants.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/domain/entities/diary_entity.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,8 +33,9 @@ class LocalTODOHelper {
         return await db.insert(TODO_TABLE, forInsert(t!));
       case LocalMethod.read:
         if (t?.date != null) {
+          logger.e('date : ${t?.date}');
           return await db
-              .query(TODO_TABLE, where: "date LIKE ?", whereArgs: [t!.date]);
+              .query(TODO_TABLE, where: "date >= ? AND date <= ?", whereArgs: _forMonthRead(t!.date!));
         } else {
           return null;
         }
@@ -58,4 +60,12 @@ class LocalTODOHelper {
     data.remove('todoId');
     return data;
   }
+
+  List<String> _forMonthRead(String date) {
+    DateTime dateTime = DateTime.parse(date);
+    DateTime fTime = DateTime(dateTime.year, dateTime.month, 0);
+    DateTime lTime = DateTime(dateTime.year, dateTime.month + 1, 0);
+    return [fTime.toIso8601String(), lTime.toIso8601String()];
+  }
+//DateTime dateTime = DateTime.parse(iso8601DateString);
 }
