@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 import 'package:monglee/presentation/pages/diary/diary_page.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_calendar.dart';
@@ -19,12 +20,13 @@ class ToDoOrDiaryPage extends StatelessWidget {
   final Duration _animationDuration = const Duration(milliseconds: 300);
 
   final GlobalKey _key = GlobalKey();
-  final TODController todController = Get.find();
+  final TODController tController = Get.find();
+  final DiaryController dController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      Rx<DateTime> sDate = todController.sDate;
+      Rx<DateTime> sDate = tController.sDate;
       return Scaffold(
         backgroundColor: gray150,
         body: SizedBox(
@@ -39,16 +41,17 @@ class ToDoOrDiaryPage extends StatelessWidget {
                     MongleeCaneldar(
                       date: sDate.value,
                       selectedFunction: (d1, d2) {
-                        todController.sDate.value = d1;
+                        tController.sDate.value = d1;
                       },
                       pageChangedFunction: (d) {
-                        todController.sDate.value = d;
+                        tController.sDate.value = d;
                       },
-                      calendarType: todController.calendarFormat.value,
+                      calendarType: tController.calendarFormat.value,
                       calendarTypeFunction: () {
-                        todController.calendarFormat.value =
-                            !todController.calendarFormat.value;
+                        tController.calendarFormat.value =
+                            !tController.calendarFormat.value;
                       },
+                      emotionMap: dController.emotionMap,
                     ),
                     ToDoOrDiaryHead(
                       clickFunction: (clicked) {

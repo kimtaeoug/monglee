@@ -47,4 +47,13 @@ extension EmotionUtil on EmotionType {
         return EmotionType.hap.state;
     }
   }
+
+  static String? getEmotionByDate(
+      DateTime calendarDate, DateTime emotionDate, int emotion) {
+    if (DateTime(calendarDate.year, calendarDate.month, calendarDate.day) ==
+        DateTime(emotionDate.year, emotionDate.month, emotionDate.day)) {
+      return getData(emotion, state: false);
+    }
+    return null;
+  }
 }

@@ -52,6 +52,6 @@ class TodoPage extends StatelessWidget {
   }
 
   Widget _empty() => Center(
-        child: commonUI.cottonItem(1, contentsAlter: '아직 작성한 할일이 없어요!'),
+        child: commonUI.cottonItem(2, contentsAlter: '아직 작성한 할일이 없어요!', betweenSpace: 16),
       );
 }

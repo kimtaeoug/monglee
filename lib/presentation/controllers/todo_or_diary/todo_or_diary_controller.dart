@@ -5,4 +5,5 @@ class TODController extends GetxController{
   Rx<double> widgetSize = 0.0.obs;
   //true - monthCalender, false - weekCalendar
   RxBool calendarFormat = false.obs;
+  RxBool nowTodo = false.obs;
 }

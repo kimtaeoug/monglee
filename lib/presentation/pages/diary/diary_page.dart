@@ -62,7 +62,7 @@ class DiaryPage extends StatelessWidget {
   }
 
   Widget _empty() => Center(
-        child: commonUI.cottonItem(3, contentsAlter: '아직 작성한 일기가 없어요!'),
+        child: commonUI.cottonItem(3, contentsAlter: '아직 작성한 일기가 없어요!', betweenSpace: 16),
       );
 
   Widget diaryImg(String url) {

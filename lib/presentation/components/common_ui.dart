@@ -38,6 +38,7 @@ class CommonUI {
     bool isTextBottom = true,
     double? space,
     double? size,
+    double? betweenSpace,
     Function(int)? function,
   }) {
     final String contents = EmotionUtil.getData(cottonIdx);
@@ -61,6 +62,10 @@ class CommonUI {
             height: size ?? 64,
             child: Image.asset('assets/images/cotton_$assetNumber.png'),
           ),
+          if(betweenSpace != null)
+            SizedBox(
+              height: betweenSpace,
+            ),
           if (isTextBottom == true)
             _cottonText(contentsAlter ?? contents,
                 isTextBottom: isTextBottom, space: space),

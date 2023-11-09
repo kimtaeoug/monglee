@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/emotion.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/extensions/time.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MongleeCaneldar extends StatelessWidget {
@@ -13,6 +13,7 @@ class MongleeCaneldar extends StatelessWidget {
   final Function(DateTime) pageChangedFunction;
   final bool calendarType;
   final Function() calendarTypeFunction;
+  final Map<DateTime, int> emotionMap;
 
   MongleeCaneldar(
       {Key? key,
@@ -20,7 +21,8 @@ class MongleeCaneldar extends StatelessWidget {
       required this.selectedFunction,
       required this.pageChangedFunction,
       required this.calendarType,
-      required this.calendarTypeFunction})
+      required this.calendarTypeFunction,
+      required this.emotionMap})
       : super(key: key);
 
   @override
@@ -89,21 +91,10 @@ class MongleeCaneldar extends StatelessWidget {
         }
         return null;
       }, defaultBuilder: (context, date, date2) {
-        return Center(
-          child: Text(
-            date.day.toString(),
-            style: _defaultStyle,
-          ),
-        );
+        return _emotionWidget(date);
       }, todayBuilder: (context, date, date2) {
-        return Center(
-          child: Text(
-            date.day.toString(),
-            style: _selectedDateStyle,
-          ),
-        );
+        return _emotionWidget(date, isSelected: true);
       }, selectedBuilder: (context, date, date2) {
-        logger.e('selectedDAte : $date, $date2');
         return Center(
           child: Text(
             date.day.toString(),
@@ -133,4 +124,25 @@ class MongleeCaneldar extends StatelessWidget {
           ),
         );
       });
+
+  Widget _emotionWidget(DateTime date, {bool isSelected = false}) {
+    DateTime d = DateTime(date.year, date.month, date.day);
+    if (emotionMap.containsKey(DateTime(date.year, date.month, date.day))) {
+      return Center(
+        child: SizedBox(
+          width: 24,
+          height: 24,
+          child: Image.asset(
+              'assets/images/cotton_${EmotionUtil.getData(emotionMap[d] ?? 1, state: false)}.png'),
+        ),
+      );
+    } else {
+      return Center(
+        child: Text(
+          date.day.toString(),
+          style: !isSelected ? _defaultStyle : _selectedDateStyle,
+        ),
+      );
+    }
+  }
 }

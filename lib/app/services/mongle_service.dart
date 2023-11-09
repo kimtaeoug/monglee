@@ -28,10 +28,10 @@ class MongleeService extends GetxService {
             'companion TEXT,  '
             'mbti TEXT)');
         await db.execute('CREATE TABLE $DIARY_TABLE '
-            '(diary_idx INTEGER PRIMARY KEY AUTOINCREMENT, '
+            '(diary_id INTEGER PRIMARY KEY AUTOINCREMENT, '
             'emotion INTEGER, '
             'diary_content TEXT, '
-            'diary_img_url BLOB, '
+            'diary_img_url TEXT, '
             'date TEXT)');
       });
     }

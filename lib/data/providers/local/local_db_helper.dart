@@ -16,7 +16,7 @@ class LocalDBHelper {
     switch (method) {
       case LocalMethod.insert:
         if(t!=null){
-          return await db.insert(TODO_TABLE, _forInsert(t!));
+          return await db.insert(TODO_TABLE, _forInsertTodo(t!));
         }
         return null;
       case LocalMethod.read:
@@ -41,7 +41,7 @@ class LocalDBHelper {
     switch (method) {
       case LocalMethod.insert:
         if(d != null){
-          return await db.insert(DIARY_TABLE, _forInsert(d!));
+          return await db.insert(DIARY_TABLE, _forInsertDiary(d!));
         }else{
           return null;
         }
@@ -60,22 +60,26 @@ class LocalDBHelper {
     }
   }
 
-  Map<String, dynamic> _forInsert(dynamic input) {
-    late Map<String, dynamic> data;
-    if (input is TodoEntity) {
-      data = input.toJson();
-      data.remove('todo_id');
-    } else {
-      data = (input as DiaryEntity).toJson();
-      data.remove('diary_id');
-    }
-    data = data.map((key, value) {
+  Map<String, dynamic> _forInsertTodo(TodoEntity input) {
+    Map<String, dynamic> data = input.toJson().map((key, value) {
       if (value == null) {
         return MapEntry(key, '');
       } else {
         return MapEntry(key, value);
       }
     });
+    data.remove('todo_id');
+    return data;
+  }
+  Map<String, dynamic> _forInsertDiary(DiaryEntity input) {
+    Map<String, dynamic> data = input.toJson().map((key, value) {
+      if (value == null) {
+        return MapEntry(key, '');
+      } else {
+        return MapEntry(key, value);
+      }
+    });
+    data.remove('diary_id');
     return data;
   }
 

@@ -24,7 +24,7 @@ class DiaryLocalAPI extends LocalRequestRepresentable {
   DiaryEntity? get diaryEntity => d;
 
   @override
-  LocalTable get localTable => LocalTable.todo;
+  LocalTable get localTable => LocalTable.diary;
 
   @override
   TodoEntity? get todoEntity => null;

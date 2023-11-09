@@ -15,6 +15,7 @@ class DiaryController extends GetxController {
   RxDouble diaryEditorHeight = 0.0.obs;
 
   final RxMap<DateTime, DiaryEntity> diaryMap = <DateTime, DiaryEntity>{}.obs;
+  final RxMap<DateTime, int> emotionMap = <DateTime, int>{}.obs;
 
   void initDiaryList(DateTime time) async {
     List<DiaryEntity> data =
@@ -23,18 +24,18 @@ class DiaryController extends GetxController {
     if (data.isNotEmpty) {
       for (DiaryEntity element in data) {
         DateTime key = Time.refineDate(DateTime.parse(element.date!));
-        if (diaryMap.containsKey(key)) {
-          diaryMap.update(key, (value) => element);
-        } else {
-          diaryMap[key] = element;
-        }
+        diaryMap[key] = element;
+        emotionMap[key] = element.emotion ?? 1;
       }
     }
+    diaryMap.refresh();
+    emotionMap.refresh();
   }
 
   void insertDiary(int emotion, String? diaryContent, XFile? imgFile) async {
     DateTime now = DateTime.now();
     DiaryEntity diaryEntity = DiaryEntity(
+        emotion: emotion,
         diary_content: diaryContent,
         diary_img_url: imgFile != null
             ? base64Encode(await ImageUtil.saveToUint8List(imgFile))
@@ -42,11 +43,8 @@ class DiaryController extends GetxController {
         date: now.toIso8601String());
     diaryUseCase.insert(diaryEntity);
     DateTime key = Time.refineDate(now);
-    if (diaryMap.containsKey(key)) {
-      diaryMap.update(key, (value) => diaryEntity);
-    } else {
-      diaryMap[key] = diaryEntity;
-    }
+    diaryMap[key] = diaryEntity;
+    emotionMap[key] = emotion;
     diaryMap.refresh();
   }
 }
