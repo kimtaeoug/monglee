@@ -1,6 +1,7 @@
 import 'package:monglee/data/providers/local_request_representable.dart';
 import 'package:monglee/data/providers/provider.dart';
 import 'package:monglee/domain/entities/diary_entity.dart';
+import 'package:monglee/domain/entities/setting_entity.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 
 class TodoLocalAPI extends LocalRequestRepresentable {
@@ -31,4 +32,7 @@ class TodoLocalAPI extends LocalRequestRepresentable {
 
   @override
   TodoEntity? get todoEntity => t;
+
+  @override
+  SettingEntity? get settingEntity => null;
 }

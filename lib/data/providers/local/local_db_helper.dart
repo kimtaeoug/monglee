@@ -1,6 +1,7 @@
 import 'package:monglee/app/config/constants.dart';
 import 'package:monglee/data/providers/local_request_representable.dart';
 import 'package:monglee/domain/entities/diary_entity.dart';
+import 'package:monglee/domain/entities/setting_entity.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -9,13 +10,15 @@ class LocalDBHelper {
   final LocalMethod method;
   TodoEntity? t;
   DiaryEntity? d;
+  SettingEntity? s;
 
-  LocalDBHelper({required this.db, required this.method, this.t, this.d});
+  LocalDBHelper(
+      {required this.db, required this.method, this.t, this.d, this.s});
 
   Future requestTodo() async {
     switch (method) {
       case LocalMethod.insert:
-        if(t!=null){
+        if (t != null) {
           return await db.insert(TODO_TABLE, _forInsertTodo(t!));
         }
         return null;
@@ -40,9 +43,9 @@ class LocalDBHelper {
   Future requestDiary() async {
     switch (method) {
       case LocalMethod.insert:
-        if(d != null){
+        if (d != null) {
           return await db.insert(DIARY_TABLE, _forInsertDiary(d!));
-        }else{
+        } else {
           return null;
         }
       case LocalMethod.read:
@@ -50,6 +53,28 @@ class LocalDBHelper {
           return await db.query(DIARY_TABLE,
               where: "date >= ? AND date <= ?",
               whereArgs: _forMonthRead(d!.date!));
+        } else {
+          return null;
+        }
+      case LocalMethod.update:
+        break;
+      case LocalMethod.delete:
+        break;
+    }
+  }
+
+  Future requestSetting() async {
+    switch (method) {
+      case LocalMethod.insert:
+        if (s != null) {
+          return await db.insert(SETTING_TABLE, _forInsertSetting(s!),
+              conflictAlgorithm: ConflictAlgorithm.replace);
+        } else {
+          return null;
+        }
+      case LocalMethod.read:
+        if (d?.date != null) {
+          return await db.rawQuery('SELECT * FROM $SETTING_TABLE');
         } else {
           return null;
         }
@@ -71,6 +96,7 @@ class LocalDBHelper {
     data.remove('todo_id');
     return data;
   }
+
   Map<String, dynamic> _forInsertDiary(DiaryEntity input) {
     Map<String, dynamic> data = input.toJson().map((key, value) {
       if (value == null) {
@@ -80,6 +106,17 @@ class LocalDBHelper {
       }
     });
     data.remove('diary_id');
+    return data;
+  }
+
+  Map<String, dynamic> _forInsertSetting(SettingEntity input) {
+    Map<String, dynamic> data = input.toJson().map((key, value) {
+      if (value == null) {
+        return MapEntry(key, '');
+      } else {
+        return MapEntry(key, value);
+      }
+    });
     return data;
   }
 

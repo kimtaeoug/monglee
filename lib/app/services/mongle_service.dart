@@ -33,6 +33,12 @@ class MongleeService extends GetxService {
             'diary_content TEXT, '
             'diary_img_url TEXT, '
             'date TEXT)');
+        await db.execute('CREATE TABLE $SETTING_TABLE '
+            '(profile_img_url TEXT, '
+            'alarm TEXT, '
+            'nickname TEXT, '
+            'mbti TEXT, '
+            'is_public TEXT)');
       });
     }
     return this;

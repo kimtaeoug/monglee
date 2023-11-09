@@ -15,18 +15,25 @@ class Provider {
   Future requestLocal(LocalRequestRepresentable request) async {
     try {
       final storage = Get.find<MongleeService>();
-      if (request.localTable == LocalTable.todo) {
-        return LocalDBHelper(
-                db: storage.db,
-                method: request.localMethod,
-                t: request.todoEntity)
-            .requestTodo();
-      } else {
-        return LocalDBHelper(
-                db: storage.db,
-                method: request.localMethod,
-                d: request.diaryEntity)
-            .requestDiary();
+      switch (request.localTable) {
+        case LocalTable.todo:
+          return LocalDBHelper(
+                  db: storage.db,
+                  method: request.localMethod,
+                  t: request.todoEntity)
+              .requestTodo();
+        case LocalTable.diary:
+          return LocalDBHelper(
+                  db: storage.db,
+                  method: request.localMethod,
+                  d: request.diaryEntity)
+              .requestDiary();
+        case LocalTable.setting:
+          return LocalDBHelper(
+                  db: storage.db,
+                  method: request.localMethod,
+                  s: request.settingEntity)
+              .requestDiary();
       }
     } catch (e) {
       logger.e(e);
