@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
+import 'package:monglee/app/routes/app_routes.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/components/monglee_appbar.dart';
+
 class DiaryEmotionPage extends StatelessWidget {
   DiaryEmotionPage({Key? key}) : super(key: key);
 
@@ -29,12 +32,13 @@ class DiaryEmotionPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                commonUI.cottonItem(2, '행복'),
+                commonUI.cottonItem(0, function: _moveToDiaryEditorPage),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 48),
-                  child: commonUI.cottonItem(3, '기쁨'),
+                  child:
+                      commonUI.cottonItem(1, function: _moveToDiaryEditorPage),
                 ),
-                commonUI.cottonItem(1, '평온'),
+                commonUI.cottonItem(2, function: _moveToDiaryEditorPage),
               ],
             ),
           ),
@@ -42,16 +46,20 @@ class DiaryEmotionPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              commonUI.cottonItem(3, '우울'),
+              commonUI.cottonItem(3, function: _moveToDiaryEditorPage),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 48),
-                child: commonUI.cottonItem(1, '화남'),
+                child: commonUI.cottonItem(4, function: _moveToDiaryEditorPage),
               ),
-              commonUI.cottonItem(4, '슬픔'),
+              commonUI.cottonItem(5, function: _moveToDiaryEditorPage),
             ],
           )
         ],
       ),
     );
+  }
+
+  void _moveToDiaryEditorPage(int emotion) {
+    Get.toNamed(Routes.DIARY_EDIT_CONTENTS, arguments: {'emotion': emotion});
   }
 }

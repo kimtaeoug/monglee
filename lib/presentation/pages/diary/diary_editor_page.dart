@@ -1,15 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/picker.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/util/monglee_util.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/components/monglee_appbar.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
+import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 
 class DiaryEditorPage extends StatefulWidget {
-  const DiaryEditorPage({Key? key}) : super(key: key);
+  final int? emotion = Get.arguments['emotion'] as int;
+
+  DiaryEditorPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DiaryEditorPage();
@@ -17,10 +24,20 @@ class DiaryEditorPage extends StatefulWidget {
 
 class _DiaryEditorPage extends State<DiaryEditorPage> {
   final TextEditingController controller = TextEditingController();
+  final GlobalKey _key = GlobalKey();
+  final DiaryController diaryController = Get.find();
+
+  XFile? selectedImgFile = null;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (diaryController.diaryEditorHeight.value == 0) {
+        diaryController.diaryEditorHeight.value =
+            MongleeUtil.widgetSize(_key)?.height ?? 0;
+      }
+    });
   }
 
   @override
@@ -47,42 +64,26 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               commonUI.cottonItem(
-                3,
-                '오늘의 감정',
+                widget.emotion ?? 1,
+                contentsAlter: '오늘의 감정',
                 isTextBottom: false,
               ),
               const SizedBox(
                 height: 24,
               ),
-              Expanded(
-                  child: SizedBox(
-                width: Get.width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: TextFormField(
-                    minLines: 1,
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    controller: controller,
-                    onTap: () {},
-                    onChanged: (value) {},
-                    onEditingComplete: () {},
-                    onFieldSubmitted: (value) {},
-                    style: _contentsStyle,
-                    textInputAction: TextInputAction.go,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        focusedErrorBorder: InputBorder.none,
-                        hintStyle: _hintStyle,
-                        hintText: 'Jay님 오늘은 어떤 하루였나요?'),
-                  ),
-                ),
-              )),
+              Obx(() {
+                RxDouble height = diaryController.diaryEditorHeight;
+                if (height.value != 0) {
+                  return SizedBox(
+                    height: height.value,
+                    child: _textWidget(),
+                  );
+                } else {
+                  return Expanded(key: _key, child: _textWidget());
+                }
+              }),
               Padding(
-                padding: const EdgeInsets.only(bottom: 45),
+                padding: const EdgeInsets.only(bottom: 45, top: 70),
                 child: MongleeBtn(clickFuntion: () {}),
               )
             ],
@@ -91,13 +92,67 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
         Positioned(
           right: 24,
           bottom: _galleryPosition(),
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: SvgPicture.asset('assets/images/gallery_icon.svg'),
+          child: GestureDetector(
+            onTap: () {
+              setState(() async {
+                selectedImgFile = await PickerUtil.pick();
+              });
+            },
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: SvgPicture.asset('assets/images/gallery_icon.svg'),
+            ),
           ),
         )
       ],
+    );
+  }
+
+  Widget _textWidget() {
+    return SizedBox(
+      width: Get.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (selectedImgFile != null)
+                AspectRatio(
+                  aspectRatio: 343 / 183,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: FileImage(File(selectedImgFile!.path)),
+                            fit: BoxFit.cover),
+                        borderRadius: const BorderRadius.all(Radius.circular(16))),
+                  ),
+                ),
+              TextFormField(
+                minLines: 1,
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                controller: controller,
+                onTap: () {},
+                onChanged: (value) {},
+                onEditingComplete: () {},
+                onFieldSubmitted: (value) {},
+                style: _contentsStyle,
+                textInputAction: TextInputAction.go,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    hintStyle: _hintStyle,
+                    hintText: 'Jay님 오늘은 어떤 하루였나요?'),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/emotion.dart';
 import 'package:monglee/app/extensions/styler.dart';
 
 class CommonUI {
@@ -31,22 +32,40 @@ class CommonUI {
   ///
   /// Cotton
   ///
-  Widget cottonItem(int cottonIdx, String contents,
-      {bool isTextBottom = true, double? space, double? size}) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        if (isTextBottom == false)
-          _cottonText(contents, isTextBottom: isTextBottom, space: space),
-        SizedBox(
-          width: size ?? 64,
-          height: size ?? 64,
-          child: Image.asset('assets/images/cotton_$cottonIdx.png'),
-        ),
-        if (isTextBottom == true)
-          _cottonText(contents, isTextBottom: isTextBottom, space: space),
-      ],
+  Widget cottonItem(
+    int cottonIdx, {
+    String? contentsAlter,
+    bool isTextBottom = true,
+    double? space,
+    double? size,
+    Function(int)? function,
+  }) {
+    final String contents = EmotionUtil.getData(cottonIdx);
+    final int assetNumber =
+        int.parse(EmotionUtil.getData(cottonIdx, state: false));
+    return GestureDetector(
+      onTap: () {
+        if (function != null) {
+          function.call(cottonIdx);
+        }
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (isTextBottom == false)
+            _cottonText(contentsAlter ?? contents,
+                isTextBottom: isTextBottom, space: space),
+          SizedBox(
+            width: size ?? 64,
+            height: size ?? 64,
+            child: Image.asset('assets/images/cotton_$assetNumber.png'),
+          ),
+          if (isTextBottom == true)
+            _cottonText(contentsAlter ?? contents,
+                isTextBottom: isTextBottom, space: space),
+        ],
+      ),
     );
   }
 

@@ -26,7 +26,7 @@ class _HomePage extends State<HomePage> {
     super.initState();
   }
 
-  bool _nowTodo = false;
+  bool _nowDiary = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +41,10 @@ class _HomePage extends State<HomePage> {
                 switch (idx) {
                   case 0:
                     return ToDoOrDiaryPage(
-                      nowTodo: _nowTodo,
+                      nowDiary: _nowDiary,
                       clickFunction: (value) {
                         setState(() {
-                          _nowTodo = !value;
+                          _nowDiary = !value;
                         });
                       },
                     );
@@ -83,7 +83,7 @@ class _HomePage extends State<HomePage> {
 
   Widget _floatingBtn() {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.TODO_WRITE),
+      onTap: () => Get.toNamed(!_nowDiary ? Routes.TODO_WRITE : Routes.DIARY_EDIT_EMOTION),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),
         child: Container(

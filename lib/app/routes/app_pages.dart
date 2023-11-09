@@ -44,7 +44,7 @@ class AppPages {
         binding: MongleeBindings(route: Routes.DIARY_EDIT_EMOTION)),
     GetPage(
         name: Routes.DIARY_EDIT_CONTENTS,
-        page: () => const DiaryEditorPage(),
+        page: () => DiaryEditorPage(),
         binding: MongleeBindings(route: Routes.DIARY_EDIT_CONTENTS))
   ];
 }

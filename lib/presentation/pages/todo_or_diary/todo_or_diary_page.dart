@@ -8,11 +8,11 @@ import 'package:monglee/presentation/pages/todo/todo_page.dart';
 import 'package:monglee/presentation/pages/todo_or_diary/widget/todo_or_diary_head.dart';
 
 class ToDoOrDiaryPage extends StatelessWidget {
-  final bool nowTodo;
+  final bool nowDiary;
   final Function(bool) clickFunction;
 
   ToDoOrDiaryPage(
-      {Key? key, required this.nowTodo, required this.clickFunction})
+      {Key? key, required this.nowDiary, required this.clickFunction})
       : super(key: key);
 
   final PageController pageController = PageController();
@@ -52,8 +52,8 @@ class ToDoOrDiaryPage extends StatelessWidget {
                     ),
                     ToDoOrDiaryHead(
                       clickFunction: (clicked) {
-                        clickFunction.call(nowTodo);
-                        pageController.animateToPage(nowTodo ? 1 : 0,
+                        clickFunction.call(nowDiary);
+                        pageController.animateToPage(nowDiary ? 1 : 0,
                             duration: _animationDuration, curve: Curves.linear);
                       },
                       dateTime: sDate.value,
@@ -86,7 +86,7 @@ class ToDoOrDiaryPage extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (value) {},
         itemBuilder: (context, idx) {
-          return nowTodo
+          return nowDiary
               ? const DiaryPage()
               : TodoPage(
                   nowDate: date,
