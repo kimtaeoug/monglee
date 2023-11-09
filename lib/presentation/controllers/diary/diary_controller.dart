@@ -17,7 +17,9 @@ class DiaryController extends GetxController {
   final RxMap<DateTime, DiaryEntity> diaryMap = <DateTime, DiaryEntity>{}.obs;
   final Rx<Map<DateTime, int>> emotionMap = <DateTime, int>{}.obs.obs;
 
+  final RxBool diaryLoading = false.obs;
   void initDiaryList(DateTime time) async {
+    diaryLoading.value = true;
     List<DiaryEntity> data =
         await diaryUseCase.read(DiaryEntity(date: time.toIso8601String())) ??
             [];
@@ -30,6 +32,25 @@ class DiaryController extends GetxController {
     }
     diaryMap.refresh();
     emotionMap.refresh();
+    diaryLoading.value = false;
+  }
+  void getDiaryList(DateTime time) async{
+    if(!diaryMap.containsKey(Time.refineDate(time))){
+      diaryLoading.value = true;
+      List<DiaryEntity> data =
+          await diaryUseCase.read(DiaryEntity(date: time.toIso8601String())) ??
+              [];
+      if (data.isNotEmpty) {
+        for (DiaryEntity element in data) {
+          DateTime key = Time.refineDate(DateTime.parse(element.date!));
+          diaryMap[key] = element;
+          emotionMap.value[key] = element.emotion ?? 1;
+        }
+      }
+      diaryMap.refresh();
+      emotionMap.refresh();
+      diaryLoading.value = false;
+    }
   }
 
   void insertDiary(int emotion, String? diaryContent, XFile? imgFile) async {

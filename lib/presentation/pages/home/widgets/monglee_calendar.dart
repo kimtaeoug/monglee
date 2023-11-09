@@ -48,7 +48,9 @@ class MongleeCaneldar extends StatelessWidget {
             calendarBuilders: _calendarBuilders(),
             startingDayOfWeek: StartingDayOfWeek.monday,
             availableGestures: AvailableGestures.horizontalSwipe,
-            onDaySelected: selectedFunction),
+            onDaySelected: selectedFunction,
+            onPageChanged: pageChangedFunction,
+        ),
       ),
     );
   }

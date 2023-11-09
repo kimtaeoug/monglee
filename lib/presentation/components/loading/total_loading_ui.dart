@@ -5,7 +5,8 @@ import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/presentation/components/loading/loading_widget/monglee_loading_widget.dart';
 
 class TotalLoadingUI extends StatelessWidget {
-  const TotalLoadingUI({Key? key}) : super(key: key);
+  final Color? backgroundColor;
+  TotalLoadingUI({Key? key, this.backgroundColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class TotalLoadingUI extends StatelessWidget {
         child: Container(
           width: Get.width,
           height: Get.height,
-          color: Colors.black.withOpacity(0.5),
+          color: backgroundColor ?? Colors.black.withOpacity(0.5),
           child: Center(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

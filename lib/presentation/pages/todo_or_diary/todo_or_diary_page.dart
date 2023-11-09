@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
+import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 import 'package:monglee/presentation/pages/diary/diary_page.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_calendar.dart';
@@ -22,20 +23,21 @@ class ToDoOrDiaryPage extends StatelessWidget {
   final GlobalKey _key = GlobalKey();
   final TODController tController = Get.find();
   final DiaryController dController = Get.find();
+  final TodoController todoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      Rx<DateTime> sDate = tController.sDate;
-      return Scaffold(
-        backgroundColor: gray150,
-        body: SizedBox(
-          width: Get.width,
-          height: Get.height,
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                child: Column(
+    return Scaffold(
+      backgroundColor: gray150,
+      body: SizedBox(
+        width: Get.width,
+        height: Get.height,
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: Obx(() {
+                Rx<DateTime> sDate = tController.sDate;
+                return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     MongleeCaneldar(
@@ -45,11 +47,13 @@ class ToDoOrDiaryPage extends StatelessWidget {
                       },
                       pageChangedFunction: (d) {
                         tController.sDate.value = d;
+                        todoController.getTodoList(d);
+                        dController.getDiaryList(d);
                       },
                       calendarType: tController.calendarFormat.value,
                       calendarTypeFunction: () {
                         tController.calendarFormat.value =
-                            !tController.calendarFormat.value;
+                        !tController.calendarFormat.value;
                       },
                       emotionMap: dController.emotionMap.value,
                     ),
@@ -57,7 +61,8 @@ class ToDoOrDiaryPage extends StatelessWidget {
                       clickFunction: (clicked) {
                         clickFunction.call(nowDiary);
                         pageController.animateToPage(nowDiary ? 1 : 0,
-                            duration: _animationDuration, curve: Curves.linear);
+                            duration: _animationDuration,
+                            curve: Curves.linear);
                       },
                       dateTime: sDate.value,
                     ),
@@ -74,13 +79,13 @@ class ToDoOrDiaryPage extends StatelessWidget {
                     //         child: _pageView(date.value),
                     //       )
                   ],
-                ),
-              )
-            ],
-          ),
+                );
+              }),
+            )
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 
   Widget _pageView(DateTime date) {
