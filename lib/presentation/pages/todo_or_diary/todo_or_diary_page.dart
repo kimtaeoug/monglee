@@ -51,7 +51,7 @@ class ToDoOrDiaryPage extends StatelessWidget {
                         tController.calendarFormat.value =
                             !tController.calendarFormat.value;
                       },
-                      emotionMap: dController.emotionMap,
+                      emotionMap: dController.emotionMap.value,
                     ),
                     ToDoOrDiaryHead(
                       clickFunction: (clicked) {

@@ -15,7 +15,7 @@ class DiaryController extends GetxController {
   RxDouble diaryEditorHeight = 0.0.obs;
 
   final RxMap<DateTime, DiaryEntity> diaryMap = <DateTime, DiaryEntity>{}.obs;
-  final RxMap<DateTime, int> emotionMap = <DateTime, int>{}.obs;
+  final Rx<Map<DateTime, int>> emotionMap = <DateTime, int>{}.obs.obs;
 
   void initDiaryList(DateTime time) async {
     List<DiaryEntity> data =
@@ -25,7 +25,7 @@ class DiaryController extends GetxController {
       for (DiaryEntity element in data) {
         DateTime key = Time.refineDate(DateTime.parse(element.date!));
         diaryMap[key] = element;
-        emotionMap[key] = element.emotion ?? 1;
+        emotionMap.value[key] = element.emotion ?? 1;
       }
     }
     diaryMap.refresh();
@@ -44,7 +44,7 @@ class DiaryController extends GetxController {
     diaryUseCase.insert(diaryEntity);
     DateTime key = Time.refineDate(now);
     diaryMap[key] = diaryEntity;
-    emotionMap[key] = emotion;
+    emotionMap.value[key] = emotion;
     diaryMap.refresh();
   }
 }
