@@ -9,7 +9,7 @@ import 'package:monglee/presentation/components/common_ui.dart';
 class ChangeUI extends StatelessWidget {
   final SettingChangeType type;
   final String currentValue;
-  final Function() function;
+  final Function(String) function;
 
   ChangeUI(
       {Key? key,
@@ -66,9 +66,11 @@ class ChangeUI extends StatelessWidget {
             runSpacing: 4,
             children: List.generate(
                 dataList.length,
-                (index) => _commonUI.mbtiChip(
-                    dataList[index].toUpperCase(), mbtiColor(dataList[index]),
-                    function: function)),
+                (index) => GestureDetector(
+                      onTap: () => function.call(dataList[index]),
+                      child: _commonUI.mbtiChip(dataList[index].toUpperCase(),
+                          mbtiColor(dataList[index])),
+                    )),
           ),
           const SizedBox(
             height: 12,

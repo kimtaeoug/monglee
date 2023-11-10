@@ -5,23 +5,10 @@ import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 
-class SettingUserInfo extends StatefulWidget {
-  const SettingUserInfo({Key? key}) : super(key: key);
+class SettingUserInfo extends StatelessWidget {
+  final String mbti;
 
-  @override
-  State<StatefulWidget> createState() => _SettingUserInfo();
-}
-
-class _SettingUserInfo extends State<SettingUserInfo> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  SettingUserInfo({Key? key, required this.mbti}) : super(key: key);
 
   final CommonUI commonUI = CommonUI();
 
@@ -73,10 +60,13 @@ class _SettingUserInfo extends State<SettingUserInfo> {
             //     )
             //   ],
             // ),
-            Text('My MBTI', style: _userNickNameStyle,),
+            Text(
+              'My MBTI',
+              style: _userNickNameStyle,
+            ),
             commonUI.mbtiChip(
-              'INFJ',
-              lightCoral,
+              mbti.toUpperCase(),
+              mbtiColor(mbti),
             )
           ]),
     );

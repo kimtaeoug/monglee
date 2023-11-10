@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/setting_change_type.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/app/util/version_util.dart';
 import 'package:monglee/data/models/setting_item_model.dart';
+import 'package:monglee/presentation/components/monglee_toast.dart';
 import 'package:monglee/presentation/controllers/setting/setting_controller.dart';
 import 'package:monglee/presentation/pages/setting/widgets/change_ui.dart';
 import 'package:monglee/presentation/pages/setting/widgets/setting_component.dart';
@@ -20,50 +22,57 @@ class SettingPage extends StatelessWidget {
       width: Get.width,
       height: Get.height,
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: AppBar().preferredSize.height,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: SettingUserInfo(),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            commonUI.settingContainer('내 정보', myInfoList),
-            const SizedBox(
-              height: 16,
-            ),
-            commonUI.settingContainer('테마 정보', themeList),
-            const SizedBox(
-              height: 16,
-            ),
-            commonUI.settingContainer('설정', settingList),
-            const SizedBox(
-              height: 26,
-            )
-          ],
-        ),
+        child: Obx(() {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: AppBar().preferredSize.height,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SettingUserInfo(
+                  mbti: sController.mbti.value,
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              commonUI.settingContainer('내 정보', myInfoList(context)),
+              const SizedBox(
+                height: 16,
+              ),
+              commonUI.settingContainer('테마 정보', themeList(context)),
+              const SizedBox(
+                height: 16,
+              ),
+              commonUI.settingContainer('설정', settingList),
+              const SizedBox(
+                height: 26,
+              )
+            ],
+          );
+        }),
       ),
     );
   }
 
-  late final List<SettingItemModel> myInfoList = [
-    // SettingItemModel(title: '닉네임 변경', function: () {}),
-    SettingItemModel(title: 'MBTI 변경', function: () => _change.call())
-  ];
+  List<SettingItemModel> myInfoList(BuildContext context) => [
+        // SettingItemModel(title: '닉네임 변경', function: () {}),
+        SettingItemModel(
+            title: 'MBTI 변경', function: () => _change.call(context))
+      ];
 
-  late final List<SettingItemModel> themeList = [
-    SettingItemModel(
-        title: '폰트 변경',
-        function: () => _change.call(type: SettingChangeType.font)),
-    SettingItemModel(
-        title: '테마 변경',
-        function: () => _change.call(type: SettingChangeType.theme))
-  ];
+  List<SettingItemModel> themeList(BuildContext context) => [
+        SettingItemModel(
+            title: '폰트 변경',
+            function: () =>
+                _change.call(context, type: SettingChangeType.font)),
+        SettingItemModel(
+            title: '테마 변경',
+            function: () =>
+                _change.call(context, type: SettingChangeType.theme))
+      ];
   late final List<SettingItemModel> settingList = [
     // SettingItemModel(
     //     title: '내 일정 공개',
@@ -87,7 +96,26 @@ class SettingPage extends StatelessWidget {
   ];
   final VersionUtil versionUtil = VersionUtil();
 
-  void _change({SettingChangeType type = SettingChangeType.mbti}) {
-    Get.bottomSheet(ChangeUI(type: type, currentValue: '', function: () {}));
+  void _change(BuildContext context,
+      {SettingChangeType type = SettingChangeType.mbti}) {
+    Get.bottomSheet(ChangeUI(
+        type: type,
+        currentValue: '',
+        function: (value) {
+          switch (type) {
+            case SettingChangeType.mbti:
+              sController.mbti.value = value;
+              break;
+            case SettingChangeType.font:
+              sController.font.value = value;
+              break;
+            case SettingChangeType.theme:
+              sController.theme.value = value;
+              break;
+          }
+          sController.insertData();
+          Get.back();
+          MognleeToast.show(context: context, msg: '변경 내용이 저장되었습니다!');
+        }));
   }
 }

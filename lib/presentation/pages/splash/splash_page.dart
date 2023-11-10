@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/app/util/version_util.dart';
+import 'package:monglee/presentation/controllers/setting/setting_controller.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -12,13 +14,20 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPage extends State<SplashPage> {
+  final SettingController sController = Get.find();
+  final VersionUtil versionUtil = VersionUtil();
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Get.toNamed(Routes.HOME);
-      // Get.toNamed(Routes.LOGIN);
-    });
+    sController.initSettingData();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      versionUtil.initAppVersion();
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        Get.toNamed(Routes.HOME);
+        // Get.toNamed(Routes.LOGIN);
+      });
+    });
   }
 
   @override

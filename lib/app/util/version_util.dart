@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:yaml/yaml.dart';
 
 class VersionUtil {
@@ -10,19 +11,14 @@ class VersionUtil {
 
   factory VersionUtil() => _util;
 
-  final String _path = 'pubspec.yaml';
+  final String pubspecPath = '/pubspec.yaml';
 
   final ValueNotifier<String> _version = ValueNotifier<String>('1.0.0');
 
   String get version => _version.value;
 
-  void initAppVersion() {
-    File file = File(_path);
-    String contents = file.readAsStringSync();
-    Map<String, dynamic> pubspec = loadYaml(contents);
-    dynamic rawVersion = pubspec['version'];
-    if (rawVersion is String) {
-      _version.value = rawVersion;
-    }
+  void initAppVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    _version.value = packageInfo.version;
   }
 }

@@ -31,10 +31,10 @@ class MongleeBindings extends Bindings {
       case Routes.LOGIN:
         break;
       case Routes.SPLASH:
-        break;
-      case Routes.MBTI_SETTING:
         Get.put(SettingUseCase(Get.find<SettingLocalRepoImpl>()));
         Get.put(SettingController(Get.find()));
+        break;
+      case Routes.MBTI_SETTING:
         break;
       case Routes.SEARCH:
         break;
