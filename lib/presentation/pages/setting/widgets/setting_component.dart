@@ -18,7 +18,7 @@ class SettingComponent {
 
   Widget settingItem(SettingItemModel input, {bool isVersion = false}) {
     return GestureDetector(
-      onTap: () => input.function.call(),
+      onTap: () => input.function?.call(),
       child: SizedBox(
         height: 40,
         child: Center(
@@ -121,7 +121,7 @@ class SettingComponent {
                   input.title,
                   style: _settingTitleStyle,
                 ),
-                ToggleSwitch(clickFuntion: (value) => input.function.call())
+                ToggleSwitch(clickFuntion: (value) => input.function?.call())
               ],
             ),
           ),

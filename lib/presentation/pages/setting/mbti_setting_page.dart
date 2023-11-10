@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/mbti.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/routes/app_routes.dart';
-import 'package:monglee/app/util/mbti_util.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
 
@@ -27,6 +27,7 @@ class _MbtiSettingPage extends State<MbtiSettingPage> {
   }
 
   final CommonUI commonUI = CommonUI();
+  final List<String> _mbtiList = MBTIUtil.mbtilList();
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +52,15 @@ class _MbtiSettingPage extends State<MbtiSettingPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _mbtiItem(MBTIUtil.getMBTIItem(
-                        selectdIdx != -1 ? MBTIUtil.mbtiList[selectdIdx] : '')),
+                        selectdIdx != -1 ?_mbtiList[selectdIdx] : '')),
                     _mbtiItem(MBTIUtil.getMBTIItem(
-                        selectdIdx != -1 ? MBTIUtil.mbtiList[selectdIdx] : '',
+                        selectdIdx != -1 ? _mbtiList[selectdIdx] : '',
                         idx: 1)),
                     _mbtiItem(MBTIUtil.getMBTIItem(
-                        selectdIdx != -1 ? MBTIUtil.mbtiList[selectdIdx] : '',
+                        selectdIdx != -1 ? _mbtiList[selectdIdx] : '',
                         idx: 2)),
                     _mbtiItem(MBTIUtil.getMBTIItem(
-                        selectdIdx != -1 ? MBTIUtil.mbtiList[selectdIdx] : '',
+                        selectdIdx != -1 ? _mbtiList[selectdIdx] : '',
                         idx: 3))
                   ],
                 )
@@ -151,10 +152,10 @@ class _MbtiSettingPage extends State<MbtiSettingPage> {
                   }
                 },
                 children: List.generate(
-                    MBTIUtil.mbtiList.length,
+                    _mbtiList.length,
                     (index) => Center(
                           child: Text(
-                            MBTIUtil.mbtiList[index].toUpperCase(),
+                            _mbtiList[index].toUpperCase(),
                             style: selectdIdx == index
                                 ? _pickerItemStyle
                                 : _unSelectedItemStyle,

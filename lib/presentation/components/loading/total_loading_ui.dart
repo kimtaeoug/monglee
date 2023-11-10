@@ -6,7 +6,7 @@ import 'package:monglee/presentation/components/loading/loading_widget/monglee_l
 
 class TotalLoadingUI extends StatelessWidget {
   final Color? backgroundColor;
-  TotalLoadingUI({Key? key, this.backgroundColor}) : super(key: key);
+  const TotalLoadingUI({Key? key, this.backgroundColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

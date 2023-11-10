@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
-import 'package:monglee/app/util/mbti_util.dart';
+import 'package:monglee/app/extensions/mbti.dart';
 import 'package:monglee/data/models/search_item_model.dart';
 import 'package:monglee/data/models/todo_model.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
@@ -18,7 +18,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPage extends State<SearchPage> {
   final SearchCommon searchCommon = SearchCommon();
   final CommonUI commonUI = CommonUI();
-  final List<String> _mbtiList = MBTIUtil.mbtiList;
+  final List<String> _mbtiList = MBTIUtil.mbtilList();
 
   @override
   void initState() {

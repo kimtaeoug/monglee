@@ -6,12 +6,18 @@ part 'setting_entity.freezed.dart';
 
 @freezed
 class SettingEntity with _$SettingEntity {
-  const factory SettingEntity(
-      {String? profile_img_url,
-      String? alarm,
-      String? nickname,
-      String? mbti,
-      String? is_public}) = _SettingEntity;
+  const factory SettingEntity({
+    String? mbti,
+    String? alarm,
+    String? font,
+    String? theme
+  }) = _SettingEntity;
+  // const factory SettingEntity(
+  //     {String? profile_img_url,
+  //     String? alarm,
+  //     String? nickname,
+  //     String? mbti,
+  //     String? is_public}) = _SettingEntity;
 
   const SettingEntity._();
 

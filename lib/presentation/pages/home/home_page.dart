@@ -55,9 +55,9 @@ class _HomePage extends State<HomePage> {
                         },
                       );
                     });
+                  // case 1:
+                  //   return const SearchPage();
                   case 1:
-                    return const SearchPage();
-                  case 2:
                     return SettingPage();
                   default:
                     return Container();
@@ -65,15 +65,18 @@ class _HomePage extends State<HomePage> {
               }),
           bottomNavigationBar: MongleeBottomNavi(onTap: (idx) {
             if (mounted) {
-              if (_currentIdx == 0 && idx == 2) {
-                pageController.jumpToPage(idx);
-              } else if (_currentIdx == 2 && idx == 0) {
-                pageController.jumpToPage(idx);
-              } else {
-                pageController.animateToPage(idx,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.bounceInOut);
-              }
+              pageController.animateToPage(idx,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.bounceInOut);
+              // if (_currentIdx == 0 && idx == 2) {
+              //   pageController.jumpToPage(idx);
+              // } else if (_currentIdx == 2 && idx == 0) {
+              //   pageController.jumpToPage(idx);
+              // } else {
+              //   pageController.animateToPage(idx,
+              //       duration: const Duration(milliseconds: 300),
+              //       curve: Curves.bounceInOut);
+              // }
               setState(() {
                 _currentIdx = idx;
               });

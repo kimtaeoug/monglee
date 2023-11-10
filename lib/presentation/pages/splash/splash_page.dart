@@ -27,16 +27,33 @@ class _SplashPage extends State<SplashPage> {
   }
 
   final TextStyle _titleStyle = Styler.style(
-      fontWeight: FontWeight.w700, fontSize: 48, color: Colors.white, fontType: FontType.uhbeeem);
+      fontWeight: FontWeight.w700,
+      fontSize: 48,
+      color: Colors.white,
+      fontType: FontType.uhbeeem);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
       body: Center(
-        child: Text(
-          '몽글이',
-          style: _titleStyle,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 72,
+              height: 72,
+              child: Image.asset('assets/images/cotton_3.png'),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              '몽글이',
+              style: _titleStyle,
+            )
+          ],
         ),
       ),
     );

@@ -34,45 +34,46 @@ class _SettingUserInfo extends State<SettingUserInfo> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: SizedBox(
-                    width: 64,
-                    height: 64,
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 64,
-                          height: 64,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: gallery),
-                        ),
-                        Positioned(
-                            right: 0,
-                            bottom: 0,
-                            child: SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: SvgPicture.asset(
-                                  'assets/images/edit_icon.svg'),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  'UserNickName',
-                  style: _userNickNameStyle,
-                )
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {},
+            //       child: SizedBox(
+            //         width: 64,
+            //         height: 64,
+            //         child: Stack(
+            //           children: [
+            //             Container(
+            //               width: 64,
+            //               height: 64,
+            //               decoration: const BoxDecoration(
+            //                   shape: BoxShape.circle, color: gallery),
+            //             ),
+            //             Positioned(
+            //                 right: 0,
+            //                 bottom: 0,
+            //                 child: SizedBox(
+            //                   width: 24,
+            //                   height: 24,
+            //                   child: SvgPicture.asset(
+            //                       'assets/images/edit_icon.svg'),
+            //                 ))
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       width: 16,
+            //     ),
+            //     Text(
+            //       'UserNickName',
+            //       style: _userNickNameStyle,
+            //     )
+            //   ],
+            // ),
+            Text('My MBTI', style: _userNickNameStyle,),
             commonUI.mbtiChip(
               'INFJ',
               lightCoral,

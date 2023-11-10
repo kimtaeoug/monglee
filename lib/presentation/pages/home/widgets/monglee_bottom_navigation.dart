@@ -59,8 +59,8 @@ class _MongleeBottomNavi extends State<MongleeBottomNavi> {
   final List<_BottomModel> _bottomNaviList = [
     _BottomModel(
         image: 'assets/images/calendar_icon.svg', text: '일정', selected: false),
-    _BottomModel(
-        image: 'assets/images/search_icon.svg', text: 'MBTI', selected: false),
+    // _BottomModel(
+    //     image: 'assets/images/search_icon.svg', text: 'MBTI', selected: false),
     _BottomModel(
         image: 'assets/images/profile_icon.svg', text: '마이', selected: false),
   ];
