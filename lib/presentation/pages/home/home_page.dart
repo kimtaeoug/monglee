@@ -7,7 +7,6 @@ import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
 import 'package:monglee/presentation/pages/home/widgets/monglee_bottom_navigation.dart';
-import 'package:monglee/presentation/pages/search/search_page.dart';
 import 'package:monglee/presentation/pages/setting/setting_page.dart';
 import 'package:monglee/presentation/pages/todo_or_diary/todo_or_diary_page.dart';
 

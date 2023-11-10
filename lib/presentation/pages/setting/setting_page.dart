@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:monglee/app/extensions/setting_change_type.dart';
 import 'package:monglee/app/util/version_util.dart';
 import 'package:monglee/data/models/setting_item_model.dart';
 import 'package:monglee/presentation/controllers/setting/setting_controller.dart';
+import 'package:monglee/presentation/pages/setting/widgets/change_ui.dart';
 import 'package:monglee/presentation/pages/setting/widgets/setting_component.dart';
 import 'package:monglee/presentation/pages/setting/widgets/setting_user_info.dart';
 
@@ -49,14 +51,18 @@ class SettingPage extends StatelessWidget {
     );
   }
 
-  final List<SettingItemModel> myInfoList = [
+  late final List<SettingItemModel> myInfoList = [
     // SettingItemModel(title: '닉네임 변경', function: () {}),
-    SettingItemModel(title: 'MBTI 변경', function: () {})
+    SettingItemModel(title: 'MBTI 변경', function: () => _change.call())
   ];
 
-  final List<SettingItemModel> themeList = [
-    SettingItemModel(title: '폰트 변경', function: () {}),
-    SettingItemModel(title: '테마 변경', function: () {})
+  late final List<SettingItemModel> themeList = [
+    SettingItemModel(
+        title: '폰트 변경',
+        function: () => _change.call(type: SettingChangeType.font)),
+    SettingItemModel(
+        title: '테마 변경',
+        function: () => _change.call(type: SettingChangeType.theme))
   ];
   late final List<SettingItemModel> settingList = [
     // SettingItemModel(
@@ -66,7 +72,10 @@ class SettingPage extends StatelessWidget {
     //     type: SettingItemType.toggle),
     SettingItemModel(
         title: '알림',
-        function: () {},
+        function: () {
+          sController.alarm.value = !sController.alarm.value;
+          sController.insertData();
+        },
         otherData: '서비스 관련 알림을 보내드려요.',
         type: SettingItemType.toggle),
     SettingItemModel(
@@ -77,4 +86,8 @@ class SettingPage extends StatelessWidget {
     // SettingItemModel(title: '회원탈퇴', function: () {})
   ];
   final VersionUtil versionUtil = VersionUtil();
+
+  void _change({SettingChangeType type = SettingChangeType.mbti}) {
+    Get.bottomSheet(ChangeUI(type: type, currentValue: '', function: () {}));
+  }
 }

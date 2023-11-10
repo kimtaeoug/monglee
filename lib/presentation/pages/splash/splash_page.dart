@@ -38,7 +38,7 @@ class _SplashPage extends State<SplashPage> {
       backgroundColor: primaryColor,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(

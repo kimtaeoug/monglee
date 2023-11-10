@@ -106,7 +106,7 @@ class CommonUI {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(8)),
-            color: color.withOpacity(0.5)),
+            color: color.withOpacity(0.3)),
         padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
         child: Text(
           text,
