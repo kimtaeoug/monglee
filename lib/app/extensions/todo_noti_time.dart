@@ -13,6 +13,6 @@ enum TodoNotiTime {
       TodoNotiTime.values.where((element) => element.code == code).first;
 }
 
-extension TodoNotiTimeUtil on TodoNotiTime{
+extension TodoNotiTimeUtil on TodoNotiTime {
   List<TodoNotiTime> getAll() => TodoNotiTime.values.toList();
 }

@@ -1,6 +1,11 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:monglee/app/config/constants.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/todo_noti_time.dart';
+import 'package:monglee/app/extensions/todo_repeat.dart';
 import 'package:monglee/app/util/monglee_logger.dart';
+import 'package:timezone/standalone.dart' as tz;
+import 'package:timezone/standalone.dart';
 
 @pragma('vm:entry-point')
 class PushUtil {
@@ -68,7 +73,6 @@ class PushUtil {
     'high_importance_channel', // id
     'High Importance Notifications', // title
     description: 'This channel is used for important notifications.',
-    // description
     importance: Importance.high,
   );
 
@@ -76,62 +80,115 @@ class PushUtil {
     String title,
     String body,
   ) async {
-    await _pushPlugin
-        .show(0, title, body, NotificationDetails(android: aosDetail, iOS: iosDetail));
-    logger.e('hey!');
+    await _pushPlugin.show(0, title, body, _details);
   }
 
-  static AndroidNotificationDetails aosDetail = AndroidNotificationDetails(
-      channel.id, channel.name,
-      actions: <AndroidNotificationAction>[],
-      icon: '@mipmap/ic_launcher',
-      channelDescription: channel.description,
-      importance: Importance.high,
-      color: primaryColor,
-      priority: Priority.high);
-  static DarwinNotificationDetails iosDetail = DarwinNotificationDetails(
-    presentAlert: true,
-    presentBadge: true,
-    presentSound: true,
-  );
+  static final NotificationDetails _details = NotificationDetails(
+      android: AndroidNotificationDetails(channel.id, channel.name,
+          actions: <AndroidNotificationAction>[],
+          icon: '@mipmap/ic_launcher',
+          channelDescription: channel.description,
+          importance: Importance.high,
+          color: primaryColor,
+          priority: Priority.high),
+      iOS: const DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true,
+      ));
 
-//  //Local Push
-//   static Future<void> pushLocalPush(String songTitle, String language) async {
-//     AndroidNotificationDetails android = AndroidNotificationDetails(
-//         channel.id, channel.name,
-//         channelDescription: channel.description,
-//         icon: '@drawable/ic_notification');
-//     late String content;
-//     if (language == 'ko') {
-//       content = '[$songTitle] 업로드 완료! 보컬 분석은 최대 2일이 소요됩니다. 정성을 다해 볼게요❤️';
-//     } else {
-//       content =
-//           '[$songTitle] Uploaded! The analysis takes two days at maximum. I’ll try my best❤️️';
-//     }
-//     await flutterLocalNotificationsPlugin
-//         .show(DateTime.now().microsecond, 'TUNEGEM', content,
-//             NotificationDetails(android: android),
-//             payload: HomeRoute.my.value)
-//         .then((value) {});
-//   }
-//
-//   static Future<void> pushFailLocalPush(
-//       String songTitle, String language) async {
-//     //ic_notification
-//     AndroidNotificationDetails android = AndroidNotificationDetails(
-//         channel.id, channel.name,
-//         channelDescription: channel.description,
-//         icon: '@drawable/ic_notification');
-//     late String content;
-//     if (language == 'ko') {
-//       content = '[$songTitle] 업로드 실패. 다시 시도해 주세요 😢';
-//     } else {
-//       content = '[$songTitle] failed to upload. Try again 😢';
-//     }
-//     await flutterLocalNotificationsPlugin
-//         .show(DateTime.now().microsecond, 'TUNEGEM', content,
-//             NotificationDetails(android: android),
-//             payload: '${HomeRoute.my.value}?pop_up=true')
-//         .then((value) {});
-//   }
+  static tz.TZDateTime? _timeSetting(TodoNotiTime todoNotiTime,
+      {TodoRepeat todoRepeat = TodoRepeat.noRepeat}) {
+    Location location = tz.getLocation(seoulTime);
+    tz.initializeTimeZone();
+    tz.setLocalLocation(location);
+    tz.TZDateTime _now = tz.TZDateTime.now(location);
+    switch (todoNotiTime) {
+      case TodoNotiTime.noTime:
+        return null;
+      case TodoNotiTime.minutes10Ago:
+        return _dateSetting(
+            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+                _now.minute - 10),
+            todoRepeat);
+      case TodoNotiTime.minutes30Ago:
+        return _dateSetting(
+            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+                _now.minute - 30),
+            todoRepeat);
+      case TodoNotiTime.minutes60Ago:
+        return _dateSetting(
+            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+                _now.minute - 60),
+            todoRepeat);
+    }
+  }
+
+  static tz.TZDateTime _dateSetting(tz.TZDateTime time, TodoRepeat repeat) {
+    switch (repeat) {
+      case TodoRepeat.noRepeat:
+        return time;
+      case TodoRepeat.weekdays:
+        break;
+      case TodoRepeat.weekends:
+        break;
+      case TodoRepeat.dailys:
+        break;
+      case TodoRepeat.wfMon:
+        break;
+      case TodoRepeat.mfMon:
+        break;
+    }
+  }
+
+  static void reserveTime(int pushId, String title, TodoNotiTime todoNotiTime,
+      {String? contents, TodoRepeat todoRepeat = TodoRepeat.noRepeat}) async {
+    await _pushPlugin.zonedSchedule(
+        pushId, title, contents ?? title, _timeSetting(todoNotiTime)!, _details,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidScheduleMode: AndroidScheduleMode.exact,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
+    switch (todoRepeat) {
+      case TodoRepeat.noRepeat:
+        return;
+      case TodoRepeat.weekdays:
+        // TODO: Handle this case.
+        break;
+      case TodoRepeat.weekends:
+        // TODO: Handle this case.
+        break;
+      case TodoRepeat.dailys:
+        await _pushPlugin.periodicallyShow(
+          pushId,
+          title,
+          contents ?? title,
+          RepeatInterval.daily,
+          _details,
+          androidScheduleMode: AndroidScheduleMode.exact,
+        );
+        break;
+      case TodoRepeat.wfMon:
+        // TODO: Handle this case.
+        break;
+      case TodoRepeat.mfMon:
+        // TODO: Handle this case.
+        break;
+    }
+  }
+
+//await _localNotification.zonedSchedule(
+//       1,
+//       '로컬 푸시 알림 2',
+//       '특정 날짜 / 시간대 전송 알림',
+//       _timeZoneSetting(),
+//       _details,
+//       uiLocalNotificationDateInterpretation:
+//           UILocalNotificationDateInterpretation.absoluteTime,
+//       androidAllowWhileIdle: true,
+//     );
+
+  void clearAllPush() {
+    _pushPlugin.cancelAll();
+  }
 }

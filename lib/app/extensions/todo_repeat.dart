@@ -17,8 +17,9 @@ enum TodoRepeat {
 
 extension TodoRepeatUtil on TodoRepeat {
   List<TodoRepeat> getAll() => TodoRepeat.values.toList();
-  static String codeOfTodoRepeat(int input){
-    switch(input){
+
+  static String codeOfTodoRepeat(int input) {
+    switch (input) {
       case -1:
         return 'n';
       case 0:
