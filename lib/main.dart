@@ -2,9 +2,13 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/services/mongle_service.dart';
 import 'package:monglee/app/util/dependency.dart';
+import 'package:monglee/app/util/precache_image.dart';
+import 'package:monglee/app/util/push_util.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
@@ -12,6 +16,9 @@ import 'app/routes/app_routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  WakelockPlus.enable();
+  PushUtil.initPush();
   Zone.current.run(() async {
     DependencyCreator.init();
     await Get.putAsync(() => MongleeService().init());
@@ -20,12 +27,23 @@ void main() async {
         useOnlyLangCode: true,
         supportedLocales: const [Locale('ko', 'KR')],
         path: 'assets/translations',
-        child: const MyApp()));
+        child: const Monglee()));
   });
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Monglee extends StatefulWidget {
+  const Monglee({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _Monglee();
+}
+
+class _Monglee extends State<Monglee> {
+  @override
+  void initState() {
+    super.initState();
+    PrecacheImageUtil.precacheImageFromAsset(context);
+  }
 
   @override
   Widget build(BuildContext context) {

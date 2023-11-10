@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/app/util/push_util.dart';
 import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
 import 'package:monglee/presentation/controllers/todo_or_diary/todo_or_diary_controller.dart';
@@ -92,8 +93,9 @@ class _HomePage extends State<HomePage> {
 
   Widget _floatingBtn() {
     return GestureDetector(
-      onTap: () => Get.toNamed(
-          !todController.nowTodo.value ? Routes.TODO_WRITE : Routes.DIARY_EDIT_EMOTION),
+      onTap: () => PushUtil.showNotificationWithAction('hey', 'hi'),
+      // onTap: () => Get.toNamed(
+      //     !todController.nowTodo.value ? Routes.TODO_WRITE : Routes.DIARY_EDIT_EMOTION),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),
         child: Container(
