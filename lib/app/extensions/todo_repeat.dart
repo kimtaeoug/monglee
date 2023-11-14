@@ -2,9 +2,9 @@ enum TodoRepeat {
   noRepeat('n', '반복안함'),
   weekdays('wd', '주중 매일(월~금)'),
   weekends('we', '주말마다'),
-  dailys('dy', '매일'),
-  wfMon('wf_mon', '매주 첫 번째 월요일'),
-  mfMon('mf_mon', '매달 첫 번째 월요일');
+  dailys('dy', '매일');
+  // wfMon('wf_mon', '매주 첫 번째 월요일'),
+  // mfMon('mf_mon', '매달 첫 번째 월요일');
 
   final String code;
   final String contents;
@@ -30,10 +30,10 @@ extension TodoRepeatUtil on TodoRepeat {
         return 'we';
       case 3:
         return 'dy';
-      case 4:
-        return 'wf_mon';
-      case 5:
-        return 'mf_mon';
+      // case 4:
+      //   return 'wf_mon';
+      // case 5:
+      //   return 'mf_mon';
       default:
         return 'n';
     }

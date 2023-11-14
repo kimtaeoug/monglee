@@ -5,6 +5,8 @@ import 'package:monglee/app/extensions/todo_noti_time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
 import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:timezone/standalone.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/tzdata.dart' as tz;
 import 'package:timezone/standalone.dart';
 
 @pragma('vm:entry-point')
@@ -80,7 +82,17 @@ class PushUtil {
     String title,
     String body,
   ) async {
-    await _pushPlugin.show(0, title, body, _details);
+    Location location = tz.getLocation(seoulTime);
+    tz.initializeTimeZone();
+    tz.setLocalLocation(location);
+    tz.TZDateTime now = tz.TZDateTime.now(location);
+    await _pushPlugin.zonedSchedule(
+        1, title, 'hey', tz.TZDateTime(now.location, now.year, now.minute), _details,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        androidScheduleMode: AndroidScheduleMode.exact,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
+    // await _pushPlugin.show(0, title, body, _details);
   }
 
   static final NotificationDetails _details = NotificationDetails(
@@ -107,42 +119,40 @@ class PushUtil {
       case TodoNotiTime.noTime:
         return null;
       case TodoNotiTime.minutes10Ago:
-        return _dateSetting(
-            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
-                _now.minute - 10),
-            todoRepeat);
+        return  tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+            _now.minute - 30);
       case TodoNotiTime.minutes30Ago:
-        return _dateSetting(
-            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
-                _now.minute - 30),
-            todoRepeat);
+        return  tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+            _now.minute - 30);
       case TodoNotiTime.minutes60Ago:
-        return _dateSetting(
-            tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
-                _now.minute - 60),
-            todoRepeat);
+        return  tz.TZDateTime(location, _now.year, _now.month, _now.day, _now.hour,
+            _now.minute - 30);
     }
   }
+  //       tz.TZDateTime.now(tz.local)
+  //             .withHour(time.hour)
+  //             .withMinute(time.minute)
+  //             .withSecond(time.second),
 
-  static tz.TZDateTime _dateSetting(tz.TZDateTime time, TodoRepeat repeat) {
-    switch (repeat) {
-      case TodoRepeat.noRepeat:
-        return time;
-      case TodoRepeat.weekdays:
-        break;
-      case TodoRepeat.weekends:
-        break;
-      case TodoRepeat.dailys:
-        break;
-      case TodoRepeat.wfMon:
-        break;
-      case TodoRepeat.mfMon:
-        break;
-    }
-  }
+  // static tz.TZDateTime _dateSetting(tz.TZDateTime time, TodoRepeat repeat) {
+  //   switch (repeat) {
+  //     case TodoRepeat.noRepeat:
+  //       return time;
+  //     case TodoRepeat.weekdays:
+  //       break;
+  //     case TodoRepeat.weekends:
+  //       break;
+  //     case TodoRepeat.dailys:
+  //       break;
+  //   }
+  // }
 
   static void reserveTime(int pushId, String title, TodoNotiTime todoNotiTime,
       {String? contents, TodoRepeat todoRepeat = TodoRepeat.noRepeat}) async {
+    Location location = tz.getLocation(seoulTime);
+    tz.initializeTimeZone();
+    tz.setLocalLocation(location);
+    DateTime now = DateTime.now();
     await _pushPlugin.zonedSchedule(
         pushId, title, contents ?? title, _timeSetting(todoNotiTime)!, _details,
         uiLocalNotificationDateInterpretation:
@@ -151,9 +161,20 @@ class PushUtil {
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
     switch (todoRepeat) {
       case TodoRepeat.noRepeat:
+        await _pushPlugin.zonedSchedule(
+            pushId, title, contents ?? title, _timeSetting(todoNotiTime)!, _details,
+            uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+            androidScheduleMode: AndroidScheduleMode.exact,
+            matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
         return;
       case TodoRepeat.weekdays:
-        // TODO: Handle this case.
+        await _pushPlugin.zonedSchedule(
+            pushId, title, contents ?? title, tz.TZDateTime.now(tz.local), _details,
+            uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+            androidScheduleMode: AndroidScheduleMode.exact,
+            matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime);
         break;
       case TodoRepeat.weekends:
         // TODO: Handle this case.
@@ -167,12 +188,6 @@ class PushUtil {
           _details,
           androidScheduleMode: AndroidScheduleMode.exact,
         );
-        break;
-      case TodoRepeat.wfMon:
-        // TODO: Handle this case.
-        break;
-      case TodoRepeat.mfMon:
-        // TODO: Handle this case.
         break;
     }
   }
