@@ -21,15 +21,20 @@ class _SplashPage extends State<SplashPage> {
 
   @override
   void initState() {
-    sController.initSettingData();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       versionUtil.initAppVersion();
-      NotificationUtil.displayNotificationRationale((){
-        Get.toNamed(Routes.HOME);
-      }, () {
-        MongleeToast.show(context: context, msg: '알림시 알림이 오지않습니다.');
-        Get.toNamed(Routes.HOME);
+      sController.initSettingData().then((_){
+        if(sController.mbti.value != ''){
+          Get.toNamed(Routes.HOME);
+        }else{
+          NotificationUtil.displayNotificationRationale(() {
+            Get.toNamed(Routes.MBTI_SETTING);
+          }, () {
+            MongleeToast.show(context: context, msg: '알림 미동의시 알림이 오지않습니다.');
+            Get.toNamed(Routes.MBTI_SETTING);
+          });
+        }
       });
     });
   }

@@ -12,7 +12,7 @@ class SettingController extends GetxController {
   RxString font = ''.obs;
   RxString theme = ''.obs;
 
-  void initSettingData() async {
+  Future<void> initSettingData() async {
     List<SettingEntity> response = await settingUseCase.read() ?? [];
     if (response.isNotEmpty) {
       SettingEntity data = response.first;

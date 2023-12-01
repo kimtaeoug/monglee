@@ -32,7 +32,7 @@ class Provider {
                   db: storage.db,
                   method: request.localMethod,
                   s: request.settingEntity)
-              .requestDiary();
+              .requestSetting();
       }
     } catch (e) {
       logger.e(e);

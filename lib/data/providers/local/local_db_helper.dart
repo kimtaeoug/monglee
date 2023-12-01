@@ -67,17 +67,12 @@ class LocalDBHelper {
     switch (method) {
       case LocalMethod.insert:
         if (s != null) {
-          return await db.insert(SETTING_TABLE, _forInsertSetting(s!),
-              conflictAlgorithm: ConflictAlgorithm.replace);
+          return await db.insert(SETTING_TABLE, _forInsertSetting(s!));
         } else {
           return null;
         }
       case LocalMethod.read:
-        if (d?.date != null) {
-          return await db.rawQuery('SELECT * FROM $SETTING_TABLE');
-        } else {
-          return null;
-        }
+        return await db.rawQuery('SELECT * FROM $SETTING_TABLE');
       case LocalMethod.update:
         break;
       case LocalMethod.delete:

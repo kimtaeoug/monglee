@@ -6,6 +6,7 @@ import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/routes/app_routes.dart';
 import 'package:monglee/presentation/components/common_ui.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
+import 'package:monglee/presentation/controllers/setting/setting_controller.dart';
 
 
 class MbtiSettingPage extends StatefulWidget {
@@ -16,6 +17,8 @@ class MbtiSettingPage extends StatefulWidget {
 }
 
 class _MbtiSettingPage extends State<MbtiSettingPage> {
+  final SettingController sController = Get.find();
+
   @override
   void initState() {
     super.initState();
@@ -83,6 +86,8 @@ class _MbtiSettingPage extends State<MbtiSettingPage> {
                     textStyle: selectdIdx != -1 ? null : _unSelectedBtnStyle,
                     clickFuntion: () {
                       if (selectdIdx != -1) {
+                        sController.mbti.value = MBTIUtil.getMBTIByIdx(selectdIdx);
+                        sController.insertData();
                         Get.toNamed(Routes.HOME);
                       }
                     })
