@@ -4,14 +4,20 @@ import 'package:get/get.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart' as t;
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/app/util/monglee_util.dart';
 
 import '../../app/extensions/styler.dart';
 
 class MongleeTimeInput extends StatefulWidget {
   final bool isStart;
   final Function(t.Time)? selectedTimeFunction;
+  final t.Time initTime;
 
-  const MongleeTimeInput({Key? key, this.isStart = true, this.selectedTimeFunction})
+  const MongleeTimeInput(
+      {Key? key,
+      this.isStart = true,
+      this.selectedTimeFunction,
+      required this.initTime})
       : super(key: key);
 
   @override
@@ -19,7 +25,9 @@ class MongleeTimeInput extends StatefulWidget {
 }
 
 class _MongleeTimeInput extends State<MongleeTimeInput> {
-  t.Time _time = t.Time(hour: 11, minute: 30, second: 20);
+  t.Time _time = t.Time(hour: 0, minute: 30, second: 20);
+
+  bool changed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,7 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
                   if (mounted) {
                     setState(() {
                       _time = value;
+                      changed = true;
                     });
                   }
                 }
@@ -75,21 +84,7 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
               const SizedBox(
                 height: 8,
               ),
-              SizedBox(
-                  width: (Get.width - 72) / 2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${_time.hour}:${_time.minute}',
-                        style: _timeStyle,
-                      ),
-                      Text(
-                        Time.isAMorPM(_time.hour) ? 'AM' : 'PM',
-                        style: _timeStyle,
-                      )
-                    ],
-                  )),
+              _timeData(changed ? _time : widget.initTime),
               const SizedBox(
                 height: 12,
               ),
@@ -107,4 +102,22 @@ class _MongleeTimeInput extends State<MongleeTimeInput> {
       Styler.style(color: dustyGray, fontWeight: FontWeight.w500);
   final TextStyle _timeStyle =
       Styler.style(fontSize: 16, fontWeight: FontWeight.w600);
+
+  Widget _timeData(t.Time input) {
+    return SizedBox(
+        width: (Get.width - 72) / 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${MongleeUtil.tenDigitConverter(input.hour)}:${MongleeUtil.tenDigitConverter(input.minute)}',
+              style: _timeStyle,
+            ),
+            Text(
+              Time.isAMorPM(input.hour) ? 'AM' : 'PM',
+              style: _timeStyle,
+            )
+          ],
+        ));
+  }
 }

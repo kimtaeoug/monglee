@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/time.dart';
+import 'package:monglee/app/extensions/todo_noti_time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
 import 'package:monglee/app/util/monglee_util.dart';
+import 'package:monglee/app/util/notification_util.dart';
 import 'package:monglee/domain/entities/todo_entity.dart';
 import 'package:monglee/domain/usecases/todo_usecase.dart';
 
@@ -31,6 +33,7 @@ class TodoController extends GetxController {
     }
     todoLoading.value = false;
   }
+
   void getTodoList(DateTime time) async {
     if (!todoMap.containsKey(Time.refineDate(time))) {
       todoLoading.value = true;
@@ -50,6 +53,10 @@ class TodoController extends GetxController {
       todoLoading.value = false;
     }
   }
+
+  ///
+  /// editor
+  ///
 
   void insertTodo() async {
     DateTime now = DateTime.now();
@@ -79,7 +86,35 @@ class TodoController extends GetxController {
       todoMap[key] = [todoData];
     }
     todoMap.refresh();
+    if (isAfterNow() && selectedNotiIdx.value != -1) {
+      NotificationUtil.schedulingNotification(
+          DateTime(selectedDate.value.year, selectedDate.value.month,
+              selectedDate.value.day, startHour.value, startMinutes.value),
+          title.value,
+          contents.value,
+          notiTime: TodoNotiTimeUtil.getTimeByIdx(selectedNotiIdx.value));
+    }
   }
+
+  bool isAfterNow() {
+    if (selectedDate.value.year != 1996) {
+      DateTime now = DateTime.now();
+      DateTime refinedDate = DateTime(
+          selectedDate.value.year,
+          selectedDate.value.month,
+          selectedDate.value.day,
+          startHour.value,
+          startMinutes.value);
+      return refinedDate.isAfter(now);
+    }
+    return false;
+  }
+
+  Rx<DateTime> selectedDate = DateTime(1996).obs;
+
+  //      // onTap: () => NotificationUtil.schedulingNotification( DateTime.now().add(Duration(minutes: 6)),
+  //       //     'Hello', 'jey', TodoNotiTime.minutes10Ago,
+  //       //     todoRepeat: TodoRepeat.minute5),
 
   String _convertTime(int a, int b) {
     return '${MongleeUtil.tenDigitConverter(a)}:${MongleeUtil.tenDigitConverter(b)}';
@@ -116,5 +151,4 @@ class TodoController extends GetxController {
     selectedRepeatIdx.value = -1;
     selectedNotiIdx.value = -1;
   }
-
 }

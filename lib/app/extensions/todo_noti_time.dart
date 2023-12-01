@@ -15,4 +15,20 @@ enum TodoNotiTime {
 
 extension TodoNotiTimeUtil on TodoNotiTime {
   List<TodoNotiTime> getAll() => TodoNotiTime.values.toList();
+
+  static TodoNotiTime getTimeByIdx(int idx){
+    switch(idx){
+      case 0:
+        return TodoNotiTime.noTime;
+      case 1:
+        return TodoNotiTime.minutes10Ago;
+      case 2:
+        return TodoNotiTime.minutes30Ago;
+      case 3:
+        return TodoNotiTime.minutes60Ago;
+      default:
+        return TodoNotiTime.noTime;
+    }
+  }
+
 }

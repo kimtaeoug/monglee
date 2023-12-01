@@ -5,6 +5,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart' as t;
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/todo_noti_time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/app/util/monglee_keyboard_util.dart';
 import 'package:monglee/presentation/components/monglee_appbar.dart';
 import 'package:monglee/presentation/components/monglee_btn.dart';
 import 'package:monglee/presentation/components/monglee_chip.dart';
@@ -29,9 +30,13 @@ class _TodoEditorPage extends State<TodoEditorPage> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _participantController = TextEditingController();
 
+  final DateTime? selectedDate = Get.arguments?['selectedDate'];
 
   @override
   void initState() {
+    if (selectedDate != null) {
+      todoController.selectedDate.value = selectedDate ?? DateTime(1996);
+    }
     super.initState();
   }
 
@@ -45,6 +50,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
     super.dispose();
   }
 
+  t.Time _selectedTime = t.Time(hour: 0, minute: 0, second: 0);
   final Logger logger = Logger(printer: PrettyPrinter());
 
   @override
@@ -77,12 +83,13 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         },
                         //키보드에서 이동눌렀을때
                         onEditingCompleteFunction: () {
-                          logger.e('hey!');
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
                         },
                         onFieldSubmitted: (value) {
                           if (value != null) {
                             todoController.title.value = value;
                           }
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
                         },
                       ),
                       const SizedBox(
@@ -97,11 +104,14 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                           }
                         },
                         //키보드에서 이동눌렀을때
-                        onEditingCompleteFunction: () {},
+                        onEditingCompleteFunction: () {
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
+                        },
                         onFieldSubmitted: (value) {
                           if (value != null) {
                             todoController.contents.value = value;
                           }
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
                         },
                       ),
                       const SizedBox(
@@ -115,13 +125,20 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                               _selectTime(
                                 input: value,
                               );
+                              setState(() {
+                                _selectedTime = value;
+                              });
                             },
+                            initTime: _selectedTime,
                           ),
                           MongleeTimeInput(
                             isStart: false,
                             selectedTimeFunction: (value) {
                               _selectTime(input: value, isStart: false);
                             },
+                            initTime: t.Time(
+                                hour: _selectedTime.hour,
+                                minute: _selectedTime.minute + 1),
                           )
                         ],
                       ),
@@ -137,24 +154,33 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                           }
                         },
                         //키보드에서 이동눌렀을때
-                        onEditingCompleteFunction: () {},
+                        onEditingCompleteFunction: () {
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
+                        },
                         onFieldSubmitted: (value) {
                           if (value != null) {
                             todoController.location.value = value;
                           }
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
                         },
                       ),
                       const SizedBox(
                         height: 30,
                       ),
-                      _repeatWidget(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      // _notiWidget(),
+                      // _repeatWidget(),
                       // const SizedBox(
                       //   height: 30,
                       // ),
+                      if (todoController.isAfterNow())
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            _notiWidget(),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                          ],
+                        ),
                       MongleeTextInputField(
                         controller: _participantController,
                         hint: '참석자를 입력해주세요 ',
@@ -164,11 +190,14 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                           }
                         },
                         //키보드에서 이동눌렀을때
-                        onEditingCompleteFunction: () {},
+                        onEditingCompleteFunction: () {
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
+                        },
                         onFieldSubmitted: (value) {
                           if (value != null) {
                             todoController.participant.value = value;
                           }
+                          MongleeKeyBoardUtil.closeKeyBoard(context: context);
                         },
                       ),
                     ],

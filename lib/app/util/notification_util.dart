@@ -1,4 +1,5 @@
 import 'dart:isolate';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/extensions/todo_noti_time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
-import 'package:monglee/main.dart';
 
 class NotificationUtil {
   static const String CHANNEL_KEY = 'MongleeChannelKey';
@@ -219,11 +219,15 @@ class NotificationUtil {
         repeatNotif: false);
   }
 
+  static Future<void> cancelNotification(int id)async{
+    await _noti.cancel(id);
+  }
+
   static Future<void> resetBadgeCounter() async {
     await _noti.resetGlobalBadge();
   }
 
-  static Future<void> cancelNotifications() async {
+  static Future<void> cancelAllNotifications() async {
     await _noti.cancelAll();
   }
 
@@ -263,56 +267,77 @@ class NotificationUtil {
   //         hour: 10, // 알림을 보낼 시간 (24시간 형식)
   //         minute: 0, // 알림을 보낼 분
   //       ),
-
   static Future<void> schedulingNotification( DateTime selectedTime,
-      String title, String body, TodoNotiTime notiTime,
-      {TodoRepeat todoRepeat = TodoRepeat.noRepeat,
-      Map<String, String>? payLoad}) async {
-    // String localTimeZone = await _noti.getLocalTimeZoneIdentifier();
-    // DateTime time = DateTime.now();
+      String title, String body, {TodoNotiTime notiTime = TodoNotiTime.noTime}) async {
+    int id = Random().nextInt(10000);
     await _noti.createNotification(
-        schedule: todoRepeat != TodoRepeat.noRepeat
-            ? NotificationCalendar(
+        schedule:  NotificationCalendar(
             year: selectedTime.year,
             month: selectedTime.month,
             day: selectedTime.day,
             hour: selectedTime.hour,
             minute: _convertMinute(selectedTime.minute, notiTime),
-            // interval: _convertingInterval(todoRepeat),
-            // timeZone: localTimeZone,
             allowWhileIdle: true,
-            repeats: true)
-        // ? NotificationCalendar(
-            // year: selectedTime.year,
-            // month: selectedTime.month,
-            // day: selectedTime.day,
-            // hour: selectedTime.hour,
-            // minute: _convertMinute(selectedTime.minute, notiTime),
-            // // interval: _convertingInterval(todoRepeat),
-            // // timeZone: localTimeZone,
-            // allowWhileIdle: true,
-            // repeats: true)
-            : null,
-        // schedule: todoRepeat != TodoRepeat.noRepeat
-        //     ? NotificationInterval(
-        //         interval: _convertingInterval(todoRepeat),
-        //         timeZone: localTimeZone,
-        //         allowWhileIdle: true,
-        //         repeats: true)
-        //     : null,
+            repeats: true),
         content: NotificationContent(
-            id: -1,
+            id: id,
             channelKey: CHANNEL_KEY,
             title: title,
             body: body,
-            // notificationLayout: NotificationLayout.BigPicture,
-            //actionType : ActionType.DismissAction,
             color: Colors.black,
             backgroundColor: Colors.black,
-            payload: payLoad
-            // customSound: 'resource://raw/notif',
-            ));
+            payload: {
+              'id' : id.toString()
+            }
+        ));
   }
+  // static Future<void> schedulingNotification( DateTime selectedTime,
+  //     String title, String body, TodoNotiTime notiTime,
+  //     {TodoRepeat todoRepeat = TodoRepeat.noRepeat,
+  //     Map<String, String>? payLoad}) async {
+  //   await _noti.createNotification(
+  //       schedule: todoRepeat != TodoRepeat.noRepeat
+  //           ? NotificationCalendar(
+  //           year: selectedTime.year,
+  //           month: selectedTime.month,
+  //           day: selectedTime.day,
+  //           hour: selectedTime.hour,
+  //           minute: _convertMinute(selectedTime.minute, notiTime),
+  //           // interval: _convertingInterval(todoRepeat),
+  //           // timeZone: localTimeZone,
+  //           allowWhileIdle: true,
+  //           repeats: true)
+  //       // ? NotificationCalendar(
+  //           // year: selectedTime.year,
+  //           // month: selectedTime.month,
+  //           // day: selectedTime.day,
+  //           // hour: selectedTime.hour,
+  //           // minute: _convertMinute(selectedTime.minute, notiTime),
+  //           // // interval: _convertingInterval(todoRepeat),
+  //           // // timeZone: localTimeZone,
+  //           // allowWhileIdle: true,
+  //           // repeats: true)
+  //           : null,
+  //       // schedule: todoRepeat != TodoRepeat.noRepeat
+  //       //     ? NotificationInterval(
+  //       //         interval: _convertingInterval(todoRepeat),
+  //       //         timeZone: localTimeZone,
+  //       //         allowWhileIdle: true,
+  //       //         repeats: true)
+  //       //     : null,
+  //       content: NotificationContent(
+  //           id: -1,
+  //           channelKey: CHANNEL_KEY,
+  //           title: title,
+  //           body: body,
+  //           // notificationLayout: NotificationLayout.BigPicture,
+  //           //actionType : ActionType.DismissAction,
+  //           color: Colors.black,
+  //           backgroundColor: Colors.black,
+  //           payload: payLoad
+  //           // customSound: 'resource://raw/notif',
+  //           ));
+  // }
 }
 
 Future<void> myNotifyScheduleInHours({
