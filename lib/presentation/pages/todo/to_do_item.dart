@@ -82,16 +82,16 @@ class ToDoItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _itemType(todoEntity.title ?? '', _ToDoType.title),
-                todoEntity.todo_content != null
+                (todoEntity.todo_content != null && todoEntity.todo_content != '')
                     ? _itemType(
                         todoEntity.todo_content ?? '', _ToDoType.contents)
                     : const SizedBox.shrink(),
-                todoEntity.start_time != null && todoEntity.end_time != null
+                (todoEntity.start_time != null && todoEntity.end_time != null && todoEntity.start_time != '')
                     ? _itemType(
                         '${todoEntity.start_time} - ${todoEntity.end_time}',
                         _ToDoType.time)
                     : const SizedBox.shrink(),
-                todoEntity.place != null
+                (todoEntity.place != null && todoEntity.place != '')
                     ? _itemType(todoEntity.place ?? '', _ToDoType.location)
                     : const SizedBox.shrink()
               ],

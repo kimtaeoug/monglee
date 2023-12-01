@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/extensions/todo_noti_time.dart';
 import 'package:monglee/app/extensions/todo_repeat.dart';
+import 'package:monglee/app/util/monglee_logger.dart';
 
 class NotificationUtil {
   static const String CHANNEL_KEY = 'MongleeChannelKey';
@@ -58,10 +59,7 @@ class NotificationUtil {
       ReceivedAction receivedAction) async {
     if (receivedAction.actionType == ActionType.SilentAction ||
         receivedAction.actionType == ActionType.SilentBackgroundAction) {
-      // For background actions, you must hold the execution until the end
-      print(
-          'Message sent via notification input: "${receivedAction.buttonKeyInput}"');
-      await executeLongTaskInBackground();
+      await executeLongTaskInBackground(receivedAction.payload);
     } else {
       // this process is only necessary when you need to redirect the user
       // to a new page or use a valid context, since parallel isolates do not
@@ -95,6 +93,7 @@ class NotificationUtil {
   static Future<bool> requestPermission() async {
     return await AwesomeNotifications().requestPermissionToSendNotifications();
   }
+
   static Future<void> displayNotificationRationale(
       Function() function, Function() failFunction) async {
     bool isAllowed = await _noti.isNotificationAllowed();
@@ -159,7 +158,9 @@ class NotificationUtil {
   ///  *********************************************
   ///     BACKGROUND TASKS TEST
   ///  *********************************************
-  static Future<void> executeLongTaskInBackground() async {
+  static Future<void> executeLongTaskInBackground(
+      Map<String, String?>? payLoad) async {
+    logger.e('payLoad : $payLoad');
     // print("starting long task");
     // await Future.delayed(const Duration(seconds: 4));
     // final url = Uri.parse("http://google.com");
@@ -216,10 +217,10 @@ class NotificationUtil {
             'https://storage.googleapis.com/cms-storage-bucket/d406c736e7c4c57f5f61.png',
         hoursFromNow: 5,
         username: 'test user',
-        repeatNotif: false);
+        repeatNoti: false);
   }
 
-  static Future<void> cancelNotification(int id)async{
+  static Future<void> cancelNotification(int id) async {
     await _noti.cancel(id);
   }
 
@@ -235,6 +236,10 @@ class NotificationUtil {
     switch (notiTime) {
       case TodoNotiTime.noTime:
         return minute;
+      case TodoNotiTime.minutes1Ago:
+        return minute - 1;
+      case TodoNotiTime.minutes5Ago:
+        return minute - 5;
       case TodoNotiTime.minutes10Ago:
         return minute - 10;
       case TodoNotiTime.minutes30Ago:
@@ -267,18 +272,18 @@ class NotificationUtil {
   //         hour: 10, // 알림을 보낼 시간 (24시간 형식)
   //         minute: 0, // 알림을 보낼 분
   //       ),
-  static Future<void> schedulingNotification( DateTime selectedTime,
-      String title, String body, {TodoNotiTime notiTime = TodoNotiTime.noTime}) async {
+  static Future<void> schedulingNotification(
+      DateTime selectedTime, String title, String body,
+      {TodoNotiTime notiTime = TodoNotiTime.noTime}) async {
     int id = Random().nextInt(10000);
     await _noti.createNotification(
-        schedule:  NotificationCalendar(
+        schedule: NotificationCalendar(
             year: selectedTime.year,
             month: selectedTime.month,
             day: selectedTime.day,
             hour: selectedTime.hour,
             minute: _convertMinute(selectedTime.minute, notiTime),
-            allowWhileIdle: true,
-            repeats: true),
+            allowWhileIdle: true),
         content: NotificationContent(
             id: id,
             channelKey: CHANNEL_KEY,
@@ -286,58 +291,55 @@ class NotificationUtil {
             body: body,
             color: Colors.black,
             backgroundColor: Colors.black,
-            payload: {
-              'id' : id.toString()
-            }
-        ));
+            payload: {'id': id.toString()}));
   }
-  // static Future<void> schedulingNotification( DateTime selectedTime,
-  //     String title, String body, TodoNotiTime notiTime,
-  //     {TodoRepeat todoRepeat = TodoRepeat.noRepeat,
-  //     Map<String, String>? payLoad}) async {
-  //   await _noti.createNotification(
-  //       schedule: todoRepeat != TodoRepeat.noRepeat
-  //           ? NotificationCalendar(
-  //           year: selectedTime.year,
-  //           month: selectedTime.month,
-  //           day: selectedTime.day,
-  //           hour: selectedTime.hour,
-  //           minute: _convertMinute(selectedTime.minute, notiTime),
-  //           // interval: _convertingInterval(todoRepeat),
-  //           // timeZone: localTimeZone,
-  //           allowWhileIdle: true,
-  //           repeats: true)
-  //       // ? NotificationCalendar(
-  //           // year: selectedTime.year,
-  //           // month: selectedTime.month,
-  //           // day: selectedTime.day,
-  //           // hour: selectedTime.hour,
-  //           // minute: _convertMinute(selectedTime.minute, notiTime),
-  //           // // interval: _convertingInterval(todoRepeat),
-  //           // // timeZone: localTimeZone,
-  //           // allowWhileIdle: true,
-  //           // repeats: true)
-  //           : null,
-  //       // schedule: todoRepeat != TodoRepeat.noRepeat
-  //       //     ? NotificationInterval(
-  //       //         interval: _convertingInterval(todoRepeat),
-  //       //         timeZone: localTimeZone,
-  //       //         allowWhileIdle: true,
-  //       //         repeats: true)
-  //       //     : null,
-  //       content: NotificationContent(
-  //           id: -1,
-  //           channelKey: CHANNEL_KEY,
-  //           title: title,
-  //           body: body,
-  //           // notificationLayout: NotificationLayout.BigPicture,
-  //           //actionType : ActionType.DismissAction,
-  //           color: Colors.black,
-  //           backgroundColor: Colors.black,
-  //           payload: payLoad
-  //           // customSound: 'resource://raw/notif',
-  //           ));
-  // }
+// static Future<void> schedulingNotification( DateTime selectedTime,
+//     String title, String body, TodoNotiTime notiTime,
+//     {TodoRepeat todoRepeat = TodoRepeat.noRepeat,
+//     Map<String, String>? payLoad}) async {
+//   await _noti.createNotification(
+//       schedule: todoRepeat != TodoRepeat.noRepeat
+//           ? NotificationCalendar(
+//           year: selectedTime.year,
+//           month: selectedTime.month,
+//           day: selectedTime.day,
+//           hour: selectedTime.hour,
+//           minute: _convertMinute(selectedTime.minute, notiTime),
+//           // interval: _convertingInterval(todoRepeat),
+//           // timeZone: localTimeZone,
+//           allowWhileIdle: true,
+//           repeats: true)
+//       // ? NotificationCalendar(
+//           // year: selectedTime.year,
+//           // month: selectedTime.month,
+//           // day: selectedTime.day,
+//           // hour: selectedTime.hour,
+//           // minute: _convertMinute(selectedTime.minute, notiTime),
+//           // // interval: _convertingInterval(todoRepeat),
+//           // // timeZone: localTimeZone,
+//           // allowWhileIdle: true,
+//           // repeats: true)
+//           : null,
+//       // schedule: todoRepeat != TodoRepeat.noRepeat
+//       //     ? NotificationInterval(
+//       //         interval: _convertingInterval(todoRepeat),
+//       //         timeZone: localTimeZone,
+//       //         allowWhileIdle: true,
+//       //         repeats: true)
+//       //     : null,
+//       content: NotificationContent(
+//           id: -1,
+//           channelKey: CHANNEL_KEY,
+//           title: title,
+//           body: body,
+//           // notificationLayout: NotificationLayout.BigPicture,
+//           //actionType : ActionType.DismissAction,
+//           color: Colors.black,
+//           backgroundColor: Colors.black,
+//           payload: payLoad
+//           // customSound: 'resource://raw/notif',
+//           ));
+// }
 }
 
 Future<void> myNotifyScheduleInHours({
@@ -346,7 +348,7 @@ Future<void> myNotifyScheduleInHours({
   required String username,
   required String title,
   required String msg,
-  bool repeatNotif = false,
+  bool repeatNoti = false,
 }) async {
   var nowDate = DateTime.now().add(Duration(hours: hoursFromNow, seconds: 5));
   await AwesomeNotifications().createNotification(
@@ -355,7 +357,7 @@ Future<void> myNotifyScheduleInHours({
       hour: nowDate.hour,
       minute: 0,
       second: nowDate.second,
-      repeats: repeatNotif,
+      repeats: repeatNoti,
       //allowWhileIdle: true,
     ),
     // schedule: NotificationCalendar.fromDate(

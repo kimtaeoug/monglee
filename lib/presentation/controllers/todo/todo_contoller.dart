@@ -92,7 +92,7 @@ class TodoController extends GetxController {
               selectedDate.value.day, startHour.value, startMinutes.value),
           title.value,
           contents.value,
-          notiTime: TodoNotiTimeUtil.getTimeByIdx(selectedNotiIdx.value));
+          notiTime: TodoNotiTimeUtil.getTimeByCode(selectedNotiIdx.value));
     }
   }
 
@@ -111,10 +111,6 @@ class TodoController extends GetxController {
   }
 
   Rx<DateTime> selectedDate = DateTime(1996).obs;
-
-  //      // onTap: () => NotificationUtil.schedulingNotification( DateTime.now().add(Duration(minutes: 6)),
-  //       //     'Hello', 'jey', TodoNotiTime.minutes10Ago,
-  //       //     todoRepeat: TodoRepeat.minute5),
 
   String _convertTime(int a, int b) {
     return '${MongleeUtil.tenDigitConverter(a)}:${MongleeUtil.tenDigitConverter(b)}';

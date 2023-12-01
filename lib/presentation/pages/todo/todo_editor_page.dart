@@ -125,8 +125,12 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                               _selectTime(
                                 input: value,
                               );
+                              List<TodoNotiTime> dummy =
+                                  TodoNotiTimeUtil.notiTimeList(
+                                      value.hour, value.minute);
                               setState(() {
                                 _selectedTime = value;
+                                notiList = dummy;
                               });
                             },
                             initTime: _selectedTime,
@@ -171,15 +175,10 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                       // const SizedBox(
                       //   height: 30,
                       // ),
-                      if (todoController.isAfterNow())
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            _notiWidget(),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                          ],
+                      if (notiList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: _notiWidget(),
                         ),
                       MongleeTextInputField(
                         controller: _participantController,
@@ -264,8 +263,9 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                 )));
   }
 
+  List<TodoNotiTime> notiList = [];
+
   Widget _notiWidget() {
-    const List<TodoNotiTime> notiList = TodoNotiTime.values;
     return MongleeExpanel(
         title: todoController.selectedNotiIdx.value == -1
             ? '알림 없음'
@@ -277,7 +277,9 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                   selected: todoController.selectedNotiIdx.value == index,
                   selectFunction: () {
                     if (mounted) {
-                      todoController.selectedNotiIdx.value = index;
+                      todoController.selectedNotiIdx.value = notiList
+                          .elementAt(todoController.selectedNotiIdx.value)
+                          .code;
                     }
                   },
                 )));
