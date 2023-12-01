@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 
-class MognleeToast {
+class MongleeToast {
   static final Logger logger = Logger(
     printer: PrettyPrinter()
   );

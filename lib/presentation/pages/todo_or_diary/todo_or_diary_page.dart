@@ -53,16 +53,16 @@ class ToDoOrDiaryPage extends StatelessWidget {
                       calendarType: tController.calendarFormat.value,
                       calendarTypeFunction: () {
                         tController.calendarFormat.value =
-                        !tController.calendarFormat.value;
+                            !tController.calendarFormat.value;
                       },
                       emotionMap: dController.emotionMap.value,
                     ),
                     ToDoOrDiaryHead(
+                      clicked: nowDiary,
                       clickFunction: (clicked) {
                         clickFunction.call(nowDiary);
                         pageController.animateToPage(nowDiary ? 1 : 0,
-                            duration: _animationDuration,
-                            curve: Curves.linear);
+                            duration: _animationDuration, curve: Curves.linear);
                       },
                       dateTime: sDate.value,
                     ),

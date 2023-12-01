@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/app/util/notification_util.dart';
 import 'package:monglee/app/util/version_util.dart';
+import 'package:monglee/presentation/components/monglee_toast.dart';
 import 'package:monglee/presentation/controllers/setting/setting_controller.dart';
 
 class SplashPage extends StatefulWidget {
@@ -23,9 +25,11 @@ class _SplashPage extends State<SplashPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       versionUtil.initAppVersion();
-      Future.delayed(const Duration(seconds: 3)).then((value) {
+      NotificationUtil.displayNotificationRationale((){
         Get.toNamed(Routes.HOME);
-        // Get.toNamed(Routes.LOGIN);
+      }, () {
+        MongleeToast.show(context: context, msg: '알림시 알림이 오지않습니다.');
+        Get.toNamed(Routes.HOME);
       });
     });
   }

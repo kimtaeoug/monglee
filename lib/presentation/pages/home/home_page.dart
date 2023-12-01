@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/config/moglee_color.dart';
+import 'package:monglee/app/extensions/todo_noti_time.dart';
+import 'package:monglee/app/extensions/todo_repeat.dart';
 import 'package:monglee/app/routes/app_routes.dart';
+import 'package:monglee/app/util/notification_util.dart';
 import 'package:monglee/app/util/push_util.dart';
 import 'package:monglee/presentation/controllers/diary/diary_controller.dart';
 import 'package:monglee/presentation/controllers/todo/todo_contoller.dart';
@@ -30,11 +33,13 @@ class _HomePage extends State<HomePage> {
     diaryController.initDiaryList(DateTime.now());
     super.initState();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     pageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -47,11 +52,12 @@ class _HomePage extends State<HomePage> {
               itemBuilder: (context, idx) {
                 switch (idx) {
                   case 0:
-                    return Obx((){
+                    return Obx(() {
                       return ToDoOrDiaryPage(
                         nowDiary: todController.nowTodo.value,
                         clickFunction: (value) {
-                          todController.nowTodo.value = !todController.nowTodo.value;
+                          todController.nowTodo.value =
+                              !todController.nowTodo.value;
                         },
                       );
                     });
@@ -93,9 +99,12 @@ class _HomePage extends State<HomePage> {
 
   Widget _floatingBtn() {
     return GestureDetector(
-      onTap: () => PushUtil.showNotificationWithAction('hey', 'hi'),
-      // onTap: () => Get.toNamed(
-      //     !todController.nowTodo.value ? Routes.TODO_WRITE : Routes.DIARY_EDIT_EMOTION),
+      // onTap: () => NotificationUtil.schedulingNotification( DateTime.now().add(Duration(minutes: 6)),
+      //     'Hello', 'jey', TodoNotiTime.minutes10Ago,
+      //     todoRepeat: TodoRepeat.minute5),
+      onTap: () => Get.toNamed(!todController.nowTodo.value
+          ? Routes.TODO_WRITE
+          : Routes.DIARY_EDIT_EMOTION, ),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),
         child: Container(

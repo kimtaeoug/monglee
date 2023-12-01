@@ -33,7 +33,9 @@ class AppPages {
     GetPage(
         name: Routes.TODO_WRITE,
         page: () => const TodoEditorPage(),
-        binding: MongleeBindings(route: Routes.TODO_WRITE)),
+        binding: MongleeBindings(route: Routes.TODO_WRITE),
+        transition: Transition.downToUp
+    ),
     GetPage(
         name: Routes.SEARCH,
         page: () => const SearchPage(),
@@ -41,10 +43,14 @@ class AppPages {
     GetPage(
         name: Routes.DIARY_EDIT_EMOTION,
         page: () => DiaryEmotionPage(),
-        binding: MongleeBindings(route: Routes.DIARY_EDIT_EMOTION)),
+        binding: MongleeBindings(route: Routes.DIARY_EDIT_EMOTION),
+        transition: Transition.downToUp
+    ),
     GetPage(
         name: Routes.DIARY_EDIT_CONTENTS,
         page: () => DiaryEditorPage(),
-        binding: MongleeBindings(route: Routes.DIARY_EDIT_CONTENTS))
+        binding: MongleeBindings(route: Routes.DIARY_EDIT_CONTENTS),
+        transition: Transition.rightToLeft
+    )
   ];
 }

@@ -116,4 +116,5 @@ class TodoController extends GetxController {
     selectedRepeatIdx.value = -1;
     selectedNotiIdx.value = -1;
   }
+
 }

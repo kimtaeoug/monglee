@@ -5,11 +5,12 @@ import 'package:monglee/app/extensions/time.dart';
 import 'package:monglee/presentation/pages/todo_or_diary/widget/todo_toggle_switch.dart';
 
 class ToDoOrDiaryHead extends StatelessWidget {
+  final bool clicked;
   final Function(bool) clickFunction;
   final DateTime dateTime;
 
   ToDoOrDiaryHead(
-      {Key? key, required this.clickFunction, required this.dateTime})
+      {Key? key, required this.clicked, required this.clickFunction, required this.dateTime})
       : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class ToDoOrDiaryHead extends StatelessWidget {
             Time.convertToEFormat(dateTime),
             style: _dateStyle,
           ),
-          TodoToggleSwitch(clickFuntion: clickFunction)
+          TodoToggleSwitch(clickFuntion: clickFunction, clicked: !clicked,)
         ],
       ),
     );

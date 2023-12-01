@@ -34,9 +34,9 @@ class _ToggleSwitch extends State<ToggleSwitch> {
       child: Container(
         width: 51,
         height: 31,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            color: primaryColor),
+        decoration:  BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            color: _clicked ? primaryColor : gray500),
         padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 3),
         child: AnimatedAlign(
           duration: const Duration(milliseconds: 300),

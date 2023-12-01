@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/extensions/setting_change_type.dart';
-import 'package:monglee/app/util/monglee_logger.dart';
 import 'package:monglee/app/util/version_util.dart';
 import 'package:monglee/data/models/setting_item_model.dart';
 import 'package:monglee/presentation/components/monglee_toast.dart';
@@ -10,11 +9,22 @@ import 'package:monglee/presentation/pages/setting/widgets/change_ui.dart';
 import 'package:monglee/presentation/pages/setting/widgets/setting_component.dart';
 import 'package:monglee/presentation/pages/setting/widgets/setting_user_info.dart';
 
-class SettingPage extends StatelessWidget {
-  SettingPage({Key? key}) : super(key: key);
+class SettingPage extends StatefulWidget {
+  const SettingPage({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _SettingPage();
+}
+
+class _SettingPage extends State<SettingPage> {
   final SettingComponent commonUI = SettingComponent();
   final SettingController sController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    sController.initSettingData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +125,7 @@ class SettingPage extends StatelessWidget {
           }
           sController.insertData();
           Get.back();
-          MognleeToast.show(context: context, msg: '변경 내용이 저장되었습니다!');
+          MongleeToast.show(context: context, msg: '변경 내용이 저장되었습니다!');
         }));
   }
 }

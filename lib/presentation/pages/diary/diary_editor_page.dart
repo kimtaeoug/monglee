@@ -104,10 +104,10 @@ class _DiaryEditorPage extends State<DiaryEditorPage> {
                     if (contentsFilled) {
                       diaryController.insertDiary(widget.emotion ?? 1,
                           controller.text, selectedImgFile);
-                      MognleeToast.show(context: context, msg: '일기가 저장되었습니다!');
+                      MongleeToast.show(context: context, msg: '일기가 저장되었습니다!');
                       Get.close(2);
                     } else {
-                      MognleeToast.show(context: context, msg: '입력 내용이 부족합니다!');
+                      MongleeToast.show(context: context, msg: '입력 내용이 부족합니다!');
                     }
                   },
                   btnColor: contentsFilled ? primaryColor : gray200,

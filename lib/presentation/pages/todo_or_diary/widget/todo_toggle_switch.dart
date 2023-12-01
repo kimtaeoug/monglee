@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:monglee/app/config/moglee_color.dart';
 import 'package:monglee/app/extensions/styler.dart';
 
-
-class TodoToggleSwitch extends StatefulWidget {
+class TodoToggleSwitch extends StatelessWidget {
+  final bool clicked;
   final Function(bool) clickFuntion;
   final double? width;
   final double? height;
@@ -13,8 +13,9 @@ class TodoToggleSwitch extends StatefulWidget {
   final String rightText;
   final double padding;
 
-  const TodoToggleSwitch({
+  TodoToggleSwitch({
     Key? key,
+    required this.clicked,
     required this.clickFuntion,
     this.width,
     this.height,
@@ -26,53 +27,41 @@ class TodoToggleSwitch extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TodoToggleSwitch();
-}
-
-class _TodoToggleSwitch extends State<TodoToggleSwitch> {
-  bool _clicked = true;
-
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (mounted) {
-          widget.clickFuntion.call(_clicked);
-          setState(() {
-            _clicked = !_clicked;
-          });
-        }
+        clickFuntion.call(clicked);
       },
       child: Container(
-          width: widget.width ?? 120,
-          height: widget.height ?? 36,
+          width: width ?? 120,
+          height: height ?? 36,
           decoration: BoxDecoration(
-              color: widget.unSelectedColor ?? gray500,
+              color: unSelectedColor ?? gray500,
               borderRadius: const BorderRadius.all(Radius.circular(24))),
           child: SizedBox(
-            width: widget.width ?? 120,
-            height: widget.height ?? 36,
+            width: width ?? 120,
+            height: height ?? 36,
             child: Stack(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: (widget.width ?? 120) / 2,
-                      height: widget.height ?? 36,
+                      width: (width ?? 120) / 2,
+                      height: height ?? 36,
                       child: Center(
                         child: Text(
-                          widget.leftText,
+                          leftText,
                           style: _unSelectedStyle,
                         ),
                       ),
                     ),
                     SizedBox(
-                      width: (widget.width ?? 120) / 2,
-                      height: widget.height ?? 36,
+                      width: (width ?? 120) / 2,
+                      height: height ?? 36,
                       child: Center(
                         child: Text(
-                          widget.rightText,
+                          rightText,
                           style: _unSelectedStyle,
                         ),
                       ),
@@ -80,21 +69,21 @@ class _TodoToggleSwitch extends State<TodoToggleSwitch> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.all(widget.padding),
+                  padding: EdgeInsets.all(padding),
                   child: AnimatedAlign(
                     duration: const Duration(milliseconds: 300),
-                    alignment: _clicked
+                    alignment: clicked
                         ? AlignmentDirectional.centerStart
                         : AlignmentDirectional.centerEnd,
                     child: Container(
-                      width: (widget.width ?? 120) / 2 - widget.padding,
-                      height: (widget.height ?? 36) - widget.padding * 2,
+                      width: (width ?? 120) / 2 - padding,
+                      height: (height ?? 36) - padding * 2,
                       decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(24)),
                           color: Colors.white),
                       child: Center(
                         child: Text(
-                          _clicked ? widget.leftText : widget.rightText,
+                          clicked ? leftText : rightText,
                           style: _selectedStyle,
                         ),
                       ),
@@ -108,7 +97,7 @@ class _TodoToggleSwitch extends State<TodoToggleSwitch> {
   }
 
   final TextStyle _selectedStyle =
-  Styler.style(color: gray400, fontWeight: FontWeight.w600);
+      Styler.style(color: gray400, fontWeight: FontWeight.w600);
   final TextStyle _unSelectedStyle =
-  Styler.style(color: gray400, fontWeight: FontWeight.w500);
+      Styler.style(color: gray400, fontWeight: FontWeight.w500);
 }

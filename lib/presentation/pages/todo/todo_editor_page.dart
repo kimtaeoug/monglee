@@ -29,6 +29,7 @@ class _TodoEditorPage extends State<TodoEditorPage> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _participantController = TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -150,10 +151,10 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                       const SizedBox(
                         height: 30,
                       ),
-                      _notiWidget(),
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      // _notiWidget(),
+                      // const SizedBox(
+                      //   height: 30,
+                      // ),
                       MongleeTextInputField(
                         controller: _participantController,
                         hint: '참석자를 입력해주세요 ',
@@ -190,11 +191,11 @@ class _TodoEditorPage extends State<TodoEditorPage> {
                         clickFuntion: () {
                           if (todoController.editCompleteCondition()) {
                             todoController.insertTodo();
-                            MognleeToast.show(
+                            MongleeToast.show(
                                 context: context, msg: '할 일이 저장되었습니다!');
                             Get.back();
                           } else {
-                            MognleeToast.show(
+                            MongleeToast.show(
                                 context: context, msg: '입력 내용이 부족합니다!');
                           }
                         },

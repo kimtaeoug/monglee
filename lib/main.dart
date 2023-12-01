@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:monglee/app/services/mongle_service.dart';
 import 'package:monglee/app/util/dependency.dart';
+import 'package:monglee/app/util/notification_util.dart';
 import 'package:monglee/app/util/precache_image.dart';
-import 'package:monglee/app/util/push_util.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'app/routes/app_pages.dart';
@@ -18,7 +18,9 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   WakelockPlus.enable();
-  PushUtil.initPush();
+  // PushUtil.initPush();
+  await NotificationUtil.initializeLocalNotifications();
+  await NotificationUtil.initializeIsolateReceivePort();
   Zone.current.run(() async {
     DependencyCreator.init();
     await Get.putAsync(() => MongleeService().init());
